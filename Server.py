@@ -2,9 +2,7 @@ import datetime
 import os
 import requests
 from key import key
-from flask import Flask, render_template
-from flask import send_from_directory
-
+from flask import Flask, render_template,send_from_directory
 
 app = Flask(__name__,template_folder="html_Files")
 
@@ -29,7 +27,8 @@ def stock_price(CompanySymbol: str = "AAPL") -> str:
     PriceChangePercentage  =   MetaData["10. change percent"]
     return DateofTrade,Company_Symbol , OpenPrice , HighPrice, LowPrice,Price,Volume,PriceChange,PriceChangePercentage
 
-
+@app.route('/index')
+@app.route('/home')
 @app.route('/')
 def index():
   return render_template('index.html')
