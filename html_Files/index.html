@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict AI - Stock Prices Prediction and Forcasting</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- 
+    - favicon
+  -->
+  
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+
+  <!-- 
+    - google font link
+  -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <!--
+    bootstrap for containers
+  -->
+
+
+</head>
+
+<body>
+   
+  <!-- 
+    - #HEADER
+  -->
+
+  {% include 'header.html' %}
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="hero" data-section>
+        <div class="container">
+
+          <div class="hero-content">
+
+            <h1 class="h1 hero-title">Develop your investments with AI Prediction</h1>
+
+            <p class="hero-text">
+                Predict AI is the easiest and fastest way to see Stock price predictions and forecasting, Using Deep Learning and Stock history analysis.
+            </p>
+
+            <a href="{{url_for('subscription')}}" class="btn btn-primary">Get started now</a>
+
+          </div>
+
+          <figure class="hero-banner">
+            <img src="{{url_for('static', filename='Images/hero-banner.png')}}" width="628" height="504" alt="hero banner" class="w-100">
+          </figure>
+
+        </div>
+      </section>
+
+
+
+      <!-- 
+        - #TREND
+      -->
+
+      <section class="section trend" aria-label="Stock trend" data-section>
+        <div class="container">
+
+          <div class="trend-tab">
+
+            <ul class="tab-nav">
+
+              <li>
+                <button class="tab-btn active">Trend Stock</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">NASDAQ</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">NYSE</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">S&P 500</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">EGX30</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">USD | EGP</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">Gold</button>
+              </li>
+
+
+            </ul>
+
+            <ul class="tab-content">
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="24" height="24" alt="">
+
+                    <a href="#" class="card-title">
+                        Alphabet Inc <span class="span">GOOGL</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="46168.95">USD 94.735</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">95.134</data>
+
+                    <div class="badge red">-0.79%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="24" height="24" alt="">
+
+                    <a href="#" class="card-title">
+                        Microsoft Corp <span class="span">MSFT</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="3480.04">USD 296.285</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">253.445</data>
+
+                    <div class="badge green">+10.55%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="{{url_for('static', filename='Images/Apple.png')}}" width="24" height="24" alt="">
+
+                    <a href="#" class="card-title">
+                        Apple Inc <span class="span">AAPL</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="1.00">USD 153.93</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">153.55</data>
+
+                    <div class="badge red">-0.01%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="{{url_for('static', filename='Images/Oracle-Symbol.png')}}" width="24" height="24" alt="">
+
+                    <a href="#" class="card-title">
+                        Oracle Corp <span class="span">ORCL</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="443.56">USD 88.99</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">90.54</data>
+
+                    <div class="badge red">-1.24%</div>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #MARKET
+      -->
+
+      <section class="section market" aria-label="market update" data-section>
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="h2 section-title">Stock Update</h2>
+
+            <a href="{{url_for('stockprices')}}" class="btn-link">See All Stocks</a>
+          </div>
+
+          <div class="market-tab">
+
+            <ul class="tab-nav">
+
+              <li>
+                <button class="tab-btn active">Top Performance</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">Top losers</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">Top Prediction</button>
+              </li>
+
+
+
+            </ul>
+
+            <table class="market-table">
+
+              <thead class="table-head">
+
+                <tr class="table-row table-title">
+
+                  <th class="table-heading"></th>
+
+                  <th class="table-heading" scope="col">#</th>
+
+                  <th class="table-heading" scope="col">Name</th>
+
+                  <th class="table-heading" scope="col">Last Price</th>
+
+                  <th class="table-heading" scope="col">24h %</th>
+
+                  <th class="table-heading" scope="col">Market Cap</th>
+
+                  <th class="table-heading" scope="col">Last 7 Days</th>
+
+                  <th class="table-heading"></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody class="table-body">
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">1</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                 
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">2</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/Apple.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update red">-5.12%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">3</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+               
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">4</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update red">-3.75%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">5</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">6</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update red">-2.22%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">7</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update green">+0.8%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">8</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt="" class="img">
+
+                      <h3>
+                        <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$56,623.54</td>
+
+                  <td class="table-data last-update green">+1.41%</td>
+
+                  <td class="table-data market-cap">$880,423,640,582</td>
+
+                  <td class="table-data">
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #INSTRUCTION
+      -->
+
+      <section class="section instruction" aria-label="instruction" data-section>
+        <div class="container">
+
+          <h2 class="h2 section-title">How It Work</h2>
+
+          <p class="section-text">
+            Predict AI uses Artificial Intelligence to analyze and predict future stock prices using its past data and chart trends.
+          </p>
+
+          <ul class="instruction-list">
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="{{url_for('static', filename='Images/Data.png')}}" width="130" height="130" loading="lazy" alt="Step 1"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 1</p>
+
+                <h3 class="h3 card-title">Data</h3>
+
+                <p class="card-text">
+                  Acquiring accurate Data history of Stock Prices Since its initial public offering.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="{{url_for('static', filename='Images/analysis.png')}}" width="130" height="130" loading="lazy" alt="Step 2"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 2</p>
+
+                <h3 class="h3 card-title">Analyze</h3>
+
+                <p class="card-text">
+                  Analyzing data using AI learning algorithms and statistical analysis.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="{{url_for('static', filename='Images/test.png')}}" width="130" height="130" loading="lazy" alt="Step 3"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 3</p>
+
+                <h3 class="h3 card-title">Testing</h3>
+
+                <p class="card-text">
+                  Testing Predicting results to make sure that they pass the required accuracy.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="{{url_for('static', filename='Images/presenting.png')}}" width="130" height="130" loading="lazy" alt="Step 4"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 4</p>
+
+                <h3 class="h3 card-title">Presenting</h3>
+
+                <p class="card-text">
+                  Presenting data after it passes the allowed error rate in the website.
+                </p>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #ABOUT
+      -->
+
+      <section class="section about" aria-label="about" data-section>
+        <div class="container">
+
+          <figure class="about-banner">
+            <img src="{{url_for('static', filename='Images/about-banner.png')}}" width="748" height="436" loading="lazy" alt="about banner"
+              class="w-100">
+          </figure>
+
+          <div class="about-content">
+
+            <h2 class="h2 section-title">Predict AI Forecast</h2>
+
+            <p class="section-text">
+              Predict AI offers a fast and easy way to see current stock prices using realtime APIs and it's 
+              special stock prediction algorithm with accuracy that passes 70%, the website is built to be at 
+              the highest degree of modern design and performance.
+            </p>
+
+            <ul class="section-list">
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title">View real-time Stock prices</h3>
+                </div>
+
+                <p class="item-text">
+                  Experience a variety of stocks prices charts and their details. 
+                  You can search stock names and get insights about top stock performers.
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title">View accurate Stock prediction</h3>
+                </div>
+
+                <p class="item-text">
+                  Experience accurate stock prediction results for more than 1,000 Stocks, 
+                  prediction results are based on stock patterns past movements, and market trends.
+                </p>
+              </li>
+
+            </ul>
+
+            <a href="{{url_for('aboutus')}}" class="btn btn-primary">See More</a>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #APP
+      -->
+
+      <section class="section app" aria-label="app" data-section>
+        <div class="container">
+
+          <div class="app-content">
+
+            <h2 class="h2 section-title">Predict AI is responsive with Smart Phones browsers</h2>
+
+            <p class="section-text">
+              Chrome, Firefox, Microsoft Edge, Opera, and many more.
+            </p>
+
+            <ul class="section-list">
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 item-title">See Stocks prediction whenever you are</h3>
+                </div>
+
+                <p class="item-text">
+                  Manage Your Investment Decision From Your Mobile Device
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 item-title">Light/Dark Mode for Better Experience</h3>
+                </div>
+
+                <p class="item-text">
+                  Modern Light/Dark Mode interface supported by all browsers
+                </p>
+              </li>
+
+            </ul>
+
+            <div class="app-wrapper">
+              <a href="#">
+                <img src="{{url_for('static', filename='Images/chrome.png')}}" width="40" height="40" loading="lazy"
+                  alt="Google Chrome">
+              </a>
+
+              <a href="#">
+                <img src="{{url_for('static', filename='Images/firefox.png')}}" width="40" height="40" loading="lazy"
+                  alt="Firefox">
+              </a>
+
+              <a href="#">
+                <img src="{{url_for('static', filename='Images/microsoft-edge.png')}}" width="40" height="40" loading="lazy"
+                  alt="Microsoft Edge">
+              </a>
+
+              <a href="#">
+                <img src="{{url_for('static', filename='Images/safari.png')}}" width="40" height="40" loading="lazy"
+                  alt="Safari">
+              </a>
+
+
+              <a href="#">
+                <img src="{{url_for('static', filename='Images/opera.png')}}" width="40" height="40" loading="lazy"
+                  alt="Opera">
+              </a>
+
+              
+            </div>
+
+          </div>
+
+          <div class="app-banner">
+            <img src="{{url_for('static', filename='Images/app-banner.png')}}" width="618" height="526" loading="lazy" alt="app banner"
+              class="w-100">
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  {% include 'Footer.html' %}
+
+
+
+
+</body>
+
+
+</html>
