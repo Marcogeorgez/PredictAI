@@ -1,222 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Predict AI - Stock Prices Prediction and Forcasting</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
-  
-  <link rel="shortcut icon" href="{{ url_for('static', filename='Assests/favicon.svg') }}" type="image/svg+xml">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
-  <!-- 
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='Assests/favicon.svg') }}"
+      type="image/svg+xml"
+    />
+
+    <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='stylesheets/style.css') }}"
+    />
 
-  <!-- 
+    <!-- 
     - google font link
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <!--
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!--
     bootstrap for containers
-  -->
+  --></head>
 
-</head>
-
-
-
-<body>
+  <body>
     <footer class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="footer-brand">
+            <a href="#" class="logo">
+              <img
+                src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}"
+                id="logo2"
+                width="200"
+                height="50"
+                alt="Cryptex logo"
+              />
+            </a>
 
-        <div class="footer-top" >
-          <div class="container">
-    
-            <div class="footer-brand">
-    
-              <a href="#" class="logo">
-                <img src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}" id="logo2" width="200" height="50" alt="Cryptex logo" >
-                
+            <h2 class="footer-title">Contact us</h2>
+
+            <a href="tel:+2012345678910" class="footer-contact-link"
+              >+20 123 456 678910</a
+            >
+
+            <a href="mailto:PredictAI@gmail.com" class="footer-contact-link"
+              >PredictAI@gmail.com</a
+            >
+
+            <address class="footer-contact-link">
+              Mansoura University, College of Science, Department of mathematics
+            </address>
+          </div>
+
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">Languages</p>
+            </li>
+
+            <li>
+              <a
+                href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"
+                class="footer-link"
+                >C#</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="https://en.wikipedia.org/wiki/Python_(programming_language)"
+                class="footer-link"
+                >Python</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="https://en.wikipedia.org/wiki/JavaScript"
+                class="footer-link"
+                >Javascript</a
+              >
+            </li>
+
+            <li>
+              <a href="https://en.wikipedia.org/wiki/HTML" class="footer-link"
+                >HTML</a
+              >
+            </li>
+
+            <li>
+              <a href="https://en.wikipedia.org/wiki/CSS" class="footer-link"
+                >CSS</a
+              >
+            </li>
+          </ul>
+
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">Support</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Report an Error</a>
+            </li>
+
+            <li>
+              <a href="Subscription.html#plan" class="footer-link">Plan</a>
+            </li>
+
+            <li>
+              <a href="Subscription.html#plan" class="footer-link"
+                >Subscription</a
+              >
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Submit a request</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">API Documentation</a>
+            </li>
+          </ul>
+
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">Team</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Mohammed Hisham</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Marco George</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Ahmed Abd El-Haimd</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Mohamed Moaty</a>
+            </li>
+          </ul>
+
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">supervisor</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Dr. Fatma Eskander</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="copyright">
+            &copy; 2023 Predict AI All Rights Reserved by
+            <a href="https://scifac.mans.edu.eg/" class="copyright-link"
+              >Mansoura University-College of Science</a
+            >
+          </p>
+
+          <ul class="social-list">
+            <li>
+              <a href="https://www.facebook.com" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
               </a>
-    
-              <h2 class="footer-title">Contact us</h2>
-    
-              <a href="tel:+2012345678910" class="footer-contact-link">+20 123 456 678910</a>
-    
-              <a href="mailto:PredictAI@gmail.com" class="footer-contact-link">PredictAI@gmail.com</a>
-    
-              <address class="footer-contact-link">
-                Mansoura University, College of Science, 
-                Department of mathematics 
-              </address>
-    
-            </div>
-    
-            
-    
-            <ul class="footer-list">
-    
-              <li>
-                <p class="footer-list-title">Languages</p>
-              </li>
-    
-              <li>
-                <a href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)" class="footer-link">C#</a>
-              </li>
-    
-              <li>
-                <a href="https://en.wikipedia.org/wiki/Python_(programming_language)" class="footer-link">Python</a>
-              </li>
-    
-              <li>
-                <a href="https://en.wikipedia.org/wiki/JavaScript" class="footer-link">Javascript</a>
-              </li>
-    
-              <li>
-                <a href="https://en.wikipedia.org/wiki/HTML" class="footer-link">HTML</a>
-              </li>
-    
-              <li>
-                <a href="https://en.wikipedia.org/wiki/CSS" class="footer-link">CSS</a>
-              </li>
-    
-    
-            </ul>
-    
-            <ul class="footer-list">
-    
-              <li>
-                <p class="footer-list-title">Support</p>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Report an Error</a>
-              </li>
-    
-              <li>
-                <a href="Subscription.html#plan" class="footer-link">Plan</a>
-              </li>
-    
-              <li>
-                <a href="Subscription.html#plan" class="footer-link">Subscription</a>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Submit a request</a>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">API Documentation</a>
-              </li>
-    
-    
-            </ul>
-    
-            <ul class="footer-list">
-    
-              <li>
-                <p class="footer-list-title">Team</p>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Mohammed Hisham</a>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Marco George</a>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Ahmed Abd El-Haimd</a>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Mohamed Moaty</a>
-              </li>
-    
-    
-            </ul>
-    
-    
-            <ul class="footer-list">
-    
-              <li>
-                <p class="footer-list-title">supervisor</p>
-              </li>
-    
-              <li>
-                <a href="#" class="footer-link">Dr. Fatma Eskander</a>
-              </li>
-    
-            </ul>
-    
-          </div>
+            </li>
+
+            <li>
+              <a href="https://www.twitter.com" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://www.instagram.com" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://www.linkedin.com" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+          </ul>
         </div>
-    
-        <div class="footer-bottom">
-          <div class="container">
-    
-            <p class="copyright">
-              &copy; 2023 Predict AI All Rights Reserved by <a href="https://scifac.mans.edu.eg/" class="copyright-link">Mansoura University-College of Science</a>
-            </p>
-    
-            <ul class="social-list">
-    
-              <li>
-                <a href="https://www.facebook.com" class="social-link">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </a>
-              </li>
-    
-              <li>
-                <a href="https://www.twitter.com" class="social-link">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </a>
-              </li>
-    
-              <li>
-                <a href="https://www.instagram.com" class="social-link">
-                  <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-              </li>
-    
-              <li>
-                <a href="https://www.linkedin.com" class="social-link">
-                  <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-              </li>
-    
-            </ul>
-    
-          </div>
-        </div>
-    
-      </footer>
-    
-    
-    
-     <!-- 
+      </div>
+    </footer>
+
+    <!-- 
         - custom js link
       -->
-      <script src="{{ url_for('static', filename='JS/./Script.js') }}" defer></script>
-    
-      
-      <!-- 
+    <script
+      src="{{ url_for('static', filename='JS/./Script.js') }}"
+      defer
+    ></script>
+
+    <!-- 
         - ionicon link
       -->
-      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    
-      </div>
-  
-    
-</body>
-
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>
