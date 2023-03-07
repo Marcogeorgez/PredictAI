@@ -1,145 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Predict AI - Stock Prices Prediction and Forcasting</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
 
-  <!-- 
+    <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='stylesheets/style.css') }}"
+    />
 
-  <!-- 
+    <!-- 
     - google font link
   -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <!--
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!--
     bootstrap for containers
-  -->
+  --></head>
 
-</head>
-
-<body>
-   
-  <!-- 
+  <body>
+    <!-- 
     - #HEADER
   -->
 
-  {% include 'header.html' %}
-
-
+    {% include 'header.html' %}
 
     <!-- 
     - #ABOUT US
     -->
 
-<section class="section instruction" aria-label="instruction" >
-<div class="container">
+    <section class="section instruction" aria-label="instruction">
+      <div class="container">
+        <h2 class="h2 section-title">Our Team</h2>
 
-    <h2 class="h2 section-title">Our Team</h2>
-
-    <p class="section-text">
-        This project would not have existed without our continuous efforts, continuous development, and great cooperation between us.
-    </p>
-
-    <ul class="instruction-list">
-
-    <li>
-        <div class="aboutus-card">
-
-        <figure class="aboutus-banner">
-            <img src="{{url_for('static', filename='Images/Member-1.png')}}" width="230" height="230" loading="lazy" alt="Step 1"
-            class="img">
-        </figure>
-
-        <h3 class="h3 card-title">Mohammed Hisham</h3>
-
-        <p class="card-text">
-            Front-End Web Development, AI algorithm using Python, Graphic Design, Copy Writing.
+        <p class="section-text">
+          This project would not have existed without our continuous efforts,
+          continuous development, and great cooperation between us.
         </p>
 
-        </div>
-    </li>
+        <ul class="instruction-list">
+          <li>
+            <div class="aboutus-card">
+              <figure class="aboutus-banner">
+                <img
+                  src="{{url_for('static', filename='Images/Member-1.png')}}"
+                  width="230"
+                  height="230"
+                  loading="lazy"
+                  alt="Step 1"
+                  class="img"
+                />
+              </figure>
 
-    <li>
-        <div class="aboutus-card">
+              <h3 class="h3 card-title">Mohammed Hisham</h3>
 
-        <figure class="aboutus-banner">
-            <img src="{{url_for('static', filename='Images/Member-1.png')}}" width="230" height="230" loading="lazy" alt="Step 2"
-            class="img">
-        </figure>
+              <p class="card-text">
+                Front-End Web Development, AI algorithm using Python, Graphic
+                Design, Copy Writing.
+              </p>
+            </div>
+          </li>
 
-        <h3 class="h3 card-title">Marco George</h3>
+          <li>
+            <div class="aboutus-card">
+              <figure class="aboutus-banner">
+                <img
+                  src="{{url_for('static', filename='Images/Member-1.png')}}"
+                  width="230"
+                  height="230"
+                  loading="lazy"
+                  alt="Step 2"
+                  class="img"
+                />
+              </figure>
 
-        <p class="card-text">
-            Back-End Web Development, Front-End Web Development, AI algorithm using Python.
-        </p>
+              <h3 class="h3 card-title">Marco George</h3>
 
-        </div>
-    </li>
+              <p class="card-text">
+                Back-End Web Development, Front-End Web Development, AI
+                algorithm using Python.
+              </p>
+            </div>
+          </li>
 
-    <li>
-        <div class="aboutus-card">
+          <li>
+            <div class="aboutus-card">
+              <figure class="aboutus-banner">
+                <img
+                  src="{{url_for('static', filename='Images/Member-1.png')}}"
+                  width="230"
+                  height="230"
+                  loading="lazy"
+                  alt="Step 3"
+                  class="img"
+                />
+              </figure>
 
-        <figure class="aboutus-banner">
-            <img src="{{url_for('static', filename='Images/Member-1.png')}}" width="230" height="230" loading="lazy" alt="Step 3"
-            class="img">
-        </figure>
+              <h3 class="h3 card-title">Ahmed Abd El-Haimd</h3>
 
-        <h3 class="h3 card-title">Ahmed Abd El-Haimd</h3>
+              <p class="card-text">
+                Back-End Web Development, AI algorithm using Python, Copy
+                Writing.
+              </p>
+            </div>
+          </li>
 
-        <p class="card-text">
-            Back-End Web Development, AI algorithm using Python, Copy Writing.
-        </p>
+          <li>
+            <div class="aboutus-card">
+              <figure class="aboutus-banner">
+                <img
+                  src="{{url_for('static', filename='Images/Member-1.png')}}"
+                  width="230"
+                  height="230"
+                  loading="lazy"
+                  alt="Step 4"
+                  class="img"
+                />
+              </figure>
 
-        </div>
-    </li>
+              <h3 class="h3 card-title">Mohamed Moaty</h3>
 
-    <li>
-        <div class="aboutus-card">
+              <p class="card-text">
+                Back-End Web Development, AI algorithm using Python, Copy
+                Writing.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-        <figure class="aboutus-banner">
-            <img src="{{url_for('static', filename='Images/Member-1.png')}}" width="230" height="230" loading="lazy" alt="Step 4"
-            class="img">
-        </figure>
-
-        <h3 class="h3 card-title">Mohamed Moaty</h3>
-
-        <p class="card-text">
-            Back-End Web Development, AI algorithm using Python, Copy Writing.
-        </p>
-
-        </div>
-    </li>
-
-    </ul>
-
-</div>
-</section>
-
-
-
-
-  <!-- 
+    <!-- 
     - #FOOTER
   -->
 
-  {% include 'Footer.html' %}
-
-
-
-</body>
-
-
+    {% include 'Footer.html' %}
+  </body>
 </html>

@@ -33,8 +33,7 @@ def subscription():
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                          'favicon.ico',mimetype='favicon.ico')
+                               'favicon.ico',mimetype='favicon.ico')
 
 if __name__ == '__main__':
-
   app.run(debug=True)
