@@ -34,7 +34,6 @@ class Users(dbo.Model):
 
 
 
-
 TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
 
 # TODO how are we going to serve the  data to the user ? after he uses sumbit search button.
@@ -86,27 +85,26 @@ def stockprices():
 @app.route('/stockprices', methods=['GET','POST'])
 def temp():
   if request.method == 'POST':
-    company_name=request.form.get('search_stock_price')
-    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={company_name}&apikey={ApiKey}"
-    response = requests.get(url)
-    data = response.json()
-    MetaData = data["Global Quote"]
-    Company_Symbol  =   MetaData["01. symbol"]
-    OpenPrice  =   MetaData["02. open"]
-    HighPrice  =   MetaData["03. high"]
-    LowPrice  =   MetaData["04. low"]
-    Price  =   MetaData["05. price"]
-    Volume  =   MetaData["06. volume"]
-    DateofTrade  =   MetaData["07. latest trading day"]
-    PreviousClose  =   MetaData["08. previous close"]
-    PriceChange  =   MetaData["09. change"]
-    PriceChangePercentage  =   MetaData["10. change percent"]
-
-    return redirect('/stockprices',Company_Symbol=Company_Symbol,OpenPrice=OpenPrice,HighPrice=HighPrice,
-                    Price=Price,PreviousClose=PreviousClose,DateofTrade=DateofTrade,PriceChange=PriceChange,
-                    Volume=Volume,PriceChangePercentage=PriceChangePercentage)
+    if request.form['action1'] == 'working':
+      company_name = request.form.get('search_stock_price').lower()
+      url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={company_name}&apikey={ApiKey}"
+      response = requests.get(url)
+      data = response.json()
+      MetaData = data["Global Quote"]
+      OpenPrice  =   MetaData["02. open"]
+      HighPrice  =   MetaData["03. high"]
+      LowPrice  =   MetaData["04. low"]
+      Price  =   MetaData["05. price"]
+      Volume  =   MetaData["06. volume"]
+      DateofTrade  =   MetaData["07. latest trading day"]
+      PreviousClose  =   MetaData["08. previous close"]
+      PriceChange  =   MetaData["09. change"]
+      PriceChangePercentage  =   MetaData["10. change percent"]
+      return render_template('stock_prices.html',Price=Price, Volume=Volume,DateofTrade=DateofTrade,PriceChangePercentage=PriceChangePercentage)
+    else:
+          return render_template('stock_prices.html')
   else:
-       return redirect('/home')
+     pass
 
 @app.route('/subscription')
 def subscription():
