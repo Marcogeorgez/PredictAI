@@ -13,18 +13,107 @@
             <hr id="indicator" />
           </div>
 
-          <form id="Log_form">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="password" />
-            <button type="submit" class="btn">Login</button>
-            <a href="">Forgot Password</a>
-          </form>
+          <div class="content-section">
+            <form id="Log_form" method="POST" action="{{ url_for('login') }}">
+              {{ form2.hidden_tag() }}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                <div class="form-group">
+                  {{ form2.email.label(class="form-control-label") }}
+                  {% if form2.email.errors %}
+                  {{ form2.email(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form2.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form2.email(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form2.password.label(class="form-control-label") }}
+                  {% if form2.password.errors %}
+                  {{ form2.password(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form2.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form2.password(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-check">
+                  {{ form2.remember(class="form-check-input") }}
+                  {{ form2.remember.label(class="form-check-label") }}
+                </div>
+              </fieldset>
+              <div class="form-group">
+                {{ form2.submit(class="btn btn-outline-info") }}
+              </div>
+              <small class="text-muted ml-2">
+                <a href="#">Forgot Password?</a>
+              </small>
+            </form>
+          </div>
 
-          <form id="Reg_form">
-            <input type="text" placeholder="Username" />
-            <input type="email" placeholder="Email" />
+
+          <form id="Reg_form" method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              <div>
+                {{ form.Username.label(class="form-control-label")}}
+                {{form.Username(class="form-control form-control-lg") }}
+              </div>
+              <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                {{ form.Confirmpassword.label(class="form-control-label")}} {%if
+                form.Confirmpassword.errors %} {{
+                form.Confirmpassword(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in form.Confirmpassword.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+
+                </div>
+                {%else%} {{form.Confirmpassword(class="form-control form-control-lg") }}
+                {%endif%}
+              </div>
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+            </div>
+            <!-- <input type="text" placeholder="Username" />
+            <input type="email" placeholder="email" />
             <input type="password" placeholder="password" />
-            <button type="submit" class="btn">Register</button>
+            <button type="submit" class="btn">Register</button> -->
           </form>
         </div>
       </div>

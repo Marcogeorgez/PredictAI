@@ -52,7 +52,12 @@
 
     {% include 'header.html' %}
 
-    <div class="Main container">{% block content %} {% endblock content%}</div>
+    <div class="Main container">
+      {% with messages = get_flashed_messages(with_categories=true)%} {% if
+      messages %} {% for category, message in messages%}
+      <div class="alert alert-{{ category }}">{{message}}</div>
+      {% endfor%} {%endif%} {%endwith%} {% block content %} {%endblock%}
+    </div>
     <!-- 
     - #FOOTER
   -->

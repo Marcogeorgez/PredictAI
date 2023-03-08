@@ -2,53 +2,30 @@
   <div class="row">
     <div class="col-sm">
       <a href="{{url_for('index')}}" class="logo">
-        <img
-          src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}"
-          id="logo1"
-          width="220"
-        />
+        <img src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}" id="logo1" width="220" />
       </a>
     </div>
     <div class="col-xl">
       <nav class="navbar" data-navbar>
         <ul class="navbar-list">
           <li class="navbar-item">
-            <a href="{{url_for('index')}}" class="navbar-link" data-nav-link
-              >Home</a
-            >
+            <a href="{{url_for('index')}}" class="navbar-link" data-nav-link>Home</a>
           </li>
 
           <li class="navbar-item">
-            <a
-              href="{{url_for('stockprices')}}"
-              class="navbar-link"
-              data-nav-link
-              >Stock Prices</a
-            >
+            <a href="{{url_for('stockprices')}}" class="navbar-link" data-nav-link>Stock Prices</a>
           </li>
 
           <li class="navbar-item">
-            <a
-              href="{{url_for('stockprediction')}}"
-              class="navbar-link"
-              data-nav-link
-              >Stock Prediction</a
-            >
+            <a href="{{url_for('stockprediction')}}" class="navbar-link" data-nav-link>Stock Prediction</a>
           </li>
 
           <li class="navbar-item">
-            <a
-              href="{{url_for('subscription')}}"
-              class="navbar-link"
-              data-nav-link
-              >Subscription</a
-            >
+            <a href="{{url_for('subscription')}}" class="navbar-link" data-nav-link>Subscription</a>
           </li>
 
           <li class="navbar-item">
-            <a href="{{url_for('aboutus')}}" class="navbar-link" data-nav-link
-              >About us</a
-            >
+            <a href="{{url_for('aboutus')}}" class="navbar-link" data-nav-link>About us</a>
           </li>
         </ul>
       </nav>
@@ -60,7 +37,7 @@
         <span class="line line-3"></span>
       </button>
 
-      <a href="{{url_for('login')}}" class="btn btn-outline">Login | sign</a>
+      <a href="{{url_for('register')}}" class="btn btn-outline">Login | sign</a>
 
       <!---Light/Dark Mode LOGO-->
       <i class="bi bi-brightness-high-fill" id="toggleDark"></i>
