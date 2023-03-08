@@ -2,8 +2,8 @@ import datetime
 import os
 import requests
 from key import ApiKey,SECRET_KEY_Value
-from flask import Flask, render_template,send_from_directory,flash,redirect,url_for
-from Forms import Registeration, Login
+from flask import Flask, render_template,send_from_directory,flash,redirect,url_for,request
+from forms import Registeration, Login
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
@@ -25,6 +25,7 @@ bcrypt = Bcrypt(app)
 
 
 
+
 class Users(dbo.Model):
     id = dbo.Column(dbo.Integer, primary_key=True)
     username = dbo.Column(dbo.String(20), unique=True, nullable=False)
@@ -32,26 +33,12 @@ class Users(dbo.Model):
     password = dbo.Column(dbo.String(60), nullable=False)
 
 
+
+
 TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
 
 # TODO how are we going to serve the  data to the user ? after he uses sumbit search button.
 #  
-def stock_price(CompanySymbol: str = "AAPL") -> str:
-    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={CompanySymbol}&apikey={ApiKey}"
-    response = requests.get(url)
-    data = response.json()
-    MetaData = data["Global Quote"]
-    Company_Symbol  =   MetaData["01. symbol"]
-    OpenPrice  =   MetaData["02. open"]
-    HighPrice  =   MetaData["03. high"]
-    LowPrice  =   MetaData["04. low"]
-    Price  =   MetaData["05. price"]
-    Volume  =   MetaData["06. volume"]
-    DateofTrade  =   MetaData["07. latest trading day"]
-    PreviousClose  =   MetaData["08. previous close"]
-    PriceChange  =   MetaData["09. change"]
-    PriceChangePercentage  =   MetaData["10. change percent"]
-    return DateofTrade,Company_Symbol , OpenPrice , HighPrice, LowPrice,Price,Volume,PriceChange,PriceChangePercentage
 
 @app.route('/index')
 @app.route('/home')
@@ -94,6 +81,32 @@ def stockprediction():
 @app.route('/stockprices')
 def stockprices():
   return render_template('stock_prices.html')
+
+
+@app.route('/stockprices', methods=['GET','POST'])
+def temp():
+  if request.method == 'POST':
+    company_name=request.form.get('search_stock_price')
+    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={company_name}&apikey={ApiKey}"
+    response = requests.get(url)
+    data = response.json()
+    MetaData = data["Global Quote"]
+    Company_Symbol  =   MetaData["01. symbol"]
+    OpenPrice  =   MetaData["02. open"]
+    HighPrice  =   MetaData["03. high"]
+    LowPrice  =   MetaData["04. low"]
+    Price  =   MetaData["05. price"]
+    Volume  =   MetaData["06. volume"]
+    DateofTrade  =   MetaData["07. latest trading day"]
+    PreviousClose  =   MetaData["08. previous close"]
+    PriceChange  =   MetaData["09. change"]
+    PriceChangePercentage  =   MetaData["10. change percent"]
+
+    return redirect('/stockprices',Company_Symbol=Company_Symbol,OpenPrice=OpenPrice,HighPrice=HighPrice,
+                    Price=Price,PreviousClose=PreviousClose,DateofTrade=DateofTrade,PriceChange=PriceChange,
+                    Volume=Volume,PriceChangePercentage=PriceChangePercentage)
+  else:
+       return redirect('/home')
 
 @app.route('/subscription')
 def subscription():

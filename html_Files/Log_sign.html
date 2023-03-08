@@ -8,8 +8,8 @@
       <div class="col-2">
         <div class="form_container">
           <div class="form_btn">
-            <span onclick="Login();">Login</span>
-            <span onclick="Register();">SignUp</span>
+            <span onclick="Loginjs();">Login</span>
+            <span onclick="Registerjs();">SignUp</span>
             <hr id="indicator" />
           </div>
 
@@ -17,7 +17,7 @@
             <form id="Log_form" method="POST" action="{{ url_for('login') }}">
               {{ form2.hidden_tag() }}
               <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
+                <legend class="border-bottom mb-4" id="fancylogintext">Log In</legend>
                 <div class="form-group">
                   {{ form2.email.label(class="form-control-label") }}
                   {% if form2.email.errors %}
@@ -32,6 +32,7 @@
                   {% endif %}
                 </div>
                 <div class="form-group">
+
                   {{ form2.password.label(class="form-control-label") }}
                   {% if form2.password.errors %}
                   {{ form2.password(class="form-control form-control-lg is-invalid") }}
@@ -41,6 +42,7 @@
                     {% endfor %}
                   </div>
                   {% else %}
+
                   {{ form2.password(class="form-control form-control-lg") }}
                   {% endif %}
                 </div>
@@ -110,10 +112,6 @@
                 {{ form.submit(class="btn btn-outline-info") }}
               </div>
             </div>
-            <!-- <input type="text" placeholder="Username" />
-            <input type="email" placeholder="email" />
-            <input type="password" placeholder="password" />
-            <button type="submit" class="btn">Register</button> -->
           </form>
         </div>
       </div>
