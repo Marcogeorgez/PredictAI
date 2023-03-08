@@ -1,7 +1,7 @@
 import datetime
 import os
 import requests
-from key import key
+from key import ApiKey,SECRET_KEY_Value
 from flask import Flask, render_template,send_from_directory,flash,redirect,url_for
 from Forms import Registeration, Login
 from flask_sqlalchemy import SQLAlchemy
@@ -12,7 +12,7 @@ app = Flask(__name__,template_folder="html_Files")
 
 app.config.update(
     TESTING=True,
-    SECRET_KEY='192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
+    SECRET_KEY= SECRET_KEY_Value
 )
 
 DRIVER_NAME='ODBC Driver 17 for SQL Server'
@@ -37,7 +37,7 @@ TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
 # TODO how are we going to serve the  data to the user ? after he uses sumbit search button.
 #  
 def stock_price(CompanySymbol: str = "AAPL") -> str:
-    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={CompanySymbol}&apikey={key}"
+    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={CompanySymbol}&apikey={ApiKey}"
     response = requests.get(url)
     data = response.json()
     MetaData = data["Global Quote"]
