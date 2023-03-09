@@ -7,6 +7,7 @@ from Forms import Registeration, Login
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from bs4 import BeautifulSoup
+from sqlalchemy import VARCHAR
 
 
 
@@ -22,16 +23,28 @@ SERVER_NAME='DESKTOP-HSDSJ4Q'
 DATABASE_NAME='Users'
 #uid,upd if later added pw&id to db
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql://@{SERVER_NAME}/{DATABASE_NAME}?driver={DRIVER_NAME}'
-dbo = SQLAlchemy(app)
+db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+class Companies(db.Model):
+    __tablename__ = 'Companies'    
+    symbol      = db.Column(VARCHAR, primary_key=True) 
+    companyname = db.Column(VARCHAR,) 
+    Date        = db.Column(VARCHAR, primary_key=True) 
+    close_      = db.Column(VARCHAR) 
+    Adj_Close   = db.Column(VARCHAR) 
+    Volume      = db.Column(VARCHAR) 
 
-class Users(dbo.Model):
-    id = dbo.Column(dbo.Integer, primary_key=True)
-    username = dbo.Column(dbo.String(20), unique=True, nullable=False)
-    email = dbo.Column(dbo.String(120), unique=True, nullable=False)
-    password = dbo.Column(dbo.String(60), nullable=False)
+
+
+
 
 TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
+#companies = Companies.query.filter_by(symbol = 'AAPL').all() #TODO
 
 
 
@@ -54,8 +67,8 @@ def register():
     if form.validate_on_submit():
        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
        user = Users(username=form.Username.data,email=form.email.data,password=hashed_password)
-       dbo.session.add(user)
-       dbo.session.commit()
+       db.session.add(user)
+       db.session.commit()
        flash(f'Account is created for {form.Username.data}!','success')
        return redirect('/home')           
     form2 = Login()
