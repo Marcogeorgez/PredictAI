@@ -85,6 +85,8 @@ def stockprices():
 def temp():
   if request.method == 'POST':
       Ticker_Name = request.form.get('search_stock_price').lower()
+      if len(Ticker_Name) == 0:
+        return redirect('/404')
       return redirect(url_for('noidea',Ticker_Name=Ticker_Name))
   else:
      pass
@@ -109,8 +111,8 @@ def noidea(Ticker_Name):
   ###
   MetaData = data["Global Quote"]
   if len(MetaData) < 2 :
-    print('Company Name is Wrong')
     return redirect('/404')
+
   else:          
     OpenPrice  =   MetaData["02. open"]
     HighPrice  =   MetaData["03. high"]
