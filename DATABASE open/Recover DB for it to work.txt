@@ -1,0 +1,4 @@
+Recover DB by following this link https://stackoverflow.com/a/25000640
+Note: the path should be like this ->
+
+	Databases -> Tables -> Users
