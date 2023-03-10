@@ -1,55 +1,17 @@
-import datetime
 import os
 import requests
-from key import ApiKey,SECRET_KEY_Value
-from flask import Flask, render_template,send_from_directory,flash,redirect,url_for,request
-from Forms import Registeration, Login
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from flask import  render_template,send_from_directory,flash,redirect,url_for,request
 from bs4 import BeautifulSoup
-from sqlalchemy import VARCHAR
-
-
-
-app = Flask(__name__,template_folder="html_Files")
-
-app.config.update(
-    TESTING=True,
-    SECRET_KEY= SECRET_KEY_Value
-)
-
-DRIVER_NAME='ODBC Driver 17 for SQL Server'
-SERVER_NAME='DESKTOP-HSDSJ4Q'
-DATABASE_NAME='Users'
-#uid,upd if later added pw&id to db
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql://@{SERVER_NAME}/{DATABASE_NAME}?driver={DRIVER_NAME}'
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-class Companies(db.Model):
-    __tablename__ = 'Companies'    
-    symbol      = db.Column(VARCHAR, primary_key=True) 
-    companyname = db.Column(VARCHAR,) 
-    Date        = db.Column(VARCHAR, primary_key=True) 
-    close_      = db.Column(VARCHAR) 
-    Adj_Close   = db.Column(VARCHAR) 
-    Volume      = db.Column(VARCHAR) 
-
-
-
-
-
-TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
-#companies = Companies.query.filter_by(symbol = 'AAPL').all() #TODO
-
-
-
-
-
+from PredictAI.Forms import Registeration, Login
+from PredictAI.key import ApiKey
+from PredictAI import app,db,bcrypt
+from PredictAI.models import Users,Companies
+from flask_login import login_user
+#companies = Companies.query.filter_by(symbol == 'AAPL', Date='Max').all() #TODO
+# OR we can use this ->
+#more at https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text
+#t = text("SELECT *  FROM [Users].[dbo].[Companies]   WHERE Date IN (SELECT max(Date) FROM Companies)")
+#result = connection.execute(t)
 
 
 @app.route('/home')
@@ -76,15 +38,18 @@ def register():
     return render_template('Log_sign.html',form=form,form2=form2)
 
 @app.route('/login', methods=['GET','POST'])
-def login():
+def login():    
     form= Registeration()
     form2 = Login()
     if form2.validate_on_submit():
-      flash(f'Account is logged!','success')
-      return redirect('/home')
-
+        user = Users.query.filter_by(email=form2.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form2.password.data):
+            login_user(user,remember=form2.remember.data)
+            flash(f'Account is logged!','success')
+            return redirect('/home')
+        else:
+            flash('Login unsucessful. Please check email and password are correct.','danger')
     return render_template('Log_sign.html', form2=form2, form=form )
-
 @app.route('/prediction')
 def stockprediction():
   return render_template('Prediction.html')
@@ -96,13 +61,15 @@ def stockprices():
 
 @app.route('/stockprices', methods=['GET','POST'])
 def temp():
-  if request.method == 'POST':
+    if request.method == 'POST':
       Ticker_Name = request.form.get('search_stock_price').lower()
       if len(Ticker_Name) == 0:
         return redirect('/404')
       return redirect(url_for('noidea',Ticker_Name=Ticker_Name))
-  else:
-     pass
+    else:
+        pass
+    return render_template('stock_prices.html')
+
 
 @app.route('/<Ticker_Name>',methods=['GET', 'POST'])
 def noidea(Ticker_Name):
@@ -118,15 +85,15 @@ def noidea(Ticker_Name):
   link = f"https://finance.yahoo.com/quote/{Ticker_Name}/"
   ###
   #  This is to get the ticker name -> APPL -> Apple Inc ,etc etc
-  response2 = requests.get(link, headers=headers, timeout=5)
-  soup = BeautifulSoup(response2.text, "html.parser")
-  company_name     = soup.find("h1", class_="D(ib) Fz(18px)").get_text(strip=True)
   ###
   MetaData = data["Global Quote"]
   if len(MetaData) < 2 :
     return redirect('/404')
 
   else:          
+    response2 = requests.get(link, headers=headers, timeout=5)
+    soup = BeautifulSoup(response2.text, "html.parser")
+    company_name     = soup.find("h1", class_="D(ib) Fz(18px)").get_text(strip=True)
     OpenPrice  =   MetaData["02. open"]
     HighPrice  =   MetaData["03. high"]
     LowPrice  =   MetaData["04. low"]
@@ -159,5 +126,3 @@ def error():
 @app.route('/Help')
 def help():
    return render_template('help.html')
-if __name__ == '__main__':
-  app.run(debug=True)
