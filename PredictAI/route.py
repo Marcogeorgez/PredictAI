@@ -6,12 +6,8 @@ from PredictAI.Forms import Registeration, Login
 from PredictAI.key import ApiKey
 from PredictAI import app,db,bcrypt
 from PredictAI.models import Users,Companies
-from flask_login import login_user
-#companies = Companies.query.filter_by(symbol == 'AAPL', Date='Max').all() #TODO
-# OR we can use this ->
-#more at https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text
-#t = text("SELECT *  FROM [Users].[dbo].[Companies]   WHERE Date IN (SELECT max(Date) FROM Companies)")
-#result = connection.execute(t)
+from flask_login import login_user,current_user,logout_user,login_required
+
 
 
 @app.route('/home')
@@ -25,6 +21,8 @@ def aboutus():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = Registeration()
     if form.validate_on_submit():
        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -32,13 +30,16 @@ def register():
        db.session.add(user)
        db.session.commit()
        flash(f'Account is created for {form.Username.data}!','success')
-       return redirect('/home')           
+       next_page = request.args.get('next')
+       return redirect(next_page) if next_page else redirect('/home')
     form2 = Login()
 
     return render_template('Log_sign.html',form=form,form2=form2)
 
 @app.route('/login', methods=['GET','POST'])
 def login():    
+    if current_user.is_authenticated:
+       return redirect('/home')
     form= Registeration()
     form2 = Login()
     if form2.validate_on_submit():
@@ -46,7 +47,8 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form2.password.data):
             login_user(user,remember=form2.remember.data)
             flash(f'Account is logged!','success')
-            return redirect('/home')
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect('/home')
         else:
             flash('Login unsucessful. Please check email and password are correct.','danger')
     return render_template('Log_sign.html', form2=form2, form=form )
@@ -54,25 +56,65 @@ def login():
 def stockprediction():
   return render_template('Prediction.html')
 
-@app.route('/stockprices')
-def stockprices():
-  return render_template('stock_prices.html')
-
-
 @app.route('/stockprices', methods=['GET','POST'])
-def temp():
+def currentstock():
     if request.method == 'POST':
       Ticker_Name = request.form.get('search_stock_price').lower()
       if len(Ticker_Name) == 0:
         return redirect('/404')
-      return redirect(url_for('noidea',Ticker_Name=Ticker_Name))
+      return redirect(url_for('ticker',Ticker_Name=Ticker_Name))
     else:
         pass
     return render_template('stock_prices.html')
 
 
+@app.route('/subscription')
+def subscription():
+  return render_template('Subscription.html')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico',mimetype='favicon.ico')
+
+@app.route('/404')
+def error():
+   return render_template('404.html')
+
+@app.route('/Help')
+def help():
+   return render_template('help.html')
+@app.route('/logout')
+def logout():
+   logout_user()
+   return redirect(url_for('index'))
+@app.route('/Account')
+@login_required
+def account():
+   
+   return render_template('account.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/<Ticker_Name>',methods=['GET', 'POST'])
-def noidea(Ticker_Name):
+def ticker(Ticker_Name):
   url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={Ticker_Name}&apikey={ApiKey}"
   response = requests.get(url)
   data = response.json()
@@ -111,18 +153,3 @@ def noidea(Ticker_Name):
     PriceChangePercentage=PriceChangePercentage)
   
 
-@app.route('/subscription')
-def subscription():
-  return render_template('Subscription.html')
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico',mimetype='favicon.ico')
-
-@app.route('/404')
-def error():
-   return render_template('404.html')
-
-@app.route('/Help')
-def help():
-   return render_template('help.html')

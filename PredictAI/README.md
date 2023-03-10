@@ -26,3 +26,11 @@ Okey , flask can't simply open the image directory in images(or javascript or cs
 So , how do we use it?
 simply use < img src="{{url_for('static',filename='/images/imag.png')}}" >
 what happens is url for concentrate the static with images so in the end flask reads it like -> static/images/imag.png
+
+#companies = Companies.query.filter_by(symbol == 'AAPL', Date='Max').all() #TODO
+
+# OR we can use this ->
+
+#more at https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text
+#t = text("SELECT \* FROM [Users].[dbo].[Companies] WHERE Date IN (SELECT max(Date) FROM Companies)")
+#result = connection.execute(t)
