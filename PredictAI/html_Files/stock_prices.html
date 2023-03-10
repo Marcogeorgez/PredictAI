@@ -2,7 +2,7 @@
 
 <main>
   <article>
-    <section class="section hero" aria-label="hero" data-section>
+    {# <section class="section hero" aria-label="hero" data-section>
       <div class="container">
         <div class="hero-content">
           <h1 class="h1 hero-title">Real-Time Stock Prices</h1>
@@ -20,12 +20,12 @@
             class="w-100" />
         </figure>
       </div>
-    </section>
+    </section> #}
 
     <!-- 
         - #MARKET
       -->
-
+{# 
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
         <div class="title-wrapper">
@@ -62,10 +62,10 @@
           </form>
         </div>
       </div>
-      </div>
+      </div> #}
 
-      <table class="market-table">
-        <thead class="table-head">
+    <table class="market-table">
+      <thead class="table-head">
           <tr class="table-row table-title">
             <th class="table-heading"></th>
 
@@ -85,31 +85,30 @@
           </tr>
         </thead>
         <div>
-          <td class="table-data">
+        {%for comp in comp%}
+        <td class="table-data">
             <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
               <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
               <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
             </button>
-          </td>
-
-          <th class="table-data rank" scope="row">1</th>
-
-          <td class="table-data">
+        </td>
+          <th class="table-data rank" scope="row">{{ loop.index }}</th>
+                    <td class="table-data">
             <div class="wrapper">
               <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt=""
                 class="img" />
 
               <h3>
-                <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
+                <a href="#" class="stock-name">{{comp.companyname}} <span class="span">{{comp.symbol}}</span></a>
               </h3>
             </div>
           </td>
 
-          <td class="table-data last-price">$56,623.54</td>
+          <td class="table-data last-price">{{"$%.2f"|format(comp.close_)}}</td>
 
           <td class="table-data last-update green">+1.45%</td>
 
-          <td class="table-data market-cap">$880,423,640,582</td>
+          <td class="table-data market-cap">{{comp.Volume}}</td>
 
           <td class="table-data">
             <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
@@ -117,242 +116,12 @@
           </td>
           </tr>
 
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
+        {%endfor%}
 
-            <th class="table-data rank" scope="row">2</th>
 
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/Apple.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update red">-5.12%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">3</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update green">+1.45%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">4</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update red">-3.75%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">5</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update green">+1.45%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">6</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update red">-2.22%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="loss chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">7</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update green">+0.8%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-                class="chart" />
-            </td>
-          </tr>
-
-          <tr class="table-row">
-            <td class="table-data">
-              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-              </button>
-            </td>
-
-            <th class="table-data rank" scope="row">8</th>
-
-            <td class="table-data">
-              <div class="wrapper">
-                <img src="{{url_for('static', filename='Images/GOOGL.png')}}" width="20" height="20" alt=""
-                  class="img" />
-
-                <h3>
-                  <a href="#" class="stock-name">Microsoft Corp <span class="span">MSFT</span></a>
-                </h3>
-              </div>
-            </td>
-
-            <td class="table-data last-price">$56,623.54</td>
-
-            <td class="table-data last-update green">+1.41%</td>
-
-            <td class="table-data market-cap">$880,423,640,582</td>
-
-            <td class="table-data">
-              <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-                class="chart" />
-            </td>
-          </tr>
-          </tbody>
-        </div>
+      </div>
 
       </table>
-      </div>
-      </div>
     </section>
   </article>
 </main>

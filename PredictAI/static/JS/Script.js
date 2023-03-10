@@ -8,16 +8,16 @@ var Log_form = document.getElementById("Log_form");
 var Reg_form = document.getElementById("Reg_form");
 var indicator = document.getElementById("indicator");
 
-function Registerjs() {
-  Reg_form.style.transform = "translate(0px)";
-  Log_form.style.transform = "translate(0px)";
-  indicator.style.transform = "translate(100px)";
-}
-
 function Loginjs() {
   Reg_form.style.transform = "translate(300px)";
   Log_form.style.transform = "translate(300px)";
   indicator.style.transform = "translate(0px)";
+}
+
+function Registerjs() {
+  Reg_form.style.transform = "translate(0px)";
+  Log_form.style.transform = "translate(0px)";
+  indicator.style.transform = "translate(100px)";
 }
 
 /**
