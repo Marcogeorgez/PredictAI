@@ -131,7 +131,6 @@ i {
   padding: 0;
   box-sizing: border-box;
 }
-
 li {
   list-style: none;
 }
@@ -371,7 +370,7 @@ body.active {
 
 .header.active {
   position: fixed;
-  top: -66px;
+  top: -72px;
   background-color: var(--white);
   border-block-start: 1px solid var(--cultured);
   box-shadow: var(--shadow-1);
@@ -1247,7 +1246,7 @@ address.footer-contact-link {
    */
 
   .header.active {
-    top: -64px;
+    top: -80px;
   }
 
   .navbar-link {
