@@ -1,4 +1,4 @@
-from sqlalchemy import VARCHAR,FLOAT,INTEGER
+from sqlalchemy import VARCHAR,FLOAT,INTEGER,VARBINARY
 from PredictAI import db,login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -19,14 +19,16 @@ class Companies(db.Model):
     Date        = db.Column(VARCHAR(10), primary_key=True) 
     close_      = db.Column(FLOAT(10)) 
     Adj_Close   = db.Column(FLOAT(10)) 
-    Volume      = db.Column(INTEGER(20)) 
-    def __init__(self,symbol,companyname,Date,close_,Adj_Close,Volume):
+    Volume      = db.Column(INTEGER)
+    img         = db.Column(VARCHAR)
+    def __init__(self,symbol,companyname,Date,close_,Adj_Close,Volume,img):
         self.symbol= symbol
         self.companyname=companyname
         self.Date=Date
         self.close_=close_
         self.Adj_Close=Adj_Close
         self.Volume=Volume
+        self.img=img
     
 
 

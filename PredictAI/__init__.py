@@ -10,6 +10,7 @@ app.config.update(
     TESTING=True,
     SECRET_KEY= SECRET_KEY_Value
 )
+
 DRIVER_NAME='ODBC Driver 17 for SQL Server'
 SERVER_NAME='DESKTOP-HSDSJ4Q'
 DATABASE_NAME='Users'

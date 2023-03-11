@@ -8,7 +8,6 @@ from PredictAI import app,db,bcrypt
 from PredictAI.DatabaseClasses import Users,Companies
 from flask_login import login_user,current_user,logout_user,login_required
 from sqlalchemy import desc
-from sqlalchemy.orm import load_only
 
 
 
@@ -62,7 +61,7 @@ def stockprediction():
 @app.route('/stockprices', methods=['GET','POST'])
 def currentstock():
     
-    comp = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume)\
+    comp = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.img,Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume)\
         .order_by(desc(Companies.close_)).all()
 
 

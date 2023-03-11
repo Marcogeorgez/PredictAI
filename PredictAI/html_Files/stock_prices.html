@@ -1,7 +1,7 @@
 {% extends "layout.html"%} {% block content %}
 
 <main>
-  <article>
+<article>
      <section class="section hero" aria-label="hero" data-section>
       <div class="container">
         <div class="hero-content">
@@ -25,7 +25,7 @@
     <!-- 
         - #MARKET
       -->
-
+    <article >
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
         <div class="title-wrapper">
@@ -95,7 +95,7 @@
           <th class="table-data rank" scope="row">{{ loop.index }}</th>
                     <td class="table-data">
             <div class="wrapper">
-              <img src="{{url_for('static', filename='Images/microsoft.png')}}" width="20" height="20" alt=""
+              <img src="data:image/jpg;base64,{{ comp.img }}" width="50" height="30" alt=""
                 class="img" />
 
               <h3>
