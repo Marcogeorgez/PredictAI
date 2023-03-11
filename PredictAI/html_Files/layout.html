@@ -13,10 +13,6 @@
     />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-      src="{{ url_for('static', filename='JS/Script.js') }}"
-      defer
-    ></script>
 
     <!-- 
     - google font link
@@ -46,14 +42,19 @@
       rel="shortcut icon"
       href="{{ url_for('static', filename='favicon.svg') }}"
     />
+    <script
+      src="{{ url_for('static', filename='JS/Script.js') }}"
+      defer
+    ></script>
   </head>
 
   <body>
+    {% include 'header.html' %}
+
     <main>
       <!-- 
     - #HEADER
   -->
-      {% include 'header.html' %}
 
       <div class="Main container">
         {% with messages = get_flashed_messages(with_categories=true)%} {% if
@@ -70,9 +71,8 @@
       <!-- 
     - #FOOTER
   -->
-      <script src="./Script.js" defer></script>
-
-      {% include 'Footer.html' %}
     </main>
+
+    {% include 'Footer.html' %}
   </body>
 </html>
