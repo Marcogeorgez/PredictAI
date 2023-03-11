@@ -13,13 +13,6 @@
     />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- 
-    - favicon
-  -->
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon.ico') }}"
-    />
     <script
       src="{{ url_for('static', filename='JS/Script.js') }}"
       defer
@@ -45,31 +38,40 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='stylesheets/style.css') }}"
     />
+
+    <!-- 
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='Assests/favicon.png') }}"
+    />
   </head>
 
   <body>
-    <!-- 
+    <div class="container">
+      <!-- 
     - #HEADER
   -->
+      {% include 'header.html' %}
 
-    {% include 'header.html' %}
+      <div class="Main container">
+        {% with messages = get_flashed_messages(with_categories=true)%} {% if
+        messages %} {% for category, message in messages%}
 
-    <div class="Main container">
-      {% with messages = get_flashed_messages(with_categories=true)%} {% if
-      messages %} {% for category, message in messages%}
+        <div class="alert alert-{{ category }}">{{message}}</div>
 
-      <div class="alert alert-{{ category }}">{{message}}</div>
+        {% endfor%} {%endif%} {%endwith%}
 
-      {% endfor%} {%endif%} {%endwith%}
-
-      <!-- main block -->
-      {% block content %} {%endblock%}
-      <!-- end block -->
-    </div>
-    <!-- 
+        <!-- main block -->
+        {% block content %} {%endblock%}
+        <!-- end block -->
+      </div>
+      <!-- 
     - #FOOTER
   -->
 
-    {% include 'Footer.html' %}
+      {% include 'Footer.html' %}
+    </div>
   </body>
 </html>

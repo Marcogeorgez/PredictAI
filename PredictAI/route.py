@@ -60,7 +60,7 @@ def stockprediction():
 
 @app.route('/stockprices', methods=['GET','POST'])
 def currentstock():
-    
+
     comp = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.img,Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume)\
         .order_by(desc(Companies.close_)).all()
 
