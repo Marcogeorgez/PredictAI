@@ -1,4 +1,4 @@
-from sqlalchemy import VARCHAR,text
+from sqlalchemy import VARCHAR,FLOAT,INTEGER
 from PredictAI import db,login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -14,12 +14,12 @@ class Users(db.Model, UserMixin):
     datejoined = db.Column(db.Date,nullable=False,default = datetime.utcnow)
 class Companies(db.Model):
     __tablename__ = 'Companies'    
-    symbol      = db.Column(VARCHAR, primary_key=True) 
-    companyname = db.Column(VARCHAR,) 
-    Date        = db.Column(VARCHAR, primary_key=True) 
-    close_      = db.Column(VARCHAR) 
-    Adj_Close   = db.Column(VARCHAR) 
-    Volume      = db.Column(VARCHAR) 
+    symbol      = db.Column(VARCHAR(10), primary_key=True) 
+    companyname = db.Column(VARCHAR(50),) 
+    Date        = db.Column(VARCHAR(10), primary_key=True) 
+    close_      = db.Column(FLOAT(10)) 
+    Adj_Close   = db.Column(FLOAT(10)) 
+    Volume      = db.Column(INTEGER(20)) 
     def __init__(self,symbol,companyname,Date,close_,Adj_Close,Volume):
         self.symbol= symbol
         self.companyname=companyname

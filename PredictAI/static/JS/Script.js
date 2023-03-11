@@ -144,7 +144,7 @@ scrollReveal();
 
 addEventOnElem(window, "scroll", scrollReveal);
 $(function () {
-  if ($("body").is(".body404")) {
+  if ($("body").is("body404")) {
     document.addEventListener("DOMContentLoaded", function () {
       var body = document.body;
       setInterval(createStar, 100);

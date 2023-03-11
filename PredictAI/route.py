@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from PredictAI.Forms import Registeration, Login
 from PredictAI.key import ApiKey
 from PredictAI import app,db,bcrypt
-from PredictAI.models import Users,Companies
+from PredictAI.DatabaseClasses import Users,Companies
 from flask_login import login_user,current_user,logout_user,login_required
 from sqlalchemy import desc
 from sqlalchemy.orm import load_only

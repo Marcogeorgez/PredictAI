@@ -1,24 +1,29 @@
 <div class="body404" id="body404">
+  {% extends "layout.html"%} {% block content %}
 
-    {% extends "layout.html"%} {% block content %}
-
-    <div id="text404">
-        <div>
-            <h1 id="ERROR">Error 404</h1>
-        </div>
-        <div>
-            <h2 id="NotFound"> The page you are looking for
-                has been lost in space.
-
-            </h2>
-        </div>
+  <div id="text404">
+    <div>
+      <h1 id="ERROR">Error 404</h1>
     </div>
-
-    <div class="astronaut">
-        <img src="https://images.vexels.com/media/users/3/152639/isolated/preview/506b575739e90613428cdb399175e2c8-space-astronaut-cartoon-by-vexels.png"
-            alt="" class="src" />
+    <div>
+      <h2 id="NotFound">
+        The page you are looking for has been lost in space.
+      </h2>
     </div>
-    <div id="redirect"><a href="{{url_for('help')}}" id="helpurl"> Click Here To Redirect To Help Page</a></div>
+  </div>
+
+  <div class="astronaut">
+    <img
+      src="https://images.vexels.com/media/users/3/152639/isolated/preview/506b575739e90613428cdb399175e2c8-space-astronaut-cartoon-by-vexels.png"
+      alt=""
+      class="src"
+    />
+  </div>
+  <div id="redirect">
+    <a href="{{url_for('help')}}" id="helpurl">
+      Click Here To Redirect To Help Page</a
+    >
+  </div>
 </div>
 
 {% endblock content%}
