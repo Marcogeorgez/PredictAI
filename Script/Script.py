@@ -1,32 +1,18 @@
-import json
-import requests
-from bs4 import BeautifulSoup
-import datetime
-from time import time
-start_time = time()
-TodayDate = datetime.datetime.now().strftime("%d-%m-%Y")
-TodayDateForAPI = datetime.datetime.now().strftime("%Y-%m-%d")
-key = "VCQYDMS0XB3D5VBX"
-def stock_price(CompanySymbol: str = "AAPL") -> str:
-    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={CompanySymbol}&apikey={key}"
-    response = requests.get(url)
-    data = response.json()
-    MetaData = data["Global Quote"]
-    Company_Symbol  =   MetaData["01. symbol"]
-    OpenPrice  =   MetaData["02. open"]
-    HighPrice  =   MetaData["03. high"]
-    LowPrice  =   MetaData["04. low"]
-    Price  =   MetaData["05. price"]
-    Volume  =   MetaData["06. volume"]
-    DateofTrade  =   MetaData["07. latest trading day"]
-    PreviousClose  =   MetaData["08. previous close"]
-    PriceChange  =   MetaData["09. change"]
-    PriceChangePercentage  =   MetaData["10. change percent"]
-    return Company_Symbol ,DateofTrade,Price,Volume
+import webbrowser
+from datetime import date
+d0 = date(1970, 1, 1)
+d1 = date.today()
 
-
-if __name__ == "__main__":
-    for symbol in "AAPL ABC AMZN BRK-B CI COST CSV GOOG MCK T UNH WMT XOM".split():
-        print(stock_price(f"{symbol}"))
-        print("this is a new line \n\n")
+delta = d1 - d0
+period2 = (delta.days* 24 * 60* 60)
+period1 = period2 - 31536000
+for Ticker in "COST AAPL T R".split():
+    #period1-period2 = the amount of seconds in 1 year. 3.154e^7 
+    # Remember to Update Period1 & Period2.
+    # how it works:
+    # for every second that passes , the period1,period2 counter is increased by 1.
+     # period 2 = date from 1.1.1980 till today in seconds. ( x )
+     # period 1 = date from period2 - 3.154e^7 ( y )
+     # period 2 - period 1 == get me all DATA from the latest year.
     
+    webbrowser.open(f"https://query1.finance.yahoo.com/v7/finance/download/{Ticker}?period1={period1}&period2={period2}&interval=1d&events=history&includeAdjustedClose=true",autoraise=True)
