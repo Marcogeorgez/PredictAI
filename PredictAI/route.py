@@ -7,7 +7,8 @@ from PredictAI.key import ApiKey
 from PredictAI import app,db,bcrypt
 from PredictAI.DatabaseClasses import Users,Companies
 from flask_login import login_user,current_user,logout_user,login_required
-from sqlalchemy import desc
+from sqlalchemy import desc,or_,engine
+
 
 
 
@@ -63,10 +64,15 @@ def currentstock():
 
     comp = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.img,Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume)\
         .order_by(desc(Companies.close_)).all()
+    x = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.close_)\
+        .order_by(desc(Companies.close_)).all()
+    y = Companies.query.filter_by(Date='2023-03-07').add_columns(Companies.close_)\
+        .order_by(desc(Companies.close_)).all()
+    print(f"{x[0].close_} {y[0].close_}")
+    #solution :
+    # we add a percentage field in the html , where we iterate over every index , in the count of the companies
+    # like this html -> <div> x[i]-y[i] </div> where i is a for loop , where max i == number of companies in our database.
 
-
-    #comp = db.session.execute(db.select(Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume).filter_by(Date='2023-03-08')).order_by(desc(Companies.close_)).all()
-    #both are working but first accept order_by , 2nd doesn't.
 
 
 

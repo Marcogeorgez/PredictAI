@@ -6,7 +6,7 @@ d1 = date.today()
 delta = d1 - d0
 period2 = (delta.days* 24 * 60* 60)
 period1 = period2 - 31536000
-for Ticker in "COST AAPL T R".split():
+for Ticker in "COST AAPL T R AMZN GOOG AMD ABT ABBV A AN".split():
     #period1-period2 = the amount of seconds in 1 year. 3.154e^7 
     # Remember to Update Period1 & Period2.
     # how it works:
