@@ -29,28 +29,16 @@
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
         <div class="title-wrapper">
-          <h2 class="h2 section-title">Stock Prices</h2>
+          <h2 class="h2 section-title">Enter company symbol to look for</h2>
         </div>
 
         <div class="market-tab">
-          <ul class="tab-nav">
-            <li>
-              <button class="tab-btn active">Top Performance</button>
-            </li>
-
-            <li>
-              <button class="tab-btn">Top losers</button>
-            </li>
-
-            <li>
-              <button class="tab-btn">Top Prediction</button>
-            </li>
-          </ul>
+          
           <form action="{{ url_for('currentstock') }}" method="POST">
             <div class="container-lg">
               <div class="row">
                 <div class="col-md-auto">
-                <label><h1>Enter company symbol to look for</h1></label>
+                
                 <div id="">
                 <div id="floatme">
                   <input type="search" name="search_stock_price" id="form-control1" placeholder="Company Symbol" />
