@@ -11,7 +11,7 @@
   -->
     <link
       rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon.svg') }}"
+      href="{{ url_for('static', filename='images/favicon.svg') }}"
       type="image/svg+xml"/>
 
     
@@ -36,6 +36,8 @@
       href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
 
 
+
+
     <script
       src="{{ url_for('static', filename='JS/Script.js') }}"
       defer
@@ -58,7 +60,7 @@
     {% with messages = get_flashed_messages(with_categories=true)%} {% if
     messages %} {% for category, message in messages%}
 
-    <div class="alert alert-{{ category }}">{{message}}</div>
+    <div id="alert_massage" class="alert alert-{{ category }}">{{message}}</div>
 
     {% endfor%} {%endif%} {%endwith%}
 

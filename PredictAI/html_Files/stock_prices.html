@@ -1,6 +1,8 @@
 {% extends "layout.html"%} {% block content %}
 
 <main>
+
+
 <article>
      <section class="section hero" aria-label="hero" data-section>
       <div class="container">
@@ -28,8 +30,8 @@
     <article >
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
-        <div class="title-wrapper">
-          <h2 class="h2 section-title">Enter company symbol to look for</h2>
+        <div class="title-wrapper" id="search_title">
+          <h2 class="h2 section-title">Search Stocks</h2>
         </div>
 
         <div class="market-tab">
@@ -39,14 +41,12 @@
               <div class="row">
                 <div class="col-md-auto">
                 
-                <div id="">
-                <div id="floatme">
-                  <input type="search" name="search_stock_price" id="form-control1" placeholder="Company Symbol" />
-                  <input type="submit" class="card-button" onclick="" id="buttonpos" name="action1" value="Search" />
-
-
-                  </div>
-                  </div>
+                
+                <div class="search_stock">
+                  <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Name, Symbol..." />
+                  <input type="submit" class="card-button" onclick="" id="search_botton" name="action1" value="Search" />
+                </div>
+                  
           </form>
         </div>
       </div>
@@ -65,7 +65,7 @@
 
             <th class="table-heading" scope="col">24h %</th>
 
-            <th class="table-heading" scope="col">Market Cap</th>
+            <th class="table-heading" scope="col">Volume</th>
 
             <th class="table-heading" scope="col">Last 7 Days</th>
 
@@ -82,12 +82,17 @@
         </td>
           <th class="table-data rank" scope="row">{{ loop.index }}</th>
                     <td class="table-data">
-            <div class="wrapper">
-              <img src="data:image/jpg;base64,{{ comp.img }}" width="50" height="30" alt=""
-                class="img" />
+            <div class="wrapper" id="comp_logo">
+              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.symbol|string+'.png')}}" width="60" height="60" 
+              alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
 
               <h3>
-                <a href="#" class="stock-name">{{comp.companyname}} <span class="span">{{comp.symbol}}</span></a>
+              {%for compinfo in compinfo%}
+              {%if comp.symbol == compinfo.symbol %}
+                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.symbol}}</span></a>
+              {%endif%}
+              {%endfor%}
+
               </h3>
             </div>
           </td>

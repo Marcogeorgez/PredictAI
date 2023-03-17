@@ -1230,6 +1230,49 @@
   }
 
 
+    /**
+     * Stock Price
+     */
+
+.search_stock {
+  display: flex;
+  justify-content: center;
+}
+
+
+#search_title{
+  justify-content: center;
+  margin-left: -12rem;
+}
+
+
+#form-searchbar{
+  margin: 1rem;
+  margin-bottom: 4rem;
+  border-radius: 13px;
+  width: 40%;
+}
+
+
+#search_botton{
+  margin: 1rem;
+  width: 10%;
+}
+
+
+#search_botton:hover{
+  border: 2px solid var(--blue-crayola);
+  background-color: transparent;
+  color: var(--blue-crayola);
+  font-weight: 600;
+  transition: 0.7s;
+}
+
+#comp_logo img{
+  border-radius: 20%;
+  margin-right: 2rem;
+}
+
 
     /**
      * SUBSCRIPTION
@@ -1263,6 +1306,7 @@
   flex-wrap: wrap;
   width: 100%;
   padding: 2rem;
+  margin-bottom: 15rem;
 }
 
 
@@ -1394,7 +1438,10 @@
 .aboutus-card:hover .aboutus-banner { transform: scale(1.1) }
 
   
-.aboutus-card { text-align: center; }
+.aboutus-card { 
+  text-align: center; 
+  margin-bottom: 10rem
+}
 
   
 .aboutus-card .card-banner { transition: var(--transition-2); }
@@ -1402,7 +1449,9 @@
  
 .aboutus-card .img {
   margin-inline: auto;
-  margin-block-end: 12px;
+
+  margin-block-end: 12px
+
 }
 
 
@@ -1415,7 +1464,7 @@
 
 .aboutus-card .card-title {
   font-size: var(--fs-4);
-  margin-block: 5px 15px;
+  margin-block: 25px 15px;
 }
 
 
@@ -1458,6 +1507,7 @@
 
 .regbox{
    margin-left: 8rem;
+   margin-bottom: 14rem;
 }
 
 
@@ -1467,7 +1517,6 @@
   margin-top: 5rem;
   margin-right: -9rem;
   margin-left: 25rem;
-  
 }
 
 
@@ -1561,17 +1610,40 @@ form .btn:hover {
 
 form .form-check{
   display: inline-flex;
-  width: 105%;
+  width: 119%;
+  margin-bottom: -2rem;
   justify-content: center;
   align-items: center;
+  
 }
 
+
+
+.form-check-input{
+  margin: 10px;
+  width: 20px;
+}
+
+.acc_btn{
+  display: inline-flex;
+}
+
+.acc_btn .btn-outline{
+  margin: 1rem;
+}
 
 form .form-check-label{
   white-space: nowrap;
   text-align: center;
 }
 
+
+.invalid-feedback{
+  white-space: nowrap;
+  color: var(--presian-red);
+  width: 92%;
+  font-size: 14px;
+}
 
 #Log_form{
   left: -300px;
@@ -1667,6 +1739,404 @@ input[type=textsupport], #country, #subjectsupport {
 }
 
 
+/* Alert Massage */
+#alert_massage{
+  margin-top: 10rem;
+  margin: 90px;
+}
+
+
+.alert{
+  position:relative;
+  padding:.75rem 1.25rem;
+  margin-bottom:1rem;
+  border:1px solid transparent;
+  border-radius:.25rem
+}
+
+.alert-heading{
+  color:inherit;
+}
+
+.alert-link{
+  font-weight:700;
+}
+
+.alert-dismissible{
+  padding-right:4rem;
+}
+
+.alert-dismissible .close{
+  position:absolute;
+  top:0;
+  right:0;
+  padding:.75rem 1.25rem;
+  color:inherit
+}
+
+.alert-primary{
+  color:#004085;
+  background-color:#cce5ff;
+  border-color:#b8daff
+}
+
+
+.alert-primary hr{
+  border-top-color:#9fcdff
+}
+
+.alert-primary .alert-link{
+  color:#002752
+}
+
+.alert-secondary{
+  color:#383d41;
+  background-color:#e2e3e5;
+  border-color:#d6d8db
+}
+
+.alert-secondary hr{
+  border-top-color:#c8cbcf
+}
+
+.alert-secondary .alert-link{
+  color:#202326
+}
+
+.alert-success{
+  color:#155724;
+  background-color:#d4edda;
+  border-color:#c3e6cb
+}
+
+.alert-success hr{
+  border-top-color:#b1dfbb
+}
+
+.alert-success .alert-link{
+  color:#0b2e13
+}
+
+.alert-info{
+  color:#0c5460;
+  background-color:#d1ecf1;
+  border-color:#bee5eb
+}
+
+.alert-info hr{
+  border-top-color:#abdde5
+}
+
+.alert-info .alert-link{
+  color:#062c33
+}
+
+.alert-warning{
+  color:#856404;
+  background-color:#fff3cd;
+  border-color:#ffeeba
+}
+
+.alert-warning hr{
+  border-top-color:#ffe8a1
+}
+
+.alert-warning .alert-link{
+  color:#533f03
+}
+
+.alert-danger{
+  color:#721c24;
+  background-color:#f8d7da;
+  border-color:#f5c6cb
+}
+
+.alert-danger hr{
+  border-top-color:#f1b0b7
+}
+
+.alert-danger .alert-link{
+  color:#491217
+}
+
+
+.alert-light{
+  color:#818182;
+  background-color:#fefefe;
+  border-color:#fdfdfe
+}
+
+.alert-light hr{
+  border-top-color:#ececf6
+}
+
+.alert-light .alert-link{
+  color:#686868
+}
+
+.alert-dark{
+  color:#1b1e21;
+  background-color:#d6d8d9;
+  border-color:#c6c8ca
+}
+
+.alert-dark hr{
+  border-top-color:#b9bbbe
+}
+
+.alert-dark .alert-link{
+  color:#040505
+}
+
+@-webkit-keyframes progress-bar-stripes{
+  from{background-position:1rem 0}to{background-position:0 0}}
+
+
+@keyframes progress-bar-stripes{
+  from{background-position:1rem 0}to{background-position:0 0}}
+  
+.progress{
+  display:-ms-flexbox;
+  display:flex;
+  height:1rem;
+  overflow:hidden;
+  font-size:.75rem;
+  background-color:#e9ecef;
+  border-radius:.25rem
+}
+
+.progress-bar{
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-direction:column;
+  flex-direction:column;
+  -ms-flex-pack:center;
+  justify-content:center;
+  color:#fff;
+  text-align:center;
+  white-space:nowrap;
+}
+
+
+
+    /**
+    * Account PAGE
+    */
+
+
+    
+
+
+
+
+
+
+
+    /**
+    * Error 404
+    */
+    
+    #body404 {
+      font-size: 1.6rem;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+      font-family: "Tomorrow", sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background-image: 
+      radial-gradient(circle at 40% 50%, #610b4b 0%, #a30d8a00 40%),
+      radial-gradient(circle at 65% 60%, #420a50 0%, #580e7500 45%),
+      radial-gradient(circle at 40% 60%, #076066 0%, #17777700 45%);
+      background-blend-mode: screen;
+    }
+
+
+
+
+
+    #text404 {
+      margin-top: 100px;
+      position: relative;
+      top: 10%;
+      color: var(--white);
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    
+    #helpurl {
+      margin: 100px 300px;
+      font-weight: 600;
+      justify-content: center;
+      position: relative;
+      top: 10%;
+      font-family: "Comic Neue", cursive;
+      font-size: 2em;
+      line-height: 50px;
+
+    }
+    
+    #ERROR,
+    #NotFound {
+      font-family: "Comic Neue", cursive;
+      font-size: 2em;
+      line-height: 50px;
+      box-sizing: border-box;
+
+    }
+
+    .star {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: var(--white);
+      right: 0;
+      animation: starTwinkle 3s infinite linear;
+    }
+
+    .astronaut img {
+      width: 400px;
+      position: absolute;
+      top: 55%;
+      animation: astronautFly 6s infinite linear;
+    }
+
+    @keyframes astronautFly {
+      0% {
+        left: -130px;
+      }
+      25% {
+        top: 45%;
+        transform: rotate(30deg);
+      }
+      50% {
+        transform: rotate(45deg);
+        top: 30%;
+      }
+      75% {
+        top: 40%;
+        transform: rotate(30deg);
+      }
+      100% {
+        left: 90%;
+        transform: rotate(45deg);
+      }
+    }
+
+
+    @keyframes starTwinkle {
+      0% {
+        background: rgba(255, 255, 255, 0.4);
+      }
+      25% {
+        background: rgba(255, 255, 255, 0.8);
+      }
+      50% {
+        background: rgba(255, 255, 255, 1);
+      }
+      75% {
+        background: rgba(255, 255, 255, 0.8);
+      }
+      100% {
+        background: rgba(255, 255, 255, 0.4);
+      }
+    }
+    
+
+    #loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 120px;
+      height: 120px;
+      margin: -76px 0 0 -76px;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Add animation to "page content" */
+    .animate-bottom {
+      position: relative;
+      -webkit-animation-name: animatebottom;
+      -webkit-animation-duration: 1s;
+      animation-name: animatebottom;
+      animation-duration: 1s;
+    }
+    
+    @-webkit-keyframes animatebottom {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+      to {
+        bottom: 0px;
+        opacity: 1;
+      }
+    }
+    
+    @keyframes animatebottom {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+      to {
+        bottom: 0;
+        opacity: 1;
+      }
+    }
+    
+    #myDiv {
+      display: none;
+      text-align: center;
+    }
+    
+
+    
+    #textbigcenter {
+      font-size: xx-large;
+      font-weight: bold;
+      color: #92c2e2;
+      padding: 20px;
+      margin: 20px;
+    
+      text-align: center;
+    }
+    
+
+    
+
+
+
+
+
+
+
+
 
 
 
@@ -1689,209 +2159,3 @@ input[type=textsupport], #country, #subjectsupport {
   text-align: center;
 }
 
-#body404 {
-  background-color: var(--eerie-black-2);
-  color: var(--cadet-blue-crayola);
-  font-size: 1.6rem;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
-  font-family: "Tomorrow", sans-serif;
-  height: 100vh;
-  background-image: linear-gradient(
-    to top,
-    #2e1753,
-    #1f1746,
-    #131537,
-    #0d1028,
-    #050819
-  );
-}
-#text404 {
-  margin-top: 100px;
-  position: relative;
-  top: 10%;
-  color: #fff;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-#helpurl {
-  margin: 200px 300px;
-  font-weight: 600;
-  justify-content: center;
-  position: relative;
-  top: 10%;
-  font-family: "Comic Neue", cursive;
-  font-size: 2em;
-  line-height: 50px;
-  color: #af9f9f;
-}
-#ERROR,
-#NotFound {
-  font-family: "Comic Neue", cursive;
-  font-size: 2em;
-  line-height: 50px;
-  box-sizing: border-box;
-  color: #af9f9f;
-}
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: #fff;
-  right: 0;
-  animation: starTwinkle 3s infinite linear;
-}
-.astronaut img {
-  width: 100px;
-  position: absolute;
-  top: 55%;
-  animation: astronautFly 6s infinite linear;
-}
-@keyframes astronautFly {
-  0% {
-    left: -100px;
-  }
-  25% {
-    top: 50%;
-    transform: rotate(30deg);
-  }
-  50% {
-    transform: rotate(45deg);
-    top: 55%;
-  }
-  75% {
-    top: 60%;
-    transform: rotate(30deg);
-  }
-  100% {
-    left: 110%;
-    transform: rotate(45deg);
-  }
-}
-@keyframes starTwinkle {
-  0% {
-    background: rgba(255, 255, 255, 0.4);
-  }
-  25% {
-    background: rgba(255, 255, 255, 0.8);
-  }
-  50% {
-    background: rgba(255, 255, 255, 1);
-  }
-  75% {
-    background: rgba(255, 255, 255, 0.8);
-  }
-  100% {
-    background: rgba(255, 255, 255, 0.4);
-  }
-}
-#floatme {
-  display: flex;
-}
-#loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  margin: -76px 0 0 -76px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Add animation to "page content" */
-.animate-bottom {
-  position: relative;
-  -webkit-animation-name: animatebottom;
-  -webkit-animation-duration: 1s;
-  animation-name: animatebottom;
-  animation-duration: 1s;
-}
-
-@-webkit-keyframes animatebottom {
-  from {
-    bottom: -100px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0px;
-    opacity: 1;
-  }
-}
-
-@keyframes animatebottom {
-  from {
-    bottom: -100px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
-
-#myDiv {
-  display: none;
-  text-align: center;
-}
-
-#text {
-  font-size: larger;
-  color: #8ac1e6;
-  font-weight: lighter;
-  margin: 20px 60px;
-}
-#textbig {
-  font-size: xx-large;
-  font-weight: bold;
-  color: #92c2e2;
-  padding: 20px;
-  margin: 20px;
-}
-#textbigcenter {
-  font-size: xx-large;
-  font-weight: bold;
-  color: #92c2e2;
-  padding: 20px;
-  margin: 20px;
-
-  text-align: center;
-}
-
-#body404 {
-  font-family: "Tomorrow", sans-serif;
-  background-image: linear-gradient(
-    to top,
-    #2e1753,
-    #1f1746,
-    #131537,
-    #0d1028,
-    #050819
-  );
-}

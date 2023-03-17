@@ -142,6 +142,8 @@ const scrollReveal = function () {
 
 scrollReveal();
 
+
+
 addEventOnElem(window, "scroll", scrollReveal);
 $(function () {
   if ($("body").is("body404")) {
@@ -167,3 +169,5 @@ $(function () {
     });
   }
 });
+
+

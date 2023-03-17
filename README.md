@@ -1,12 +1,13 @@
 # Predict AI Mans
 
+
 How to use?
-1- Open Main.py
+1- Open run.py
 2- Run it like a normal python file.
-3- Open in chrome or Your browser the following http://127.0.0.1:5000/
+3- Open in chrome or Your browser the following http://127.0.0.1:5000/, or get it from the terminal 
 
 What is it built on ?
-1- Flask (Python)
+1- Python (Flask)
 2- HTML/CSS/JS
 
 How to create stylesheet.css/javascript/image with flask?

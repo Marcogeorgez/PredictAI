@@ -57,8 +57,11 @@
 
 
     {% if current_user.is_authenticated %}
-    <a href="{{url_for('account')}}" class="btn btn-outline">Account</a>
-    <a href="{{url_for('logout')}}" class="btn btn-outline">Logout</a>
+    <div class="acc_btn">
+      <a href="{{url_for('account')}}" class="btn btn-outline">Account</a>
+      <a href="{{url_for('logout')}}" class="btn btn-outline" >Logout</a>
+    </div>
+    
     {%else%}
     <a href="{{url_for('register')}}" class="btn btn-outline">Login | sign</a>
     {%endif%}

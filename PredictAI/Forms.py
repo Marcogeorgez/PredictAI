@@ -12,7 +12,7 @@ class Registeration(FlaskForm):
     def validate_email(self, email):
         email = Users.query.filter_by(email=email.data).first()
         if email:
-            raise ValidationError("Email already taken, choose another one.")
+            raise ValidationError("Email already taken")
 
 class Login(FlaskForm):
     email               = StringField('', validators =[DataRequired(),Email()], render_kw={"placeholder" : "Email"})
