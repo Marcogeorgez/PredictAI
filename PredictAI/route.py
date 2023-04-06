@@ -8,6 +8,7 @@ from PredictAI import app, db, bcrypt
 from PredictAI.DatabaseClasses import Users, Companies, Compinfo
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy import desc
+import yfinance as yf
 
 
 @app.route('/home')
@@ -70,25 +71,24 @@ def currentstock():
 
     # comp = Companies.query.filter_by(Date <= '2023-3-8').add_columns(CoCompanies.symbol, Companies.close_, Companies.Volume)\
     #     .order_by(desc(Companies.close_)).all()
-    maxDate = '2024-1-1'
+    maxDate = '2023-03-08'
     LastDay = '2023-03-08'
     Yesterday = '2023-03-07'
-    minDate = '2023-1-1'
+    minDate = '2023-03-07'
     comp = db.session.query(Companies).filter(Companies.Date.between(
         minDate, maxDate)).order_by(desc(Companies.Date)).limit(50)
     compinfo = db.session.query(Compinfo).add_columns(
         Compinfo.symbol, Compinfo.Name).all()
-    x = Companies.query.filter_by(Date=LastDay).add_columns(Companies.close_)\
-        .order_by(desc(Companies.close_)).all()
-    y = Companies.query.filter_by(Date=Yesterday).add_columns(Companies.close_)\
-        .order_by(desc(Companies.close_)).all()
-
+    # x = Companies.query.filter_by(Date=LastDay).add_columns(Companies.close_)\
+    #     .order_by(desc(Companies.close_)).all()
+    # y = Companies.query.filter_by(Date=Yesterday).add_columns(Companies.close_)\
+    #     .order_by(desc(Companies.close_)).all()
 
     if request.method == 'POST':
         Ticker_Name = request.form.get('search_stock_price').lower()
         if len(Ticker_Name) == 0:
             return redirect('/404')
-        return redirect(url_for('ticker', Ticker_Name=Ticker_Name, comp=comp, compinfo=compinfo))
+        return redirect(url_for('ticker', Ticker_Name=Ticker_Name))
     return render_template('stock_prices.html', comp=comp, compinfo=compinfo)
 
 

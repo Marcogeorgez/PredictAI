@@ -1,4 +1,7 @@
 import webbrowser
+
+# insert companies name in the yahoo finance URL and download the historical data for the companies from it
+
 from datetime import date
 d0 = date(1970, 1, 1)
 d1 = date.today()
@@ -64,7 +67,7 @@ for Ticker in "AAPL   ABNB   ADBE   ADI   ADSK   AMAT   AMD   AMX   AMZN   ASML 
   VAC   VET   VFC VG   VGR   VIV   VLY   VMC   VMI   VOYA   VR   VRSK   VRSN   VSH   VTR   VVR   \
   WAB   WAT   WBA   WBS   WCC   WCN   WDC   WEC   WFC   WGO   WHR   WIT   WLK   WLL   WMB   WMK   \
   WNC   WNS   WOR   WPC   WPZ   WRB   WRE   WRK   WSPOF   WSR   WST   WTI   WTM   WTS   WTW   WU   \
-  WWE   WWW   WY   X   XEL   XHR   XIN   XOM   XPO   XYL   YPF   YUM   ZBH   ZDPY   ZION   ZNH   ZOES   ZTS".split():
+  WWE   WWW   WY   X   XEL   XHR   XIN   XOM   XPO   XYL   YPF   YUM   ZBH   ZDPY   ZION   ZNH  ZTS".split():
 
     # period1-period2 = the amount of seconds in 1 year. 3.154e^7
     # Remember to Update Period1 & Period2.
