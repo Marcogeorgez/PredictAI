@@ -2,6 +2,10 @@ from sqlalchemy import VARCHAR,FLOAT,INTEGER,VARBINARY
 from PredictAI import db,login_manager
 from flask_login import UserMixin
 from datetime import datetime
+# This is a function called load_user that is used in Flask's login_manager to load the user from the database.
+#  When a user logs in, their user ID is stored in the session.
+#  The load_user function takes the user ID as an argument and returns the corresponding Users object from the database by querying with the ID.
+#  This allows Flask to keep track of the current user and their session data.
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))

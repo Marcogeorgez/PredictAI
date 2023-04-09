@@ -21,4 +21,4 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = "info"
 login_manager.COOKIE_DURATION = timedelta(days=30)
 
-from PredictAI import Route
+from PredictAI import route

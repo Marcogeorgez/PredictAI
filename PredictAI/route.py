@@ -55,8 +55,13 @@ def login():
         else:
             flash('Login unsucessful. Please check email and password are correct.','danger')
     return render_template('Log_sign.html', form2=form2, form=form )
-@app.route('/prediction')
+@app.route('/prediction', methods=['GET','POST'])
 def stockprediction():
+  if request.method == 'POST':
+    PredictTicker_Name = request.form.get('search_stock_price').lower()
+    if len(PredictTicker_Name) == 0:
+      return redirect('/404')
+    return redirect(url_for('predictTicker',PredictTicker_Name=PredictTicker_Name))
   return render_template('Prediction.html')
 
 @app.route('/stockprices', methods=['GET','POST'])
@@ -64,7 +69,7 @@ def currentstock():
 
     comp = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.img,Companies.companyname,Companies.symbol,Companies.close_,Companies.Volume)\
         .order_by(desc(Companies.close_)).all()
-    x = Companies.query.filter_by(Date='2023-03-08').add_columns(Companies.close_)\
+    x = Companies.query.filterx_by(Date='2023-03-08').add_columns(Companies.close_)\
         .order_by(desc(Companies.close_)).all()
     y = Companies.query.filter_by(Date='2023-03-07').add_columns(Companies.close_)\
         .order_by(desc(Companies.close_)).all()
@@ -72,12 +77,6 @@ def currentstock():
     #solution :
     # we add a percentage field in the html , where we iterate over every index , in the count of the companies
     # like this html -> <div> x[i]-y[i] </div> where i is a for loop , where max i == number of companies in our database.
-
-
-
-
-
-
     if request.method == 'POST':
       Ticker_Name = request.form.get('search_stock_price').lower()
       if len(Ticker_Name) == 0:
@@ -107,8 +106,7 @@ def logout():
    return redirect(url_for('index'))
 @app.route('/Account')
 @login_required
-def account():
-   
+def account():   
    return render_template('account.html')
 
 
@@ -151,3 +149,10 @@ def ticker(Ticker_Name):
     PriceChangePercentage=PriceChangePercentage)
   
 
+@app.route('/Predict_<Ticker_Name>',methods=['GET','POST'])
+def predictTicker(PredictTicker_Name):
+   #2 solutions , 1- put the entire function here
+   #2- we put the entire function in antoher class , and import it here. whatever works
+   #first will be cluttering the entire file, the 2nd is just for elegent look.
+   
+   return render_template('PredictTicker.html')
