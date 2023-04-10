@@ -83,13 +83,15 @@
           <th class="table-data rank" scope="row">{{ loop.index }}</th>
                     <td class="table-data">
             <div class="wrapper" id="comp_logo">
-              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.symbol|string+'.png')}}" width="60" height="60" 
+              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
               alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
 
               <h3>
               {%for compinfo in compinfo%}
-              {%if comp.symbol == compinfo.symbol %}
-                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.symbol}}</span></a>
+              {%if comp.Symbol == compinfo.symbol %}
+                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
+
+
               {%endif%}
               {%endfor%}
 
@@ -97,17 +99,32 @@
             </div>
           </td>
 
-          <td class="table-data last-price">{{"$%.2f"|format(comp.close_)}}</td>
+          <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
 
-          <td class="table-data last-update green">+1.45%</td>
 
-          <td class="table-data market-cap">{{comp.Volume}}</td>
 
+        {%for index, row in result.iterrows() %}
+        {%if comp.Symbol == row['Symbol']  %}
+        {%if row['Percentage'] >= 0  %}
+          <td class="table-data last-update green">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
+                {%else%}
+          <td class="table-data last-update red">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
+                {%endif%}
+          <td class="table-data market-cap">{{"{:,.0f}".format(comp.Volume|int)}}</td>
           <td class="table-data">
+          {%if row['Percentage'] >= 0  %}
             <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
               class="chart" />
+              {%else%}
+                      <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
+              class="chart" />
           </td>
+
+           {%endif%}
+          {%endif%}
+{%endfor%}
           </tr>
+
 
         {%endfor%}
 

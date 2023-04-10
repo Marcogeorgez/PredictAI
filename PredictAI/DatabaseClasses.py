@@ -1,7 +1,13 @@
-from sqlalchemy import VARCHAR, FLOAT, INTEGER, VARBINARY
+from sqlalchemy import VARCHAR, FLOAT, INTEGER, VARBINARY, DateTime
 from PredictAI import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
+import yfinance as yf
+
+#  This is a function called load_user that is used in Flask's login_manager to load the user from the database.
+#  When a user logs in, their user ID is stored in the session.
+#  The load_user function takes the user ID as an argument and returns the corresponding Users object from the database by querying with the ID.
+#  This allows Flask to keep track of the current user and their session data.
 
 
 @login_manager.user_loader
@@ -18,18 +24,18 @@ class Users(db.Model, UserMixin):
     datejoined = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 
 
-class Companies(db.Model):
-    __tablename__ = 'Companies'
-    symbol = db.Column(VARCHAR(10), primary_key=True)
-    Date = db.Column(VARCHAR(20), primary_key=True)
-    close_ = db.Column(FLOAT(10))
+class Company(db.Model):
+    __tablename__ = 'Company'
+    Symbol = db.Column(VARCHAR(10), primary_key=True)
+    Date = db.Column(DateTime(), primary_key=True)
+    Close_ = db.Column(FLOAT(10))
     Adj_Close = db.Column(FLOAT(10))
-    Volume = db.Column(INTEGER)
+    Volume = db.Column(FLOAT(10))
 
-    def __init__(self, symbol, Date, close_, Adj_Close, Volume):
-        self.symbol = symbol
+    def __init__(self, Symbol, Date, Close_, Adj_Close, Volume):
+        self.Symbol = Symbol
         self.Date = Date
-        self.close_ = close_
+        self.Close_ = Close_
         self.Adj_Close = Adj_Close
         self.Volume = Volume
 

@@ -277,10 +277,10 @@
   .w-100 { width: 100%; }
   
   .badge {
-    color: var(--white);
-    font-size: var(--fs-8);
+    color: #fff;
+    font-size: var(--fs-7);
     font-weight: var(--fw-700);
-    padding: 4px 8px;
+    padding: 5px 10px;
     border-radius: 50px;
   }
   
@@ -509,7 +509,7 @@
   
   .trend-card .card-title {
     color: var(--white);
-    font-size: var(--fs-7);
+    font-size: var(--fs-5);
     font-weight: var(--fw-700);
     transition: var(--transition-1);
   }
@@ -517,7 +517,7 @@
   .trend-card .card-title:is(:hover, :focus) { color: var(--blue-crayola); }
   
   .trend-card .card-title .span {
-    color: var(--cadet-blue-crayola);
+    color: hsl(270deg 2.88% 62.59%);
     display: inline-block;
     margin-inline-start: 5px;
   }
@@ -535,7 +535,10 @@
     gap: 8px;
   }
   
-  .trend-card .current-price { font-size: var(--fs-7); }
+  .trend-card .current-price { 
+    font-size: var(--fs-6);
+    font-weight: var(--fw-700) 
+  }
   
   
   

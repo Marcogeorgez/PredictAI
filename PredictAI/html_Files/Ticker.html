@@ -58,11 +58,11 @@
             </div>
           </td>
 
-          <td class="table-data last-price">{{Price}}</td>
+          <td class="table-data last-price">{{"$%.2f"|format(CurrentPrice)}}</td>
 
-                <td class="table-data last-update green">{{PriceChangePercentage}}</td>
+                <td class="table-data last-update green">%{{"%.3f"|format(PriceChangePercentage)}}</td>
 
-          <td class="table-data market-cap">${{volume}}</td>
+          <td class="table-data market-cap">{{volume}}</td>
 
           <td class="table-data">
             <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
