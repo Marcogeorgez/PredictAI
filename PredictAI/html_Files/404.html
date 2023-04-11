@@ -1,15 +1,19 @@
-<div class="body404" id="body404">
-  {% extends "layout.html"%} {% block content %}
 
+<div class="body404" id="body404" scene >
+  {% extends "layout.html"%} {% block content %}
   <div id="text404">
     <div>
       <h1 id="ERROR">Error 404</h1>
     </div>
     <div>
       <h2 id="NotFound">
-        The page you are looking for has been lost in space.
+        The Stock you are looking for has been lost in space.
       </h2>
     </div>
+
+    <a href="{{url_for('help')}}" id="helpurl">
+      Click Here To Redirect To Help Page</a>
+
   </div>
 
   <div class="astronaut">
@@ -19,11 +23,7 @@
       class="src"
     />
   </div>
-  <div id="redirect">
-    <a href="{{url_for('help')}}" id="helpurl">
-      Click Here To Redirect To Help Page</a
-    >
-  </div>
+  
 </div>
 
 {% endblock content%}
