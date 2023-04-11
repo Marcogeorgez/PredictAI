@@ -14,7 +14,6 @@
       href="{{ url_for('static', filename='images/favicon.svg') }}"
       type="image/svg+xml"/>
 
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- 
@@ -27,7 +26,6 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
    
-   
       <!-- 
     - custom css link
   -->
@@ -36,49 +34,46 @@
       href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
 
 
-
-
     <script
       src="{{ url_for('static', filename='JS/Script.js') }}"
       defer
     ></script>
 
-
 </head>
 
+
+
 <body>
-  
-      <!-- 
+  <!-- loader  -->
+  <div class="loader_bg">
+    <div class="loader"><img src="{{url_for('static', filename='Images/loading.gif')}}" alt="#" /></div>
+  </div>
+
+
+ <!-- 
   - #HEADER
 -->
   {% include 'header.html' %}
 
+
 <main>
-  
 
-  
-    {% with messages = get_flashed_messages(with_categories=true)%} {% if
-    messages %} {% for category, message in messages%}
+{% with messages = get_flashed_messages(with_categories=true)%} {# store the flashed messages in a variable called messages #}
+    {% if messages %} {# if there are any flashed messages #}
+        {% for category, message in messages%} {# loop through each message, where category is the message category and message is the message text #}
+            <div id="alert_massage" class="alert alert-{{ category }}">{{message}}</div> {# display the message with a class based on its category #}
+        {% endfor%} {# end of the for loop #}
+    {%endif%} {# end of the if statement #}
+{%endwith%} {# end of the with statement that stores the flashed messages in the messages variable #}
 
-    <div id="alert_massage" class="alert alert-{{ category }}">{{message}}</div>
-
-    {% endfor%} {%endif%} {%endwith%}
-
-    <!-- main block -->
-    {% block content %} {%endblock%}
-    <!-- end block -->
-  
-
+{% block content %} {%endblock%} {# define a content block, which can be filled in by child templates #}
+    
   
 </main>
-
-
-    <!-- 
+<!-- 
   - #FOOTER
 -->
   {% include 'Footer.html' %}
 
-
 </body>
-
 </html>

@@ -2,7 +2,6 @@
 
 <main>
 
-
 <article>
      <section class="section hero" aria-label="hero" data-section>
       <div class="container">
@@ -23,33 +22,34 @@
             width="628"
             height="504"
             alt="hero banner"
-            class="w-100"
-          />
+            class="w-100"/>
         </figure>
       </div>
     </section> 
 
+
     <!-- 
         - #MARKET
       -->
+
     <article >
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
         <div class="title-wrapper" id="search_title">
-          <h2 class="h2 section-title">Search Stocks</h2>
+          <h2 class="h2 section-title">Predict Stocks</h2>
         </div>
 
         <div class="market-tab">
           
-          <form action="{{ url_for('currentstock') }}" method="POST">
+          <form action="{{ url_for('stockprediction') }}" method="POST">
             <div class="container-lg">
               <div class="row">
                 <div class="col-md-auto">
                 
                 
                 <div class="search_stock">
-                  <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Name, Symbol..." />
-                  <input type="submit" class="card-button" onclick="" id="search_botton" name="action1" value="Search" />
+                  <input type="search" name="Ticker_Name" id="form-searchbar" placeholder="Company Name, Symbol..." />
+                  <input type="submit" class="card-button" onclick="" id="search_botton" name="predict" value="Search" />
                 </div>
                   
           </form>

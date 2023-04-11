@@ -1,8 +1,6 @@
 {% extends "layout.html"%} {% block content %}
 
 <main>
-
-
 <article>
      <section class="section hero" aria-label="hero" data-section>
       <div class="container">
@@ -19,13 +17,14 @@
 
         <figure class="hero-banner">
           <img src="{{url_for('static', filename='Images/Stock-price.png')}}" width="628" height="504" alt="hero banner"
-            class="w-100" />
+            class="w-100"/>
         </figure>
       </div>
     </section> 
 
+
     <!-- 
-        - #MARKET
+        - #Current Stocks Table
       -->
     <article >
     <section class="section market" aria-label="market update" data-section>
@@ -40,13 +39,11 @@
             <div class="container-lg">
               <div class="row">
                 <div class="col-md-auto">
-                
-                
+
                 <div class="search_stock">
                   <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Name, Symbol..." />
                   <input type="submit" class="card-button" onclick="" id="search_botton" name="action1" value="Search" />
                 </div>
-                  
           </form>
         </div>
       </div>
@@ -59,7 +56,7 @@
 
             <th class="table-heading" scope="col">#</th>
 
-            <th class="table-heading" scope="col">Name</th>
+            <th class="table-heading" scope="col">Company</th>
 
             <th class="table-heading" scope="col">Last Price</th>
 
@@ -67,13 +64,13 @@
 
             <th class="table-heading" scope="col">Volume</th>
 
-            <th class="table-heading" scope="col">Last 7 Days</th>
+            <th class="table-heading" scope="col">Change Chart</th>
 
             <th class="table-heading"></th>
           </tr>
         </thead>
         <div>
-        {%for comp in comp%}
+    {%for comp in comp%}
         <td class="table-data">
             <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
               <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
@@ -84,55 +81,51 @@
                     <td class="table-data">
             <div class="wrapper" id="comp_logo">
               <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
-              alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
+              alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}" class="img" />
 
               <h3>
               {%for compinfo in compinfo%}
-              {%if comp.Symbol == compinfo.symbol %}
+                {%if comp.Symbol == compinfo.symbol %}
                 <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
-
-
-              {%endif%}
+                {%endif%}
               {%endfor%}
-
               </h3>
             </div>
           </td>
-
           <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
 
 
 
         {%for index, row in result.iterrows() %}
-        {%if comp.Symbol == row['Symbol']  %}
-        {%if row['Percentage'] >= 0  %}
+            {%if comp.Symbol == row['Symbol']  %}
+                {%if row['Percentage'] >= 0  %}
           <td class="table-data last-update green">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
                 {%else%}
           <td class="table-data last-update red">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
                 {%endif%}
           <td class="table-data market-cap">{{"{:,.0f}".format(comp.Volume|int)}}</td>
           <td class="table-data">
-          {%if row['Percentage'] >= 0  %}
+                {%if row['Percentage'] >= 0  %}
             <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
               class="chart" />
-              {%else%}
+                {%else%}
                       <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
               class="chart" />
           </td>
+              {%endif%}
 
-           {%endif%}
           {%endif%}
-{%endfor%}
-          </tr>
-
 
         {%endfor%}
+          </tr>
 
+    {%endfor%}
 
-      </div>
-
+        </div>
       </table>
     </section>
   </article>
 </main>
+
+
 {% endblock content%}

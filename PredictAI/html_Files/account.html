@@ -1,16 +1,24 @@
 {% extends "layout.html" %} {%block content%}
 
-<section class="section instruction" aria-label="instruction">
-    <div class="container">
-      <h2 class="h2 section-title">Hello {{current_user.username}}</h2>
-  
-        <h3 class="section-text">
-            Welcome to Your PredictAI Acoount
-        </h3>
-    
+<section  class="section hero" aria-label="hero">
+  <div class="container">
+    <div id="Sec_acc" class="hero-content">
+      <h1 class="h1 hero-title">Hello {{current_user.username}}</h1>
+      <h2 class="hero-text">
+        Welcome to Your PredictAI Acoount
+      </h2>
     </div>
-  </section>
 
-
+    <figure class="hero-banner">
+      <img
+        src="{{url_for('static', filename='Images/User.png')}}"
+        width="628"
+        height="504"
+        alt="hero banner"
+        class="w-100"
+      />
+    </figure>
+  </div>
+</section> 
 
 {%endblock%}

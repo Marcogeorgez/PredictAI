@@ -9,12 +9,15 @@ import yfinance as yf
 #  The load_user function takes the user ID as an argument and returns the corresponding Users object from the database by querying with the ID.
 #  This allows Flask to keep track of the current user and their session data.
 
+# Setting up user loader function for Flask-Login
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
 
+# Creating a Users table with columns for id, username, email, password, and datejoined
 class Users(db.Model, UserMixin):
     __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +25,8 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     datejoined = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+
+# Creating a Company table with columns for Symbol, Date, Close_, Adj_Close, and Volume
 
 
 class Company(db.Model):
@@ -39,6 +44,8 @@ class Company(db.Model):
         self.Adj_Close = Adj_Close
         self.Volume = Volume
 
+# Creating a Compinfo table with columns for symbol, Name, Country, IPO_Year, and Sector
+
 
 class Compinfo(db.Model):
     __tablename__ = 'Compinfo'
@@ -54,3 +61,9 @@ class Compinfo(db.Model):
         self.Country = Country
         self.IPO_Year = IPO_Year
         self.Sector = Sector
+
+# In this code, we are importing the required modules such as VARCHAR, FLOAT, INTEGER, VARBINARY, DateTime, db,
+# login_manager, UserMixin, datetime and yfinance. We are then setting up the user loader function for Flask-Login.
+# We are creating three tables: Users, Company, and Compinfo. The Users table has columns for id, username, email,
+# password, and datejoined. The Company table has columns for Symbol, Date, Close_, Adj_Close, and Volume.
+# The Compinfo table has columns for symbol, Name, Country, IPO_Year, and Sector.

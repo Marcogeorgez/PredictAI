@@ -1,5 +1,6 @@
 {% extends "layout.html"%} {% block content %}
 <article>
+
   <!-- 
         - #HERO
       -->
@@ -8,13 +9,14 @@
     <div class="container">
       <div class="hero-content">
         <h1 class="h1 hero-title">
-          Develop your investments with AI Prediction
+          Develop your investments with PredictAI
         </h1>
 
         <p class="hero-text">
           Predict AI is the easiest and fastest way to see Stock price
-          predictions and forecasting, Using Deep Learning and Stock history
-          analysis.
+          predictions and forecasting, Using Recurrent Neural Networks (RNN)
+          Long short-term memory to Predict Future Time Series Stock Data and
+          Stock history analysis.
         </p>
 
         <a href="{{url_for('subscription')}}" class="btn btn-primary"
@@ -28,11 +30,12 @@
           width="628"
           height="504"
           alt="hero banner"
-          class="w-100"
-        />
+          class="w-100"/>
+
       </figure>
     </div>
   </section>
+
 
   <!-- 
         - #TREND
@@ -43,42 +46,34 @@
       <div class="trend-tab">
         <ul class="tab-nav">
           <li>
-            <button class="tab-btn active">Trend Stock</button>
+            <button id="Tbtn" onclick="NavTrend();" class="tab-btn active">Trend Stocks</button>
           </li>
 
           <li>
-            <button class="tab-btn">NASDAQ</button>
+            <button id="Ebtn" onclick="NavEGX30();" class="tab-btn">EGX30</button>
           </li>
 
           <li>
-            <button class="tab-btn">S&P 500</button>
+            <button id="Ubtn" onclick="NavEGP();" class="tab-btn">USD | EGP</button>
           </li>
 
           <li>
-            <button class="tab-btn">EGX30</button>
-          </li>
-
-          <li>
-            <button class="tab-btn">USD | EGP</button>
-          </li>
-
-          <li>
-            <button class="tab-btn">Gold</button>
+            <button id="Gbtn" onclick="NavGold();" class="tab-btn">Gold</button>
           </li>
         </ul>
 
-        <ul class="tab-content">
+
+        <ul id="Trend_content" class="tab-content">
           <li>
             <div class="trend-card">
               <div class="card-title-wrapper">
                 <img
                   src="{{url_for('static', filename='Images/GOOGL.png')}}"
-                  width="24"
+                  width="32"
                   height="24"
-                  alt=""
-                />
+                  alt=""/>
 
-                <a href="#" class="card-title">
+                <a class="card-title">
                   Alphabet Inc <span class="span">GOOGL</span>
                 </a>
               </div>
@@ -87,7 +82,7 @@
 
               <div class="card-analytics">
                 <data class="current-price" value="36641.20">{{Google[1]}}</data>
-{%if Google[2] <= 0  %}
+{%if Google[2] < 0  %}
                 <div class="badge red">{{Google[2]}}%</div>
                 {%else%}
                   <div class="badge green">{{Google[2]}}%</div>
@@ -101,12 +96,11 @@
               <div class="card-title-wrapper">
                 <img
                   src="{{url_for('static', filename='Images/microsoft.png')}}"
-                  width="24"
+                  width="32"
                   height="24"
-                  alt=""
-                />
+                  alt=""/>
 
-                <a href="#" class="card-title">
+                <a class="card-title">
                   Microsoft Corp <span class="span">MSFT</span>
                 </a>
               </div>
@@ -116,7 +110,7 @@
               <div class="card-analytics">
                 <data class="current-price" value="36641.20">{{Microsoft[1]}}</data>
 
-{%if Microsoft[2] <= 0  %}
+{%if Microsoft[2] < 0  %}
                 <div class="badge red">{{Microsoft[2]}}%</div>
                 {%else%}
                   <div class="badge green">{{Microsoft[2]}}%</div>
@@ -130,12 +124,11 @@
               <div class="card-title-wrapper">
                 <img
                   src="{{url_for('static', filename='Images/Apple.png')}}"
-                  width="24"
+                  width="32"
                   height="24"
-                  alt=""
-                />
+                  alt=""/>
 
-                <a href="#" class="card-title">
+                <a class="card-title">
                   Apple Inc <span class="span">AAPL</span>
                 </a>
               </div>
@@ -145,7 +138,7 @@
               <div class="card-analytics">
                 <data class="current-price" value="36641.20">{{Apple[1]}}</data>
 
-{%if Apple[2] <= 0  %}
+{%if Apple[2] < 0  %}
                 <div class="badge red">{{Apple[2]}}%</div>
                 {%else%}
                   <div class="badge green">{{Apple[2]}}%</div>
@@ -159,12 +152,11 @@
               <div class="card-title-wrapper">
                 <img
                   src="{{url_for('static', filename='Images/Oracle-Symbol.png')}}"
-                  width="24"
+                  width="52"
                   height="24"
-                  alt=""
-                />
+                  alt=""/>
 
-                <a href="#" class="card-title">
+                <a class="card-title">
                   Oracle Corp <span class="span">ORCL</span>
                 </a>
               </div>
@@ -174,7 +166,7 @@
               <div class="card-analytics">
                 <data class="current-price" value="36641.20">{{Oracle[1]}}</data>
 
-{%if Oracle[2] <= 0  %}
+{%if Oracle[2] < 0  %}
                 <div class="badge red">{{Oracle[2]}}%</div>
                 {%else%}
                   <div class="badge green">{{Oracle[2]}}%</div>
@@ -183,9 +175,115 @@
             </div>
           </li>
         </ul>
+
+
+
+
+        <ul id="Nav_EGX30" class="tab-content">
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Egxx.jpg')}}"
+                  width="35"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  The Egyptian Exchange EGX30 Capped <span class="span">EGX30CAPPED.CA</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="3480.04">USD {{Egxx[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Egxx[1]}}</data>
+
+{%if Egxx[2] < 0  %}
+                <div class="badge red">{{Egxx[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Egxx[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+        <ul id="Nav_EGP" class="tab-content">
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Egus1.png')}}"
+                  width="40"
+                  height="24"
+                  alt=""/>
+                <a class="card-title">
+                  To   
+                </a>
+                <img
+                src="{{url_for('static', filename='Images/Egus2.png')}}"
+                width="35"
+                height="24"
+                alt=""/>
+                <span class="span">USD/EGP</span>
+                
+              </div>
+
+              <data class="card-value" >EGP {{Egus[1]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" >{{Egus[0]}}</data>
+
+{%if Egus[2] < 0  %}
+                <div class="badge red">{{Egus[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Egus[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+        <ul id="Nav_Gold" class="tab-content"> 
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Gold.png')}}"
+                  width="35"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Gold Prices Per Ounce	 <span class="span">GOLD</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="443.56">USD {{Gold[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Gold[1]}}</data>
+
+{%if Gold[2] <= 0  %}
+                <div class="badge red">{{Gold[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Gold[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
+
 
   <!-- 
         - #MARKET
@@ -197,103 +295,100 @@
         <h2 class="h2 section-title">Stock Update</h2>
 
         <a href="{{url_for('currentstock')}}" class="btn-link"
-          >See All Stocks</a
-        >
+          >See All Stocks</a>
       </div>
 
       <div class="market-tab">
         <ul class="tab-nav">
-         
-
 
         <table class="market-table">
           <thead class="table-head">
+
             <tr class="table-row table-title">
               <th class="table-heading"></th>
 
               <th class="table-heading" scope="col">#</th>
 
-              <th class="table-heading" scope="col">Name</th>
+              <th class="table-heading" scope="col">Company</th>
 
               <th class="table-heading" scope="col">Current Price</th>
 
               <th class="table-heading" scope="col">24h %</th>
 
-              <th class="table-heading" scope="col">Market Cap</th>
+              <th class="table-heading" scope="col">Volume</th>
 
-              <th class="table-heading" scope="col">Last 7 Days</th>
+              <th class="table-heading" scope="col">Change Chart</th>
 
               <th class="table-heading"></th>
             </tr>
           </thead>
 
           <tbody class="table-body">
-            {%for i in list%}
+    {%for i in list%}
             <tr class="table-row">
               <td class="table-data">
                 <button
                   class="add-to-fav"
                   aria-label="Add to favourite"
-                  data-add-to-fav
-                >
+                  data-add-to-fav>
+
                   <ion-icon
                     name="star-outline"
                     aria-hidden="true"
-                    class="icon-outline"
-                  ></ion-icon>
+                    class="icon-outline">
+                  </ion-icon>
                   <ion-icon
                     name="star"
                     aria-hidden="true"
-                    class="icon-fill"
-                  ></ion-icon>
+                    class="icon-fill"></ion-icon>
+
                 </button>
               </td>
 
-              <th class="table-data rank" scope="row">{{loop.index}}</th>
+            <th class="table-data rank" scope="row">{{loop.index}}</th>
 
-              <td class="table-data">
+            <td class="table-data">
             <div class="wrapper" id="comp_logo">
-              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+i[4]|string+'.png')}}" width="60" height="60" 
-              alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
+            <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+i[4]|string+'.png')}}" width="60" height="60" 
+            alt="{{url_for('static', filename='Images/NYSE_Stocks/BLH.png')}}" class="img" />
 
-<h3>
- {%for compinfo in compinfo%}
+          <h3>
+          {%for compinfo in compinfo%}
               {%if i[4] == compinfo.symbol %}
                 <a class="stock-name"> {{compinfo.Name}}<span class="span">{{i[4]}}</span></a>
- {%endif%}
-              {%endfor%}
+              {%endif%}
+          {%endfor%}
               </h3>
             </div>
               </td>
 
               <td class="table-data last-price">${{i[0]}}</td>
 
-              {%if i[2] <= 0  %}
+              {%if i[2] < 0  %}
                 <td class="table-data last-update red">{{i[2]}}%</td>
                 {%else%}
                   <td class="table-data last-update green">{{i[2]}}%</td>
-                {%endif%}
+              {%endif%}
 
               <td class="table-data market-cap">{{"{:,.0f}".format(i[3][1],int)}}</td>
 
               <td class="table-data">
- {%if i[2] >= 0  %}
-            <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-              {%else%}
-                      <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
+              {%if i[2] >= 0  %}
+                <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
+              class="chart"/>
+                {%else%}
+                <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="Loss chart"
+              class="chart"/>
               {%endif%}
-                            </td>
-
-              
+              </td>
             </tr>
-{%endfor%}
+    {%endfor%}
           </tbody>
         </table>
       </div>
     </div>
   </section>
+
 
   <!-- 
         - #INSTRUCTION
@@ -318,8 +413,7 @@
                 height="130"
                 loading="lazy"
                 alt="Step 1"
-                class="img"
-              />
+                class="img"/>
             </figure>
 
             <p class="card-subtitle">Step 1</p>
@@ -327,7 +421,7 @@
             <h3 class="h3 card-title">Data</h3>
 
             <p class="card-text">
-              Acquiring accurate Data history of Stock Prices Since its initial
+              Acquiring accurate History Data of Stock Prices Since its initial
               public offering.
             </p>
           </div>
@@ -342,8 +436,7 @@
                 height="130"
                 loading="lazy"
                 alt="Step 2"
-                class="img"
-              />
+                class="img"/>
             </figure>
 
             <p class="card-subtitle">Step 2</p>
@@ -351,7 +444,7 @@
             <h3 class="h3 card-title">Analyze</h3>
 
             <p class="card-text">
-              Analyzing data using AI learning algorithms and statistical
+              Analyzing and Prepare data using AI learning algorithms and statistical
               analysis.
             </p>
           </div>
@@ -366,8 +459,7 @@
                 height="130"
                 loading="lazy"
                 alt="Step 3"
-                class="img"
-              />
+                class="img"/>
             </figure>
 
             <p class="card-subtitle">Step 3</p>
@@ -375,8 +467,7 @@
             <h3 class="h3 card-title">Testing</h3>
 
             <p class="card-text">
-              Testing Predicting results to make sure that they pass the
-              required accuracy.
+              Using LSTM to Predict and Test the data to make sure they are ready.
             </p>
           </div>
         </li>
@@ -390,8 +481,7 @@
                 height="130"
                 loading="lazy"
                 alt="Step 4"
-                class="img"
-              />
+                class="img"/>
             </figure>
 
             <p class="card-subtitle">Step 4</p>
@@ -408,6 +498,7 @@
     </div>
   </section>
 
+
   <!-- 
         - #ABOUT
       -->
@@ -421,8 +512,7 @@
           height="436"
           loading="lazy"
           alt="about banner"
-          class="w-100"
-        />
+          class="w-100"/>
       </figure>
 
       <div class="about-content">
@@ -430,7 +520,7 @@
 
         <p class="section-text">
           Predict AI offers a fast and easy way to see current stock prices
-          using realtime APIs and it's special stock prediction algorithm with
+          using real-time APIs and its special stock prediction algorithm with
           accuracy that passes 70%, the website is built to be at the highest
           degree of modern design and performance.
         </p>
@@ -444,9 +534,8 @@
             </div>
 
             <p class="item-text">
-              Experience a variety of stocks prices charts and their details.
-              You can search stock names and get insights about top stock
-              performers.
+              Experience a variety of stocks prices details. You can search 
+              stock names and get insights about top stock performers.
             </p>
           </li>
 
@@ -470,6 +559,7 @@
     </div>
   </section>
 
+
   <!-- 
         - #APP
       -->
@@ -478,7 +568,7 @@
     <div class="container">
       <div class="app-content">
         <h2 class="h2 section-title">
-          Predict AI is responsive with Smart Phones browsers
+          Predict AI is Responsive with Smart Phones browsers
         </h2>
 
         <p class="section-text">
@@ -522,8 +612,7 @@
               width="40"
               height="40"
               loading="lazy"
-              alt="Google Chrome"
-            />
+              alt="Google Chrome"/>
           </a>
 
           <a href="#">
@@ -532,8 +621,7 @@
               width="40"
               height="40"
               loading="lazy"
-              alt="Firefox"
-            />
+              alt="Firefox"/>
           </a>
 
           <a href="#">
@@ -542,8 +630,7 @@
               width="40"
               height="40"
               loading="lazy"
-              alt="Microsoft Edge"
-            />
+              alt="Microsoft Edge"/>
           </a>
 
           <a href="#">
@@ -552,8 +639,7 @@
               width="40"
               height="40"
               loading="lazy"
-              alt="Safari"
-            />
+              alt="Safari"/>
           </a>
 
           <a href="#">
@@ -562,8 +648,7 @@
               width="40"
               height="40"
               loading="lazy"
-              alt="Opera"
-            />
+              alt="Opera"/>
           </a>
         </div>
       </div>
@@ -575,10 +660,11 @@
           height="526"
           loading="lazy"
           alt="app banner"
-          class="w-100"
-        />
+          class="w-100"/>
       </div>
     </div>
   </section>
 </article>
+
+
 {% endblock content%}
