@@ -11,8 +11,8 @@ app.config.update(
 )
 
 DRIVER_NAME='ODBC Driver 17 for SQL Server'
-SERVER_NAME='DESKTOP-HSDSJ4Q'
-DATABASE_NAME='Users'
+SERVER_NAME='DESKTOP-329F25T'
+DATABASE_NAME='StockAI'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql://@{SERVER_NAME}/{DATABASE_NAME}?driver={DRIVER_NAME}'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
