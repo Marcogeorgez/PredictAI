@@ -1,7 +1,5 @@
 import os
-import requests
 from flask import render_template, send_from_directory, flash, redirect, url_for, request
-from bs4 import BeautifulSoup
 from PredictAI.Forms import Registeration, Login
 from PredictAI.key import ApiKey
 from PredictAI import app, db, bcrypt
@@ -11,7 +9,6 @@ from sqlalchemy import desc
 import yfinance as yf
 from datetime import date
 import pandas as pd
-import pyodbc
 
 
 @app.route('/home')
