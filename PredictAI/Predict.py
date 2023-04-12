@@ -57,7 +57,7 @@ def PredictFuture(PredictTicker_Name):
     # Train the model
     checkpoint = ModelCheckpoint('bestweights.h5', save_best_only=True,
                                  save_weights_only=True, monitor='val_loss', mode='min', verbose=1)
-    history = model.fit(X_train, y_train, epochs=3, batch_size=100,
+    history = model.fit(X_train, y_train, epochs=1, batch_size=1000,
                         validation_data=(X_test, y_test), callbacks=[checkpoint])
 
     # Load the weights of the best epoch
@@ -96,6 +96,12 @@ def PredictFuture(PredictTicker_Name):
     #     data[(date.today() + timedelta(days=i+1)
     #           ).strftime('%Y-%m-%d')] = forecast[i][0]
     # print(f'Predicted prices for the next {len(forecast)} days:')
+    z = []
+    n = []
     for i in range(len(forecast)):
-        print('Day {}: ${:.2f}'.format(
-            (date.today() + timedelta(days=i+1)).strftime('%Y-%m-%d'), forecast[i, 0]))
+        x = 'Day {}:'.format(
+            (date.today() + timedelta(days=i+1)).strftime('%Y-%m-%d'))
+        z.append(x)
+        y = forecast[i, 0]
+        n.append(y)
+    return z, n

@@ -4,18 +4,25 @@
 
   <section class="Ticker">
   <div class="Ticker-profile-card">
-    <div class="image">
+    <div class="image-ticker">
       <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+Ticker_Name.upper()|string+'.png')}}" 
         alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}" class="Ticker-profile-pic">
     </div>
-
     <div class="Ticker-data">
+      
 {%for compinfo in compinfo%}
       {%if compinfo.symbol == Ticker_Name.upper() %}
           <h2>{{compinfo.Name}}</h2>
       {%endif%}
 {%endfor%}      
       <span>{{Ticker_Name.upper()}}</span>
+    </div>
+
+    <div class="button-container">
+      <h4>Chose Chart Type</h4>
+      <button id="button1" class="button Standard-button">Standard</button>
+      <button id="button2" class="button Professional-button">Professional</button>
+      <button id="button3" class="button Advanced-button">Advanced</button>
     </div>
 
     <div class="Ticker-row">
@@ -221,19 +228,47 @@ function getIndices() {
     "container_id": "tv-medium-widget-5e6f9",
     "symbols": [
       [
-        "Google",
+        "{{Ticker_Name.upper()}}",
         search
+      ],
+      [
+        "FX_IDC:USDEGP|1D"
+      ],
+      [
+        "CURRENCYCOM:GOLD|1D"
+      ],
+      [
+        "BITSTAMP:BTCUSD|1D"
+      ],
+      [
+        "BITSTAMP:ETHUSD|1D"
       ]
     ],
-    "greyText": "Quotes by",
-    "gridLineColor": "#e9e9ea",
-    "fontColor": "#83888D",
-    "underLineColor": "#dbeffb",
-    "trendLineColor": "#7563ec",
+    "chartOnly": false,
     "width": "920px",
-    "height": "510px",
-    "locale": "en"
-    
+    "height": "650px",
+    "locale": "en",
+    "colorTheme": "light",
+    "autosize": true,
+    "scalePosition": "right",
+    "scaleMode": "Normal",
+    "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+    "fontSize": "14",
+    "noTimeScale": false,
+    "valuesTracking": "2",
+    "changeMode": "price-and-percent",
+    "backgroundColor": "rgba(255, 255, 255, 0)",
+    "widgetFontColor": "rgba(120, 123, 134, 0.96)",
+    "lineWidth": 2,
+    "dateFormat": "yyyy/MM/dd",
+
+
+    "chartType": "area",
+    "showMA": false,
+    "showVolume": false,
+    "maLineColor": "#2962FF",
+    "maLineWidth": 1,
+    "maLength": 9
     });
   }
 
@@ -270,6 +305,134 @@ function getIndices() {
   }
 
   setInterval(getStockInfo, 10000);
+
+
+  
+
+/**
+ * Update Ticker Chart
+ */
+
+// Get the buttons
+const button1 = document.getElementById("button1");
+const button2 = document.getElementById("button2");
+const button3 = document.getElementById("button3");
+// Add event listeners to each button
+button1.addEventListener("click", getStockChart);
+button2.addEventListener("click", updateChart1);
+button3.addEventListener("click", updateChart2);
+
+  function updateChart1() {
+    new TradingView.MediumWidget({
+      "container_id": "tv-medium-widget-5e6f9",
+      "symbols": [
+        [
+          "{{Ticker_Name.upper()}}",
+          search
+        ],
+        [
+          "FX_IDC:USDEGP|1D"
+        ],
+        [
+          "CURRENCYCOM:GOLD|1D"
+        ],
+        [
+          "BITSTAMP:BTCUSD|1D"
+        ],
+        [
+          "BITSTAMP:ETHUSD|1D"
+        ]
+      ],
+      "chartOnly": false,
+      "width": "920px",
+      "height": "650px",
+      "locale": "en",
+      "colorTheme": "light",
+      "autosize": true,
+      "scalePosition": "right",
+      "scaleMode": "Normal",
+      "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      "fontSize": "14",
+      "noTimeScale": false,
+      "valuesTracking": "2",
+      "changeMode": "price-and-percent",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "widgetFontColor": "rgba(120, 123, 134, 0.96)",
+      "lineWidth": 2,
+      "dateFormat": "yyyy/MM/dd",
+
+
+      "chartType": "candlesticks",
+      "showMA": true,
+      "showVolume": false,
+      "maLineColor": "rgba(156, 39, 176, 1)",
+      "maLineWidth": 1,
+      "maLength": 9,
+      "upColor": "#22ab94",
+      "downColor": "#f7525f",
+      "borderUpColor": "#22ab94",
+      "borderDownColor": "#f7525f",
+      "wickUpColor": "#22ab94",
+      "wickDownColor": "#f7525f"
+      });
+  }
+
+
+  function updateChart2() {
+    new TradingView.MediumWidget({
+      "container_id": "tv-medium-widget-5e6f9",
+      "symbols": [
+        [
+          "{{Ticker_Name.upper()}}",
+          search
+        ],
+        [
+          "FX_IDC:USDEGP|1D"
+        ],
+        [
+          "CURRENCYCOM:GOLD|1D"
+        ],
+        [
+          "BITSTAMP:BTCUSD|1D"
+        ],
+        [
+          "BITSTAMP:ETHUSD|1D"
+        ]
+      ],
+      "chartOnly": false,
+      "width": "920px",
+      "height": "650px",
+      "locale": "en",
+      "colorTheme": "light",
+      "autosize": true,
+      "scalePosition": "right",
+      "scaleMode": "Normal",
+      "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      "fontSize": "14",
+      "noTimeScale": false,
+      "valuesTracking": "2",
+      "changeMode": "price-and-percent",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "widgetFontColor": "rgba(120, 123, 134, 0.96)",
+      "lineWidth": 2,
+      "dateFormat": "yyyy/MM/dd",
+
+      
+      "chartType": "candlesticks",
+      "showMA": true,
+      "showVolume": true,
+      "maLineColor": "rgba(156, 39, 176, 1)",
+      "maLineWidth": 2,
+      "maLength": 9,
+      "upColor": "#22ab94",
+      "downColor": "#f7525f",
+      "borderUpColor": "#22ab94",
+      "borderDownColor": "#f7525f",
+      "wickUpColor": "#22ab94",
+      "wickDownColor": "#f7525f"
+      });
+  }
+
 </script>
 
 {% endblock content%}

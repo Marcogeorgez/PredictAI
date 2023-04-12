@@ -1,5 +1,5 @@
 import os
-from flask import render_template, send_from_directory, flash, redirect, url_for, request
+from flask import render_template, send_from_directory, flash, redirect, url_for, request, g
 from PredictAI.Forms import Registeration, Login
 from PredictAI import app, db, bcrypt
 from PredictAI.DatabaseClasses import Users, Company, Compinfo
@@ -10,7 +10,20 @@ from datetime import date
 import pandas as pd
 from PredictAI.Predict import PredictFuture
 from flask_paginate import Pagination, get_page_parameter
-from concurrent.futures import ThreadPoolExecutor
+import concurrent
+import time
+
+
+@app.before_request
+def start_timer():
+    g.start = time.time()
+
+
+@app.after_request
+def log_request_time(response):
+    diff = time.time() - g.start
+    print(f"Page rendered in {diff} seconds")
+    return response
 
 
 @app.route('/home')
@@ -30,29 +43,22 @@ def index():
         CurrentPrice = hist['Close'].values[1].round(3)
         PriceChangePercentage = (((CurrentPrice/PreviousPrice)-1)*100).round(2)
         # return the extracted information
-        print(f'{Symbol} fuck this {hist}')
         return CurrentPrice, PreviousPrice, PriceChangePercentage, Volume, Symbol
-
-    # get stock info for several companies
     Google = index_company('GOOGL')
     Microsoft = index_company('MSFT')
     Apple = index_company('AAPL')
     Oracle = index_company('ORCL')
-    Adobe = index_company('ADBE')
-    AMD = index_company('AMD')
-    Amazon = index_company('AMZN')
-    Cisco = index_company('CSCO')
-    IBM = index_company('IBM')
-    Nasdaq = index_company('NDAQ')
-    Paypal = index_company('PYPL')
-    Sony = index_company('SONY')
-    Tesla = index_company('TSLA')
-    Uber = index_company('UBER')
+
+    # get stock info for several companies using multithreading
+    companies = ['ADBE', 'AMD',
+                 'AMZN', 'CSCO', 'IBM', 'NDAQ', 'PYPL', 'SONY', 'TSLA', 'UBER']
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results = [index_company(company) for company in companies]
 
     # create a list of companies and their stock info
-    list = [AMD, Adobe, Amazon, Cisco, IBM, Nasdaq, Paypal, Sony, Tesla, Uber]
+    # define a function to extract stock info    print(results)
+    list = results
 
-    # define a function to extract stock info
     def index_company2(Symbol):
         # use yfinance to get stock data
         msft = yf.Ticker(f"{Symbol}")
@@ -263,9 +269,9 @@ def stockprediction():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 50, type=int)
 
-    # Querying the database for companies with the highest close value on maxDate
+    # Querying the database for companies on alphabetical order on maxDate
     comp_query = db.session.query(Company).filter_by(
-        Date=maxDate).order_by(Company.Close_.desc())
+        Date=maxDate).order_by(Company.Symbol.asc())
 
     # Paginate the query results
     comp_paginated = comp_query.paginate(page=page, per_page=per_page)
@@ -292,6 +298,6 @@ def stockprediction():
 @app.route('/Predict_<Ticker_Name>', methods=['GET', 'POST'])
 def predictTicker(Ticker_Name):
     # Calling the PredictFuture function to predict future stock prices
-    x = PredictFuture(Ticker_Name)
+    x, y = PredictFuture(Ticker_Name)
     # Rendering the Predict.html template with the predicted stock prices
-    return render_template('Predict.html', Ticker_Name=Ticker_Name, x=x)
+    return render_template('Predict.html', Ticker_Name=Ticker_Name, x=x, y=y)

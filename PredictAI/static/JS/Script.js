@@ -59,17 +59,21 @@ const body = document.querySelector("body");
 const logo1 = document.getElementById("logo1");
 const logo2 = document.getElementById("logo2");
 
+
+// logo1.src = "static/Images/Predict_White.png";
+// logo2.src = "static/Images/Predict_White.png";
+
 // Check if user has set dark mode previously
 let mode = localStorage.getItem("mode");
 // If dark mode is set, update the logo and body with dark theme class
 if (mode == "true") {
-  logo1.src = "static/Images/Predict.ai logo Black.png";
-  logo2.src = "static/Images/Predict.ai logo Black.png";
+  logo1.src = "static/Images/Predict_Black.png";
+  logo2.src = "static/Images/Predict_Black.png";
   body.classList.add("Light-theme");
 } else {
     // Otherwise, use light mode
-  logo1.src = "static/Images/Predict.ai logo White.png";
-  logo2.src = "static/Images/Predict.ai logo White.png";
+  logo1.src = "static/Images/Predict_White.png";
+  logo2.src = "static/Images/Predict_White.png";
   body.classList.remove("Light-theme");
 }
 
@@ -81,14 +85,14 @@ toggle.addEventListener("click", function () {
   // Toggle the class for the icon and update the mode in local storage
   if (this.classList.toggle("bi-moon")) {
     localStorage.setItem("mode", "true");
-    logo1.src = "static/Images/Predict.ai logo Black.png";
-    logo2.src = "static/Images/Predict.ai logo Black.png";
+    logo1.src = "static/Images/Predict_Black.png";
+    logo2.src = "static/Images/Predict_Black.png";
     body.classList.add("Light-theme");
     body.style.transition = "1.5s";
   } else {
     localStorage.setItem("mode", "false");
-    logo1.src = "static/Images/Predict.ai logo White.png";
-    logo2.src = "static/Images/Predict.ai logo White.png";
+    logo1.src = "static/Images/Predict_White.png";
+    logo2.src = "static/Images/Predict_White.png";
     body.classList.remove("Light-theme");
     body.style.transition = "1.5s";
   }
