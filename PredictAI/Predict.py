@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, Dropout
+from keras.layers import Dense, LSTM
 from keras.callbacks import ModelCheckpoint
 from PredictAI import db
 from PredictAI.DatabaseClasses import Company
@@ -18,7 +18,6 @@ def PredictFuture(PredictTicker_Name):
         Company.Symbol == PredictTicker_Name, Company.Date >= datetime(2020, 3, 3)).all()
     df = pd.DataFrame([(q.Date, q.Close_)
                        for q in query_result], columns=['Date', 'Close_'])
-    print(df)
     # Extract the 'Close' column as the target variable
     data = df.filter(['Close_']).values
 
@@ -27,7 +26,7 @@ def PredictFuture(PredictTicker_Name):
     scaled_data = scaler.fit_transform(data)
 
     # Define the number of time steps for the LSTM model
-    time_steps = 30
+    time_steps = 120
 
     # Create a new dataset with time steps
     X = []
@@ -46,24 +45,10 @@ def PredictFuture(PredictTicker_Name):
 
     # Build the LSTM model
     model = Sequential()
-    # Adding the first LSTM layer and some Dropout regularisation
-    model.add(LSTM(units=50, return_sequences=True,
-              input_shape=(X_train.shape[1], 1)))
-    model.add(Dropout(0.2))
+    model.add(LSTM(units=100, return_sequences=True,
+                   input_shape=(time_steps, 1)))
+    model.add(LSTM(units=100))
 
-    # Adding a second LSTM layer and some Dropout regularisation
-    model.add(LSTM(units=50, return_sequences=True))
-    model.add(Dropout(0.2))
-
-    # Adding a third LSTM layer and some Dropout regularisation
-    model.add(LSTM(units=50, return_sequences=True))
-    model.add(Dropout(0.2))
-
-    # Adding a fourth LSTM layer and some Dropout regularisation
-    model.add(LSTM(units=50))
-    model.add(Dropout(0.2))
-
-    # Adding the output layer
     model.add(Dense(units=1))
 
     # Compile the model
@@ -71,8 +56,8 @@ def PredictFuture(PredictTicker_Name):
 
     # Train the model
     checkpoint = ModelCheckpoint('bestweights.h5', save_best_only=True,
-                                 save_weights_only=True, monitor='val_loss', mode='auto', verbose=1)
-    history = model.fit(X_train, y_train, epochs=5, batch_size=128,
+                                 save_weights_only=True, monitor='val_loss', mode='min', verbose=1)
+    history = model.fit(X_train, y_train, epochs=3, batch_size=100,
                         validation_data=(X_test, y_test), callbacks=[checkpoint])
 
     # Load the weights of the best epoch

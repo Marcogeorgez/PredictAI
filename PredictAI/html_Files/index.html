@@ -218,7 +218,7 @@
               <div class="card-title-wrapper">
                 <img
                   src="{{url_for('static', filename='Images/Egus1.png')}}"
-                  width="40"
+                  width="35"
                   height="24"
                   alt=""/>
                 <a class="card-title">
@@ -233,10 +233,10 @@
                 
               </div>
 
-              <data class="card-value" >EGP {{Egus[1]}}</data>
+              <data class="card-value" >EGP {{Egus[0]}}</data>
 
               <div class="card-analytics">
-                <data class="current-price" >{{Egus[0]}}</data>
+                <data class="current-price" >{{Egus[1]}}</data>
 
 {%if Egus[2] < 0  %}
                 <div class="badge red">{{Egus[2]}}%</div>

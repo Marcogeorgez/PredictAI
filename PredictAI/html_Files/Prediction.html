@@ -57,86 +57,86 @@
       </div>
       </div> 
 
-    <table class="market-table">
-      <thead class="table-head">
-          <tr class="table-row table-title">
-            <th class="table-heading"></th>
+      <table class="market-table">
+        <thead class="table-head">
+            <tr class="table-row table-title">
+              <th class="table-heading"></th>
 
-            <th class="table-heading" scope="col">#</th>
+              <th class="table-heading" scope="col">#</th>
 
-            <th class="table-heading" scope="col">Name</th>
-
-            <th class="table-heading" scope="col">Last Price</th>
-
-            <th class="table-heading" scope="col">24h %</th>
-
-            <th class="table-heading" scope="col">Volume</th>
-
-            <th class="table-heading" scope="col">Last 7 Days</th>
-
-            <th class="table-heading"></th>
-          </tr>
-        </thead>
-        <div>
-        {%for comp in comp%}
-        <td class="table-data">
-            <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-              <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-              <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-            </button>
-        </td>
-          <th class="table-data rank" scope="row">{{ loop.index }}</th>
-                    <td class="table-data">
-            <div class="wrapper" id="comp_logo">
-              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
-              alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
-
-              <h3>
-              {%for compinfo in compinfo%}
-              {%if comp.Symbol == compinfo.symbol %}
-                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
+              <th class="table-heading" scope="col">Name</th>
+              <th class="table-heading"></th>
+            </tr>
+          </thead>
+          <div>
+          {%for comp in comp%}
+{% set row_number = loop.index + (pagination.page - 1) * pagination.per_page %}
 
 
-              {%endif%}
-              {%endfor%}
+          <td class="table-data">
+              <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+              </button>
+          </td>
+
+           <th class="table-data rank" scope="row">{{ row_number }}</th>
+                      <td class="table-data">
+              <div class="wrapper" id="comp_logo">
+                <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
+                alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
+
+                <h3>
+                {%for compinfo in compinfo%}
+                {%if comp.Symbol == compinfo.symbol %}
+                  <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
+
+
+                {%endif%}
+                {%endfor%}
+
 
               </h3>
-            </div>
-          </td>
-
-          <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
-
+              </div>
+            </td>
+            </tr>
 
 
-        {%for index, row in result.iterrows() %}
-        {%if comp.Symbol == row['Symbol']  %}
-        {%if row['Percentage'] >= 0  %}
-          <td class="table-data last-update green">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
-                {%else%}
-          <td class="table-data last-update red">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
-                {%endif%}
-          <td class="table-data market-cap">{{"{:,.0f}".format(comp.Volume|int)}}</td>
-          <td class="table-data">
-          {%if row['Percentage'] >= 0  %}
-            <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-              {%else%}
-                      <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-          </td>
 
-           {%endif%}
-          {%endif%}
-{%endfor%}
-          </tr>
+  {%endfor%}
+
+        </div>
+
+        </table>
+  {% if pagination.pages > 1 %}
+      <nav aria-label="Page navigation">
+          <ul class="pagination">
+              {% if pagination.has_prev %}
+                  <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=pagination.prev_num) }}">Previous</a></li>
+              {% else %}
+                  <li class="page-item disabled"><span class="page-link">Previous</span></li>
+              {% endif %}
+              {% for page in pagination.iter_pages() %}
+                  {% if page %}
+                      {% if page == pagination.page %}
+                          <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+                      {% else %}
+                          <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=page) }}">{{ page }}</a></li>
+                      {% endif %}
+                  {% else %}
+                      <li class="page-item disabled"><span class="page-link">...</span></li>
+                  {% endif %}
+              {% endfor %}
+              {% if pagination.has_next %}
+                  <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=pagination.next_num) }}">Next</a></li>
+              {% else %}
+                  <li class="page-item disabled"><span class="page-link">Next</span></li>
+              {% endif %}
+          </ul>
+      </nav>
+  {% endif %}
 
 
-        {%endfor%}
-
-
-      </div>
-
-      </table>
     </section>
   </article>
 </main>

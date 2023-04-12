@@ -1,9 +1,6 @@
 import os
-import requests
 from flask import render_template, send_from_directory, flash, redirect, url_for, request
-from bs4 import BeautifulSoup
 from PredictAI.Forms import Registeration, Login
-from PredictAI.key import ApiKey
 from PredictAI import app, db, bcrypt
 from PredictAI.DatabaseClasses import Users, Company, Compinfo
 from flask_login import login_user, current_user, logout_user, login_required
@@ -11,8 +8,9 @@ from sqlalchemy import desc
 import yfinance as yf
 from datetime import date
 import pandas as pd
-import pyodbc
 from PredictAI.Predict import PredictFuture
+from flask_paginate import Pagination, get_page_parameter
+from concurrent.futures import ThreadPoolExecutor
 
 
 @app.route('/home')
@@ -32,6 +30,7 @@ def index():
         CurrentPrice = hist['Close'].values[1].round(3)
         PriceChangePercentage = (((CurrentPrice/PreviousPrice)-1)*100).round(2)
         # return the extracted information
+        print(f'{Symbol} fuck this {hist}')
         return CurrentPrice, PreviousPrice, PriceChangePercentage, Volume, Symbol
 
     # get stock info for several companies
@@ -70,7 +69,7 @@ def index():
 
     # get stock info for Trend, EGP\USD, Gold Toggle Taps
     Egxx = index_company2('^EGX30CAPPED.CA')
-    Egus = index_company('EGP=X')
+    Egus = index_company2('EGP=X')
     Gold = index_company('GC=F')
 
     # get company info from the database
@@ -260,29 +259,23 @@ def stockprediction():
     maxDate = date(year=2023, month=3, day=8)
     Yesterday = date(year=2023, month=3, day=7)
 
+    # Retrieve the current page number and number of items per page from the request query parameters
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 50, type=int)
+
     # Querying the database for companies with the highest close value on maxDate
-    comp = db.session.query(Company).filter_by(
-        Date=maxDate).order_by(desc(Company.Close_)).limit(10)
+    comp_query = db.session.query(Company).filter_by(
+        Date=maxDate).order_by(Company.Close_.desc())
+
+    # Paginate the query results
+    comp_paginated = comp_query.paginate(page=page, per_page=per_page)
+
+    # Get the items for the current page
+    comp = comp_paginated.items
 
     # Querying the database for all company information
     compinfo = db.session.query(Compinfo).add_columns(
         Compinfo.symbol, Compinfo.Name).all()
-
-    # Querying the database for companies with the highest close value on maxDate and yesterday's date
-    x = Company.query.filter_by(Date=maxDate).add_columns(
-        Company.Symbol, Company.Close_).order_by(desc(Company.Close_)).all()
-    y = Company.query.filter_by(Date=Yesterday).add_columns(
-        Company.Symbol, Company.Close_).order_by(desc(Company.Close_)).all()
-
-    # Creating dataframes for x and y to calculate percentage change
-    df1 = pd.DataFrame([(d.Symbol, d.Close_)
-                       for d in x], columns=['Symbol', 'Close_'])
-    df2 = pd.DataFrame([(d.Symbol, d.Close_)
-                       for d in y], columns=['Symbol1', 'Close_1'])
-
-    # Concatenating the dataframes and calculating percentage change
-    result = pd.concat([df1, df2], axis=1)
-    result['Percentage'] = ((result['Close_']/result['Close_1'])-1)*100
 
     # Handling form submission to predict future stock prices
     if request.method == 'POST':
@@ -292,8 +285,8 @@ def stockprediction():
         # Redirecting to the predictTicker function with the Ticker_Name parameter
         return redirect(url_for('predictTicker', Ticker_Name=Ticker_Name))
 
-    # Rendering the Prediction.html template with the filtered company data and percentage change
-    return render_template('Prediction.html', comp=comp, compinfo=compinfo, result=result)
+    # Pass the pagination object to the template
+    return render_template('Prediction.html', comp=comp, compinfo=compinfo, pagination=comp_paginated)
 
 
 @app.route('/Predict_<Ticker_Name>', methods=['GET', 'POST'])
