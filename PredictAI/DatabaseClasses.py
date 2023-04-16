@@ -1,15 +1,12 @@
-from sqlalchemy import VARCHAR, FLOAT, INTEGER, VARBINARY, DateTime
+from sqlalchemy import VARCHAR, FLOAT, DateTime
 from PredictAI import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
-import yfinance as yf
 
 #  This is a function called load_user that is used in Flask's login_manager to load the user from the database.
 #  When a user logs in, their user ID is stored in the session.
 #  The load_user function takes the user ID as an argument and returns the corresponding Users object from the database by querying with the ID.
 #  This allows Flask to keep track of the current user and their session data.
-
-# Setting up user loader function for Flask-Login
 
 
 @login_manager.user_loader
@@ -26,9 +23,8 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     datejoined = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 
+
 # Creating a Company table with columns for Symbol, Date, Close_, Adj_Close, and Volume
-
-
 class Company(db.Model):
     __tablename__ = 'Company'
     Symbol = db.Column(VARCHAR(10), primary_key=True)
@@ -44,11 +40,10 @@ class Company(db.Model):
         self.Adj_Close = Adj_Close
         self.Volume = Volume
 
-# Creating a Compinfo table with columns for symbol, Name, Country, IPO_Year, and Sector
 
-
-class Compinfo(db.Model):
-    __tablename__ = 'Compinfo'
+# Creating a company_information table with columns for symbol, Name, Country, IPO_Year, and Sector
+class company_information(db.Model):
+    __tablename__ = 'company_information'
     symbol = db.Column(VARCHAR(10), primary_key=True)
     Name = db.Column(VARCHAR(20))
     Country = db.Column(VARCHAR(20))
@@ -64,6 +59,6 @@ class Compinfo(db.Model):
 
 # In this code, we are importing the required modules such as VARCHAR, FLOAT, INTEGER, VARBINARY, DateTime, db,
 # login_manager, UserMixin, datetime and yfinance. We are then setting up the user loader function for Flask-Login.
-# We are creating three tables: Users, Company, and Compinfo. The Users table has columns for id, username, email,
+# We are creating three tables: Users, Company, and company_information. The Users table has columns for id, username, email,
 # password, and datejoined. The Company table has columns for Symbol, Date, Close_, Adj_Close, and Volume.
-# The Compinfo table has columns for symbol, Name, Country, IPO_Year, and Sector.
+# The company_information table has columns for symbol, Name, Country, IPO_Year, and Sector.

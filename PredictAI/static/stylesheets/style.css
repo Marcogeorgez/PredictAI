@@ -183,9 +183,9 @@
   
   ::-webkit-scrollbar { width: 10px; }
   
-  ::-webkit-scrollbar-track { background-color: hsl(220, 4%, 5%); }
+  ::-webkit-scrollbar-track { background-color: var( --eerie-black-1); }
   
-  ::-webkit-scrollbar-thumb { background-color: hsl(220, 5%, 20%); }
+  ::-webkit-scrollbar-thumb { background-color: var(--roman-silver); }
   
   ::-webkit-scrollbar-thumb:hover { background-color: hsl(220, 5%, 30%); }
   
@@ -2381,6 +2381,14 @@
 
 
 
+  .market-table .table-head2 { 
+    border-block-end: 4px solid var(--white); 
+    width: 29rem;
+  }
+
+
+
+
   .pagination {
     display: flex;
     justify-content: center;
@@ -2471,4 +2479,152 @@
   }
 
 
+
+
+  /**
+  * CompanyPrediction Page
+  */
+
+  #PredictionText{
+    text-align: center;
+    margin-top: 130px;
+  }
+
+
   
+  /*Card*/
+
+  .Ticker2{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+  }
+
+
+
+
+  .Ticker2 h2{
+    display: flex;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+  }
+
+
+
+
+  .Ticker-profile-card2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 650px;
+    height: 350px;
+    width: 100%;
+    border-radius: 25px;
+    padding: 30px;
+    padding-top: 45px;
+    margin: 1.5rem;
+    border: 1px solid #ffffff40;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  }
+  
+
+  
+  .Ticker-profile-card2 {
+    flex-shrink: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+
+
+  .image-ticker2{
+    display: inherit;
+    position: relative;
+    height: 150px;
+    width: 150px;
+  }
+
+
+
+
+  .image-ticker2 .Ticker-profile-pic2{
+    width: 105%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  }
+
+
+
+
+  .Ticker-data2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+
+
+
+  .Ticker-data2 h2{
+    font-size: 33px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+
+
+  .Ticker-data2 span{
+    font-size: 18px;
+  }
+
+
+  /*Chart*/
+
+  .chart-container2{
+    width: 860px;
+    height: 475px;
+    display: inherit;
+    margin: 5rem;
+  }
+
+
+
+  /*Table*/
+  
+  .predict-taple {
+    border-collapse: inherit;
+    width: 40%;
+    margin: 0 auto; /* Added to center the table */
+    margin-bottom: 1rem;
+    background-color: var(--eerie-black-2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+
+
+  .predict-taple th,
+  .predict-taple td {
+    text-align: left;
+    color: var(--cadet-blue-crayola);
+    padding: 1rem;
+    border-bottom: 1px solid;
+  }
+  
+
+
+  .predict-taple th {
+    background-color: var(--eerie-black-1);
+  }
+  
+
+  
+  .predict-taple tr:hover {
+    background-color: var(--blue-crayola_10);
+  }

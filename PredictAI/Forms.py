@@ -1,14 +1,15 @@
 from flask_wtf import FlaskForm  # Importing FlaskForm from flask_wtf module
 # Importing required form fields
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
+from wtforms import (BooleanField, PasswordField, StringField, SubmitField,
+                     ValidationError)
 # Importing required validators
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo, Length
+
 # Importing the Users class from the PredictAI.DatabaseClasses module
 from PredictAI.DatabaseClasses import Users
 
+
 # Registration form class
-
-
 class Registeration(FlaskForm):
     # Username field with required validators and a placeholder
     Username = StringField('', validators=[DataRequired(), Length(

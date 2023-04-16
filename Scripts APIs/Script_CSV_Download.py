@@ -7,8 +7,12 @@ d0 = date(1970, 1, 1)
 d1 = date.today()
 
 delta = d1 - d0
-period2 = (delta.days * 24 * 60 * 60)
-period1 = period2 - 31536000
+End = (delta.days * 24 * 60 * 60)
+Start = End - 31536000  *4
+
+# Start=int(datetime.strptime('1970-01-01', "%Y-%m-%d").replace(tzinfo = timezone.utc).timestamp())
+# End = int(datetime.strptime(date.today().strftime('%Y-%m-%d'), "%Y-%m-%d").replace(tzinfo = timezone.utc).timestamp())
+
 for Ticker in "AAPL   ABNB   ADBE   ADI   ADSK   AMAT   AMD   AMX   AMZN   ASML AVGO   CAJ   CRM   CSCO   \
   DELL   GOOG   GOOGL   HPE   IBM   INFY   INTC   INTU   LOGI   LRCX   META   MRVL   MSFT   MU   NDAQ   \
   NET   NOW   NVDA ORCL   PANW   PYPL   QCOM RELX   SAP   SNPS   SONY   T   TMUS TSLA TSM TXN U UBER VMW \
@@ -78,4 +82,4 @@ for Ticker in "AAPL   ABNB   ADBE   ADI   ADSK   AMAT   AMD   AMX   AMZN   ASML 
     # period 2 - period 1 == get me all DATA from the latest year.
 
     webbrowser.open(
-        f"https://query1.finance.yahoo.com/v7/finance/download/{Ticker}?period1={period1}&period2={period2}&interval=1d&events=history&includeAdjustedClose=true", autoraise=True)
+        f"https://query1.finance.yahoo.com/v7/finance/download/{Ticker}?period1={Start}&period2={End}&interval=1d&events=history&includeAdjustedClose=true", autoraise=True)

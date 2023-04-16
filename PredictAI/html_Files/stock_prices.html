@@ -41,7 +41,7 @@
                 <div class="col-md-auto">
 
                 <div class="search_stock">
-                  <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Name, Symbol..." />
+                  <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Symbol..." />
                   <input type="submit" class="card-button" onclick="" id="search_botton" name="action1" value="Search" />
                 </div>
           </form>
@@ -69,14 +69,18 @@
             <th class="table-heading"></th>
           </tr>
         </thead>
-        <div>
+
+
+  <tbody class="table-body">
     {%for comp in comp%}
+    <tr class="table-row">
         <td class="table-data">
             <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
               <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
               <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
             </button>
         </td>
+
           <th class="table-data rank" scope="row">{{ loop.index }}</th>
                     <td class="table-data">
             <div class="wrapper" id="comp_logo">
@@ -84,16 +88,17 @@
               alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}" class="img" />
 
               <h3>
-              {%for compinfo in compinfo%}
-                {%if comp.Symbol == compinfo.symbol %}
-                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
+              {%for company_information1 in company_information1 %}
+                {%if comp.Symbol == company_information1.symbol %}
+                <a class="stock-name"> {{company_information1.Name}}<span class="span">{{comp.Symbol}}</span></a>
                 {%endif%}
               {%endfor%}
               </h3>
+
             </div>
           </td>
-          <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
 
+          <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
 
 
         {%for index, row in result.iterrows() %}
@@ -106,10 +111,10 @@
           <td class="table-data market-cap">{{"{:,.0f}".format(comp.Volume|int)}}</td>
           <td class="table-data">
                 {%if row['Percentage'] >= 0  %}
-            <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
+                    <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
               class="chart" />
                 {%else%}
-                      <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
+                    <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
               class="chart" />
           </td>
               {%endif%}
@@ -117,15 +122,18 @@
           {%endif%}
 
         {%endfor%}
-          </tr>
-
+          
+    </tr>
     {%endfor%}
+           
+        </tbody>
 
-        </div>
       </table>
-    </section>
-  </article>
-</main>
 
+    </section>
+
+  </article>
+
+</main>
 
 {% endblock content%}

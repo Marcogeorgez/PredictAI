@@ -353,9 +353,9 @@
             alt="{{url_for('static', filename='Images/NYSE_Stocks/BLH.png')}}" class="img" />
 
           <h3>
-          {%for compinfo in compinfo%}
-              {%if i[4] == compinfo.symbol %}
-                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{i[4]}}</span></a>
+          {%for company_information1 in company_information1 %}
+              {%if i[4] == company_information1.symbol %}
+                <a class="stock-name"> {{company_information1.Name}}<span class="span">{{i[4]}}</span></a>
               {%endif%}
           {%endfor%}
               </h3>

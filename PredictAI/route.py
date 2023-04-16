@@ -1,17 +1,22 @@
-import os
-from flask import render_template, send_from_directory, flash, redirect, url_for, request, g
-from PredictAI.Forms import Registeration, Login
-from PredictAI import app, db, bcrypt
-from PredictAI.DatabaseClasses import Users, Company, Compinfo
-from flask_login import login_user, current_user, logout_user, login_required
-from sqlalchemy import desc
-import yfinance as yf
-from datetime import date
-import pandas as pd
-from PredictAI.Predict import PredictFuture
-from flask_paginate import Pagination, get_page_parameter
+
 import concurrent
+import os
 import time
+from datetime import date, timedelta
+
+import pandas as pd
+import yfinance as yf
+from flask import (flash, g, redirect, render_template, request,
+                   send_from_directory, url_for)
+from flask_login import current_user, login_required, login_user, logout_user
+from flask_paginate import Pagination, get_page_parameter
+from sqlalchemy import desc
+
+from PredictAI import app, bcrypt, db
+from PredictAI.DatabaseClasses import Company, Users, company_information
+from PredictAI.Forms import Login, Registeration
+from PredictAI.Prediction import PredictFuture
+from PredictAI.StockAPIs import CompanyInformation, Stock_Information_Exchange
 
 
 @app.before_request
@@ -29,68 +34,41 @@ def log_request_time(response):
 @app.route('/home')
 @app.route('/')
 def index():
-    # define a function to extract stock info
-    def index_company(Symbol):
-        # use yfinance to get stock data
-        msft = yf.Ticker(f"{Symbol}")
-        # get basic stock info
-        msft.fast_info
-        # get historical stock data
-        hist = msft.history(period="2d")
-        # extract relevant information from historical data
-        Volume = hist['Volume'].values
-        PreviousPrice = hist['Close'].values[0].round(2)
-        CurrentPrice = hist['Close'].values[1].round(3)
-        PriceChangePercentage = (((CurrentPrice/PreviousPrice)-1)*100).round(2)
-        # return the extracted information
-        return CurrentPrice, PreviousPrice, PriceChangePercentage, Volume, Symbol
-    Google = index_company('GOOGL')
-    Microsoft = index_company('MSFT')
-    Apple = index_company('AAPL')
-    Oracle = index_company('ORCL')
+
+    Google = CompanyInformation('GOOGL')
+    Microsoft = CompanyInformation('MSFT')
+    Apple = CompanyInformation('AAPL')
+    Oracle = CompanyInformation('ORCL')
 
     # get stock info for several companies using multithreading
     companies = ['ADBE', 'AMD',
                  'AMZN', 'CSCO', 'IBM', 'NDAQ', 'PYPL', 'SONY', 'TSLA', 'UBER']
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        results = [index_company(company) for company in companies]
+        results = [CompanyInformation(company) for company in companies]
 
     # create a list of companies and their stock info
     # define a function to extract stock info    print(results)
     list = results
 
-    def index_company2(Symbol):
-        # use yfinance to get stock data
-        msft = yf.Ticker(f"{Symbol}")
-        # get basic stock info
-        msft.fast_info
-        # get historical stock data
-        hist = msft.history(period="2d")
-        # extract relevant information from historical data
-        PreviousPrice = hist['Open'].values[0].round(2)
-        CurrentPrice = hist['Close'].values[0].round(2)
-        PriceChangePercentage = (((CurrentPrice/PreviousPrice)-1)*100).round(2)
-        # return the extracted information
-        return CurrentPrice, PreviousPrice, PriceChangePercentage, Symbol
-
     # get stock info for Trend, EGP\USD, Gold Toggle Taps
-    Egxx = index_company2('^EGX30CAPPED.CA')
-    Egus = index_company2('EGP=X')
-    Gold = index_company('GC=F')
+    Egxx = Stock_Information_Exchange('^EGX30CAPPED.CA')
+    Egus = Stock_Information_Exchange('EGP=X')
+    Gold = Stock_Information_Exchange('GC=F')
 
     # get company info from the database
-    compinfo = db.session.query(Compinfo).add_columns(
-        Compinfo.symbol, Compinfo.Name).all()
+    company_information1 = db.session.query(company_information).add_columns(
+        company_information.symbol, company_information.Name).all()
 
     # render the index.html template with the stock and company info
     return render_template('index.html', Google=Google, Oracle=Oracle, Apple=Apple, Microsoft=Microsoft,
-                           Egxx=Egxx, Egus=Egus, Gold=Gold, list=list, compinfo=compinfo)
+                           Egxx=Egxx, Egus=Egus, Gold=Gold, list=list, company_information1=company_information1)
 
 
 # This route renders the about_us.html template
 @app.route('/aboutus')
 def aboutus():
     return render_template('about_us.html')
+
 
 
 # This route handles both GET and POST requests for the registration page
@@ -149,17 +127,17 @@ def login():
 @app.route('/stockprices', methods=['GET', 'POST'])
 def currentstock():
 
-    # set the max date to March 8, 2023, and yesterday's date to March 7, 2023
-    maxDate = date(year=2023, month=3, day=8)
-    Yesterday = date(year=2023, month=3, day=7)
+    # set the max date to and yesterday's date 
+    maxDate = date(year=2023, month=4, day=6)
+    Yesterday = date(year=2023, month=4, day=5)
 
-    # query the database for the top 50 companies with the highest closing stock price on March 8th, 2023
+    # query the database for the top 50 companies with the highest closing stock price on
     comp = db.session.query(Company).filter_by(
         Date=maxDate).order_by(desc(Company.Close_)).limit(50)
 
     # query the database for all the information about the companies
-    compinfo = db.session.query(Compinfo).add_columns(
-        Compinfo.symbol, Compinfo.Name).all()
+    company_information1 = db.session.query(company_information).add_columns(
+        company_information.symbol, company_information.Name).all()
 
     # query the database for the closing stock price of the companies on March 8th, 2023
     x = Company.query.filter_by(Date=maxDate).add_columns(Company.Symbol, Company.Close_)\
@@ -187,7 +165,7 @@ def currentstock():
         return redirect(url_for('ticker', Ticker_Name=Ticker_Name))
 
     # render the stock_prices.html template with the company data and percentage change in stock prices
-    return render_template('stock_prices.html', comp=comp, compinfo=compinfo, result=result)
+    return render_template('stock_prices.html', comp=comp, company_information1=company_information1, result=result)
 
 
 # This route is for the subscription page
@@ -246,25 +224,23 @@ def ticker(Ticker_Name):
     CurrentPrice = hist['Close'].values[1]
     PriceChangePercentage = ((CurrentPrice/PreviousPrice)-1)*100
     volume = "{:,}".format(hist['Volume'].values[1])
-    Open = hist['Open'].values[0]
-    High = hist['High'].values[0]
-    Low = hist['Low'].values[0]
+    Open = hist['Open'].values[1]
+    High = hist['High'].values[1]
+    Low = hist['Low'].values[1]
     # query the database for all the information about the companies
-    compinfo = db.session.query(Compinfo).add_columns(
-        Compinfo.symbol, Compinfo.Name).all()
+    company_information1 = db.session.query(company_information).add_columns(
+        company_information.symbol, company_information.Name).all()
 
     # render the Ticker.html template with the stock information
     return render_template('Ticker.html', company_name=company_name,
                            Ticker_Name=Ticker_Name, CurrentPrice=CurrentPrice, volume=volume, PriceChangePercentage=PriceChangePercentage,
-                           Open=Open, High=High, Low=Low, compinfo=compinfo)
+                           Open=Open, High=High, Low=Low, company_information1=company_information1)
 
 
 @app.route('/prediction', methods=['GET', 'POST'])
-def stockprediction():
+def Stock_Prediction():
     # Setting the maximum date and yesterday's date for filtering data
     maxDate = date(year=2023, month=3, day=8)
-    Yesterday = date(year=2023, month=3, day=7)
-
     # Retrieve the current page number and number of items per page from the request query parameters
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 50, type=int)
@@ -280,8 +256,8 @@ def stockprediction():
     comp = comp_paginated.items
 
     # Querying the database for all company information
-    compinfo = db.session.query(Compinfo).add_columns(
-        Compinfo.symbol, Compinfo.Name).all()
+    company_information1 = db.session.query(company_information).add_columns(
+        company_information.symbol, company_information.Name).all()
 
     # Handling form submission to predict future stock prices
     if request.method == 'POST':
@@ -292,12 +268,26 @@ def stockprediction():
         return redirect(url_for('predictTicker', Ticker_Name=Ticker_Name))
 
     # Pass the pagination object to the template
-    return render_template('Prediction.html', comp=comp, compinfo=compinfo, pagination=comp_paginated)
+    return render_template('Prediction.html', comp=comp, company_information1=company_information1, pagination=comp_paginated)
 
 
 @app.route('/Predict_<Ticker_Name>', methods=['GET', 'POST'])
+@login_required
 def predictTicker(Ticker_Name):
+    Symbol = Ticker_Name
+    Ticker_Name = Symbol
+
+    # query the database for all the information about the companies
+    company_information1 = db.session.query(company_information).add_columns(
+        company_information.symbol, company_information.Name).all()
+
     # Calling the PredictFuture function to predict future stock prices
     x, y = PredictFuture(Ticker_Name)
-    # Rendering the Predict.html template with the predicted stock prices
-    return render_template('Predict.html', Ticker_Name=Ticker_Name, x=x, y=y)
+    z = []
+    for i in range(len(x)):
+        zx = 'Day {}:'.format(
+            (date.today() + timedelta(days=i+1)).strftime('%Y-%m-%d'))
+        z.append(zx)
+
+    # Rendering the CompanyPrediction.html template with the predicted stock prices
+    return render_template('CompanyPrediction.html', Ticker_Name=Ticker_Name, x=x, y=y, z=z, company_information1=company_information1)

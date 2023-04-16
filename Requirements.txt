@@ -1,4 +1,3 @@
-pyodbc
 yfinance
 webbrowser
 pathlib
@@ -19,3 +18,5 @@ flask_wtf
 wtforms
 flask_sqlalchemy
 flask_bcrypt
+concurrent
+time
