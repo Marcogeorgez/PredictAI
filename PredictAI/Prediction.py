@@ -9,8 +9,6 @@ from PredictAI import db
 from PredictAI.DatabaseClasses import Company
 
 # Define a function to predict future stock prices
-
-
 def PredictFuture(PredictTicker_Name):
 
     # Connect to database and select required data
