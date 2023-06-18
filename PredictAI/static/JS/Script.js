@@ -8,7 +8,7 @@ $(function () {
 
 	setTimeout(function () {
 		$('.loader_bg').fadeToggle();
-	}, 500);
+	}, 300);
 });
 
 
@@ -65,34 +65,39 @@ const logo2 = document.getElementById("logo2");
 
 // Check if user has set dark mode previously
 let mode = localStorage.getItem("mode");
-// If dark mode is set, update the logo and body with dark theme class
+// If dark mode is set, update the logo and body with light theme class
 if (mode == "true") {
   logo1.src = "static/Images/Predict_Black.png";
   logo2.src = "static/Images/Predict_Black.png";
+  toggleDark.src = "static/Images/moon.svg";
   body.classList.add("Light-theme");
 } else {
-    // Otherwise, use light mode
+    // Otherwise, remove light mode and use dark mode
   logo1.src = "static/Images/Predict_White.png";
   logo2.src = "static/Images/Predict_White.png";
+  toggleDark.src = "static/Images/sun.svg";
   body.classList.remove("Light-theme");
 }
+
 
 
 // Add event listener to toggle button
 toggle.addEventListener("click", function () {
     // Toggle the class for the icon
-  this.classList.toggle("bi-brightness-high-fill");
+  this.classList.toggle("Sun");
   // Toggle the class for the icon and update the mode in local storage
-  if (this.classList.toggle("bi-moon")) {
+  if (this.classList.toggle("Moon")) {
     localStorage.setItem("mode", "true");
     logo1.src = "static/Images/Predict_Black.png";
     logo2.src = "static/Images/Predict_Black.png";
+    toggleDark.src = "static/Images/moon.svg";
     body.classList.add("Light-theme");
     body.style.transition = "1.5s";
   } else {
     localStorage.setItem("mode", "false");
     logo1.src = "static/Images/Predict_White.png";
     logo2.src = "static/Images/Predict_White.png";
+    toggleDark.src = "static/Images/sun.svg";
     body.classList.remove("Light-theme");
     body.style.transition = "1.5s";
   }
@@ -329,4 +334,3 @@ $(function () {
     });
   }
 });
-

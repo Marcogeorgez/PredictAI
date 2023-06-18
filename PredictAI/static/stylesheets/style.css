@@ -421,8 +421,9 @@
   
   .navbar-link:is(:hover, :focus, .active) { color: var(--blue-crayola); }
   
-  
-  
+  .Sun{
+    filter: invert(1);
+  }
   
   /*-----------------------------------*\
     #HERO
@@ -1684,6 +1685,7 @@
     transition: transform 0.6s;
   }
 
+
   /* Style inputs */
   input[type=textsupport], #country, #subjectsupport {
     width: 100%;
@@ -1693,7 +1695,6 @@
     margin-bottom: 16px;
     resize: vertical;
   }
-
 
 
 
@@ -1708,12 +1709,13 @@
 
 
 
-
   #supportcontainer {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 10px;
   }
+
+
 
   /* Create two columns that float next to eachother */
   #thecolumn {
@@ -1722,16 +1724,24 @@
     margin-top: 6px;
     padding: 20px;
   }
+
+
+
   #mainofsupport{
     padding: 50px;
     margin: 5px;
   }
+
+
+
   /* Clear floats after the columns */
   #therow:after {
     content: "";
     display: table;
     clear: both;
   }
+
+
 
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
@@ -1742,11 +1752,13 @@
   }
 
 
+
   /* Alert Massage */
   #alert_massage{
     margin-top: 10rem;
     margin: 90px;
   }
+
 
 
   .alert{
@@ -1950,6 +1962,7 @@
   from{background-position:1rem 0}to{background-position:0 0}}
 
 
+
 @keyframes progress-bar-stripes{
   from{background-position:1rem 0}to{background-position:0 0}}
   
@@ -2024,6 +2037,7 @@
   }
 
 
+
   
   #helpurl {
     margin: 100px 300px;
@@ -2039,6 +2053,7 @@
   
 
 
+
   #ERROR,
   #NotFound {
     font-family: "Comic Neue", cursive;
@@ -2046,6 +2061,7 @@
     line-height: 50px;
     box-sizing: border-box;
   }
+
 
 
 
@@ -2066,6 +2082,7 @@
     top: 55%;
     animation: astronautFly 6s infinite linear;
   }
+
 
 
 
@@ -2491,6 +2508,7 @@
   }
 
 
+  
   
   /*Card*/
 

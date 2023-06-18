@@ -41,8 +41,8 @@ def index():
     Oracle = CompanyInformation('ORCL')
 
     # get stock info for several companies using multithreading
-    companies = ['ADBE', 'AMD',
-                 'AMZN', 'CSCO', 'IBM', 'NDAQ', 'PYPL', 'SONY', 'TSLA', 'UBER']
+    companies = ['TSLA', 'INTC',
+                 'AMD', 'SBUX', 'V', 'PYPL', 'SONY', 'ADBE']
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = [CompanyInformation(company) for company in companies]
 
@@ -128,8 +128,8 @@ def login():
 def currentstock():
 
     # set the max date to and yesterday's date 
-    maxDate = date(year=2023, month=4, day=6)
-    Yesterday = date(year=2023, month=4, day=5)
+    maxDate = date(year=2023, month=6, day=16)
+    Yesterday = date(year=2023, month=6, day=15)
 
     # query the database for the top 50 companies with the highest closing stock price on
     comp = db.session.query(Company).filter_by(
@@ -139,15 +139,15 @@ def currentstock():
     company_information1 = db.session.query(company_information).add_columns(
         company_information.symbol, company_information.Name).all()
 
-    # query the database for the closing stock price of the companies on March 8th, 2023
+    # query the database for the closing stock price of the companies 
     x = Company.query.filter_by(Date=maxDate).add_columns(Company.Symbol, Company.Close_)\
         .order_by(desc(Company.Close_)).all()
 
-    # query the database for the closing stock price of the companies on March 7th, 2023
+    # query the database for the closing stock price of the companies 
     y = Company.query.filter_by(Date=Yesterday).add_columns(Company.Symbol, Company.Close_)\
         .order_by(desc(Company.Close_)).all()
 
-    # create a pandas dataframe with the closing stock prices of the companies on March 8th and March 7th
+    # create a pandas dataframe with the closing stock prices of the companies 
     df1 = pd.DataFrame([(d.Symbol, d.Close_)
                         for d in x], columns=['Symbol', 'Close_'])
     df2 = pd.DataFrame([(d.Symbol, d.Close_)

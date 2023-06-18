@@ -1,7 +1,6 @@
 # ------------------------------------------------WARNING: DONT PRESS Ctrl+S--------------------------------------------
 # Importing necessary modules
 from datetime import timedelta
-
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager

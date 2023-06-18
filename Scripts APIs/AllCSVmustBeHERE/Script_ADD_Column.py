@@ -3,7 +3,7 @@ from pathlib import Path
 
 # Define the directory path where CSV files are located
 mydir = Path(
-    r"C:\Users\mrbro\Desktop\Graduation Project\#PredictAi Project\Scripts APIs\AllCSVmustBeHERE")
+    r"C:\Users\mrbro\Desktop\College\Graduation Project\#PredictAi Project\Scripts APIs\AllCSVmustBeHERE")
 
 # Define a placeholder company name variable for future use
 company_name = 'if we can add each company name here , then we can make it auto generator'

@@ -13,32 +13,32 @@ def PredictFuture(PredictTicker_Name):
 
     # Connect to database and select required data
     query_result = db.session.query(Company).filter(
-        Company.Symbol == PredictTicker_Name, Company.Date <= datetime(2023, 5, 15)).all()
+        Company.Symbol == PredictTicker_Name, Company.Date <= datetime(2023, 2, 16)).all()
 
     # Create a pandas dataframe from the database result
     First_Query = pd.DataFrame([(q.Date, q.Close_)
                                 for q in query_result], columns=['Date', 'Close_'])
     First_Query = First_Query.sort_values(by='Date', ascending=True)
-    # Put the First_Query Data into Company_Train.csv so it be easy to reshape it and read it without datatype
+    # Put the First_Query Data into Company_Train.csv so it be easy to reshape it and read it without datatype flaot64
     First_Query.to_csv('Company_Train.csv', index=False)
     Train_Data = pd.read_csv('Company_Train.csv')
 
     # Connect to database and select required data
     query_result2 = db.session.query(Company).filter(
         Company.Symbol == PredictTicker_Name, Company.Date >= datetime(
-            2022, 11, 9),
-        Company.Date <= datetime(2023, 4, 15)).all()
+            2023, 2, 17),
+        Company.Date <= datetime(2023, 6, 16)).all()
 
     # Create a pandas dataframe from the database result
     Second_Query = pd.DataFrame([(q.Date, q.Close_)
                                  for q in query_result2], columns=['Date', 'Close_'])
     Second_Query = Second_Query.sort_values(by='Date', ascending=False)
 
-    print('----------Number of Days to test and predict: ', len(Second_Query))
+    print('----------Number of Days to validate and predict: ', len(Second_Query))
 
-    # Put the Second_Query Data into Company_Test.csv so it be easy to reshape it and read it without datatype
-    Second_Query.to_csv('Company_Test.csv', index=False)
-    Test_Data = pd.read_csv('Company_Test.csv')
+    # Put the Second_Query Data into Company_Validate.csv so it be easy to reshape it and read it without datatype flaot64
+    Second_Query.to_csv('Company_Validate.csv', index=False)
+    Validate_Data = pd.read_csv('Company_Validate.csv')
 
     # Get the closing prices from the dataframe
     data = First_Query.filter(['Close_']).values
@@ -77,11 +77,10 @@ def PredictFuture(PredictTicker_Name):
 
     # concate train data and test data to dataset total then reshape them
     dataset_total = pd.concat(
-        (Train_Data['Close_'], Test_Data['Close_']), axis=0)
+        (Train_Data['Close_'], Validate_Data['Close_']), axis=0)
 
     # Get the input data for future predictions
-    inputs_future = dataset_total[len(
-        dataset_total) - len(Test_Data) - 60:].values
+    inputs_future = dataset_total[len(dataset_total) - len(Validate_Data) - 60:].values
 
     # Reshape input data to 2D array
     inputs_future = inputs_future.reshape(-1, 1)
@@ -90,21 +89,21 @@ def PredictFuture(PredictTicker_Name):
     inputs_future = scaler.transform(inputs_future)
 
     # Create an empty list to store predicted values
-    Predicted_Values_TestAndTrain = []
+    Predicted_Values_ValidateAndTrain = []
 
     # Loop through the input data and append values to the list
     for i in range(time_steps, time_steps+len(Second_Query)-1):
-        Predicted_Values_TestAndTrain.append(inputs_future[i-time_steps:i, 0])
+        Predicted_Values_ValidateAndTrain.append(inputs_future[i-time_steps:i, 0])
 
     # Convert the list to a numpy array
-    Predicted_Values_TestAndTrain = np.array(Predicted_Values_TestAndTrain)
+    Predicted_Values_ValidateAndTrain = np.array(Predicted_Values_ValidateAndTrain)
 
     # Reshape the numpy array to 3D
-    Predicted_Values_TestAndTrain = np.reshape(Predicted_Values_TestAndTrain, (
-        Predicted_Values_TestAndTrain.shape[0], Predicted_Values_TestAndTrain.shape[1], 1))
+    Predicted_Values_ValidateAndTrain = np.reshape(Predicted_Values_ValidateAndTrain, (
+        Predicted_Values_ValidateAndTrain.shape[0], Predicted_Values_ValidateAndTrain.shape[1], 1))
 
     # Use the model to predict the stock prices
-    predicted_stock_price = model.predict(Predicted_Values_TestAndTrain)
+    predicted_stock_price = model.predict(Predicted_Values_ValidateAndTrain)
 
     # Inverse transform the predicted stock prices
     predicted_stock_price = scaler.inverse_transform(predicted_stock_price)
