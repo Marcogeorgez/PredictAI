@@ -3,7 +3,7 @@
 
     <a href="{{url_for('index')}}" class="logo">
       <img
-        src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}"
+        src=""
         id="logo1"
         width="220"/>
     </a>
@@ -27,7 +27,7 @@
 
         <li class="navbar-item">
           <a
-            href="{{url_for('stockprediction')}}"
+            href="{{url_for('Stock_Prediction')}}"
             class="navbar-link"
             data-nav-link
             >Stock Prediction</a>
@@ -68,6 +68,6 @@
 
     
     <!---Light/Dark Mode LOGO-->
-    <i class="bi bi-brightness-high-fill" id="toggleDark"></i>
+    <img src="{{url_for('static', filename='Images/moon.svg')}}" width="20px" height="20px" class="Moon" id="toggleDark"></img>
   </div>
 </header>

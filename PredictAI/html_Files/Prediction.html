@@ -1,7 +1,7 @@
 {% extends "layout.html"%} {% block content %}
 
-<main>
 
+<main>
 
 <article>
      <section class="section hero" aria-label="hero" data-section>
@@ -23,121 +23,121 @@
             width="628"
             height="504"
             alt="hero banner"
-            class="w-100"
-          />
+            class="w-100"/>
         </figure>
       </div>
     </section> 
 
+
+
     <!-- 
         - #MARKET
       -->
-    <article >
+
     <section class="section market" aria-label="market update" data-section>
       <div class="container">
         <div class="title-wrapper" id="search_title">
-          <h2 class="h2 section-title">Search Stocks</h2>
+          <h2 class="h2 section-title">Predict Stocks</h2>
         </div>
 
         <div class="market-tab">
-          
-          <form action="{{ url_for('currentstock') }}" method="POST">
+          <form action="{{ url_for('Stock_Prediction') }}" method="POST">
             <div class="container-lg">
-              <div class="row">
-                <div class="col-md-auto">
-                
+              <div class="col-md-auto">
                 
                 <div class="search_stock">
-                  <input type="search" name="search_stock_price" id="form-searchbar" placeholder="Company Name, Symbol..." />
-                  <input type="submit" class="card-button" onclick="" id="search_botton" name="action1" value="Search" />
+                  <input type="search" name="Ticker_Name" id="form-searchbar" placeholder="Company Name, Symbol..." />
+                  <input type="submit" class="card-button" onclick="" id="search_botton" name="predict" value="Search" />
                 </div>
-                  
+
+            </div>
           </form>
         </div>
-      </div>
       </div> 
 
-    <table class="market-table">
-      <thead class="table-head">
+
+  <table id="prediction-table" class="market-table">
+        <thead class="table-head table-head2">
           <tr class="table-row table-title">
-            <th class="table-heading"></th>
-
-            <th class="table-heading" scope="col">#</th>
-
-            <th class="table-heading" scope="col">Name</th>
-
-            <th class="table-heading" scope="col">Last Price</th>
-
-            <th class="table-heading" scope="col">24h %</th>
-
-            <th class="table-heading" scope="col">Volume</th>
-
-            <th class="table-heading" scope="col">Last 7 Days</th>
-
-            <th class="table-heading"></th>
+            <th class="table-heading" scope="col">Available to Predict Companies</th>
           </tr>
         </thead>
-        <div>
-        {%for comp in comp%}
-        <td class="table-data">
-            <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-              <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-              <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-            </button>
-        </td>
-          <th class="table-data rank" scope="row">{{ loop.index }}</th>
-                    <td class="table-data">
-            <div class="wrapper" id="comp_logo">
-              <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
-              alt="{{url_for('static', filename='Images/placeholder.png')}}" class="img" />
+          
 
-              <h3>
-              {%for compinfo in compinfo%}
-              {%if comp.Symbol == compinfo.symbol %}
-                <a class="stock-name"> {{compinfo.Name}}<span class="span">{{comp.Symbol}}</span></a>
+    <tbody class="table-body">
+      {%for comp in comp%}
+        <tr class="table-row">
+            {% set row_number = loop.index + (pagination.page - 1) * pagination.per_page %}
+            
+              <td class="table-data">
+                  <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                    <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                    <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                  </button>
+              </td>
 
+              <th class="table-data rank" scope="row">{{ row_number }}</th>
+                  <td class="table-data">
+                    <div class="wrapper" id="comp_logo">
+                      <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+comp.Symbol|string+'.png')}}" width="60" height="60" 
+                      alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}" class="img" />
 
-              {%endif%}
-              {%endfor%}
+                      <h3>
+                      {%for company_information1 in company_information1 %}
+                          {%if comp.Symbol == company_information1.symbol %}
+                            <a class="stock-name"> {{company_information1.Name}}<span class="span">{{comp.Symbol}}</span></a>
+                          {%endif%}
+                      {%endfor%}
+                      </h3>
 
-              </h3>
-            </div>
-          </td>
-
-          <td class="table-data last-price">{{"$%.2f"|format(comp.Close_)}}</td>
-
-
-
-        {%for index, row in result.iterrows() %}
-        {%if comp.Symbol == row['Symbol']  %}
-        {%if row['Percentage'] >= 0  %}
-          <td class="table-data last-update green">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
-                {%else%}
-          <td class="table-data last-update red">{{"{:,.3f}".format(row['Percentage'] |float)}}%</td>
-                {%endif%}
-          <td class="table-data market-cap">{{"{:,.0f}".format(comp.Volume|int)}}</td>
-          <td class="table-data">
-          {%if row['Percentage'] >= 0  %}
-            <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-              {%else%}
-                      <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-          </td>
-
-           {%endif%}
-          {%endif%}
-{%endfor%}
-          </tr>
+                    </div>
+                </td>
+              </tr>
+            
+      {%endfor%}
+    
+        </tr>
+    </tbody>
+  </table>
 
 
-        {%endfor%}
 
+  {% if pagination.pages > 1 %}  <!-- If there's more than one page -->
+      <nav aria-label="Page navigation">  <!-- Create navigation element -->
+          <ul class="pagination">  <!-- Create un-ordered list for page numbers -->
 
-      </div>
+              {% if pagination.has_prev %}  <!-- If there's a previous page -->
+                  <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=pagination.prev_num) }}">Previous</a></li>  <!-- Create link to previous page -->
+              {% else %}  <!-- If there's no previous page -->
+                  <li class="page-item disabled"><span class="page-link">Previous</span></li>  <!-- Disable previous link -->
+              {% endif %}
 
-      </table>
+              {% for page in pagination.iter_pages() %}  <!-- Loop through available pages -->
+                  {% if page %}  <!-- If it's a valid page number -->
+                      {% if page == pagination.page %}  <!-- If it's the current page -->
+                          <li class="page-item active"><span class="page-link">{{ page }}</span></li>  <!-- Highlight current page -->
+                      {% else %}  <!-- If it's not the current page -->
+                          <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=page) }}">{{ page }}</a></li>  <!-- Create link to page -->
+                      {% endif %}
+                  {% else %}  <!-- If it's not a valid page number -->
+                      <li class="page-item disabled"><span class="page-link">...</span></li>  <!-- Add ellipsis -->
+                  {% endif %}
+              {% endfor %}
+
+              {% if pagination.has_next %}  <!-- If there's a next page -->
+                  <li class="page-item"><a class="page-link" href="{{ url_for(request.endpoint, page=pagination.next_num) }}">Next</a></li>  <!-- Create link to next page -->
+              {% else %}  <!-- If there's no next page -->
+                  <li class="page-item disabled"><span class="page-link">Next</span></li>  <!-- Disable next link -->
+              {% endif %}
+          </ul>
+      </nav>
+  {% endif %}  <!-- End if statement -->
+
     </section>
+
   </article>
+
 </main>
+
+
 {% endblock content%}

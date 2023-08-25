@@ -3,8 +3,8 @@
 How to use it?
 1- Open run.py
 2- Run it like a normal python file.
-3- Open in chrome or Your browser the Ctrl+lift click to follow http://127.0.0.1:5000/ shown in the terminal
-4- Cancel it by clicking ctrl+c in the terminal
+3- Open in chrome or Your browser the Ctrl+lift click to follow http://127.0.0.1:5000/ shown in the terminal.
+4- Cancel it by clicking Ctrl+c in the terminal.
 
 What is it built on?
 1- Python (Flask)

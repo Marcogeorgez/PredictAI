@@ -1,83 +1,422 @@
 {% extends "layout.html"%} {% block content %}
 
 <main>
-
-  <div>
-    <div class="market-tab">
-      <ul class="tab-nav">
-        <li>
-          <button class="tab-btn active">Top Performance</button>
-        </li>
-
-        <li>
-          <button class="tab-btn">Top losers</button>
-        </li>
-
-        <li>
-          <button class="tab-btn">Top Prediction</button>
-        </li>
-      </ul>
-    </div>
-
-    <table class="market-table">
-      <thead class="table-head">
-        <tr class="table-row table-title">
-          <th class="table-heading"></th>
-
-          <th class="table-heading" scope="col">#</th>
-
-          <th class="table-heading" scope="col">Name</th>
-
-          <th class="table-heading" scope="col">Last Price</th>
-
-          <th class="table-heading" scope="col">24h %</th>
-
-          <th class="table-heading" scope="col">Volume</th>
-
-          <th class="table-heading" scope="col">Last 7 Days</th>
-
-          <th class="table-heading"></th>
-        </tr>
-      </thead>
-      <div>
-        <div>
-          <td class="table-data">
-            <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
-              <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
-              <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
-            </button>
-          </td>
-
-          <th class="table-data rank" scope="row">1</th>
-
-          <td class="table-data">
-            <div class="wrapper">
-              <h3>
-                <a href="#" class="stock-name">{{company_name}} <span class="span">{{Ticker_Name.upper()}}</span></a>
-              </h3>
-            </div>
-          </td>
-
-          <td class="table-data last-price">{{"$%.2f"|format(CurrentPrice)}}</td>
-
-                <td class="table-data last-update green">%{{"%.3f"|format(PriceChangePercentage)}}</td>
-
-          <td class="table-data market-cap">{{volume}}</td>
-
-          <td class="table-data">
-            <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
-              class="chart" />
-          </td>
-          </tr>
-          <tr> <td><div id="chartContainer" style="height: 450px; width: 100%;"></div></td>
-          </tr>
-          </div>
+  <section class="Ticker">
+    <div class="Ticker-profile-card">
+      <div class="image-ticker">
+        <img
+          src="{{url_for('static', filename='Images/NYSE_Stocks/'+Ticker_Name.upper()|string+'.png')}}"
+          alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}"
+          class="Ticker-profile-pic"/>
+          
+      </div>
+      <div class="Ticker-data">
+        {%for company_information1 in company_information1 %} {%if
+        company_information1.symbol == Ticker_Name.upper() %}
+        <h2>{{company_information1.Name}}</h2>
+        {%endif%} {%endfor%}
+        <span>{{Ticker_Name.upper()}}</span>
       </div>
 
-    </table>
-      </article>
+      <div class="button-container">
+        <h4>Chose Chart Type</h4>
+        <button id="button1" class="button Standard-button">Standard</button>
+        <button id="button2" class="button Professional-button">
+          Professional
+        </button>
+        <button id="button3" class="button Advanced-button">Advanced</button>
+      </div>
 
-  </div>
+      <div class="Ticker-row">
+        <div class="Ticker-info">
+          <h3>Last Price</h3>
+          <span>{{"$%.2f"|format(CurrentPrice)}}</span>
+        </div>
+
+        <div class="Ticker-info">
+          <h3>24h %</h3>
+          {%if PriceChangePercentage >= 0 %}
+          <span class="table-data last-update green"
+            >{{"%.3f"|format(PriceChangePercentage)}}%</span
+          >
+          {%else%}
+          <span class="table-data last-update red"
+            >{{"%.3f"|format(PriceChangePercentage)}}%</span
+          >
+          {%endif%}
+        </div>
+
+        <div class="Ticker-info">
+          <h3>Open</h3>
+          <span>{{"$%.2f"|format(Open)}}</span>
+        </div>
+
+        <div class="Ticker-info">
+          <h3>High</h3>
+          <span>{{"$%.2f"|format(High)}}</span>
+        </div>
+
+        <div class="Ticker-info">
+          <h3>Low</h3>
+          <span>{{"$%.2f"|format(Low)}}</span>
+        </div>
+
+        <div class="Ticker-info">
+          <h3>Volume</h3>
+          <span>{{volume}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div id="tv-medium-widget-5e6f9"></div>
+    </div>
+  </section>
 </main>
+
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+  /**
+   * Search Ticker Chart
+   */
+
+  // Define the search variable and set lastUpdated to the current date and time
+  let search;
+  const lastUpdated = new Date().toLocaleString();
+
+  // When the document is ready, execute the following functions
+  $(document).ready(function () {
+    search = "{{Ticker_Name.upper()}}"; // Set search to the uppercase version of Ticker_Name
+    getStockInfo(); // Get the stock information
+    getIndices(); // Get the stock indices
+    getStockChart(); // Get the stock chart
+    // Add the lastUpdated variable to the element with class "lastUpdated"
+    $(".lastUpdated").text(`Last updated: {{lastUpdated}}`);
+    // When the search button is clicked, toggle the visibility of the search bar
+    $("#search").on("click", function () {
+      $(".form-searchbar").toggleClass("hidden");
+    });
+
+    // When a key is pressed inside the search bar, if the key pressed is Enter, perform a search
+    $(".form-searchbar").keypress(function (e) {
+      if (e.which == 13) {
+        search = $(".form-searchbar").val();
+        getStockInfo();
+        getStockChart();
+      }
+    });
+  });
+
+  // Get the stock information
+  function getStockInfo() {
+    data = $.ajax({
+      type: "GET",
+      url: `https://api.iextrading.com/1.0/stock/{{search}}/quote`,
+      dataType: "json",
+      success: function (data) {
+        // Define variables for the stock information
+        let name = data.symbol;
+        let price = rounder(data.latestPrice, 2);
+        let change = data.changePercent;
+        let closeTime = new Date(data.closeTime).toLocaleString();
+        // Update the HTML elements with the stock information
+        $(".header .name").text(name);
+        $(".header .price").text(price);
+        $(".header .change").text((rounder(change, 4) * 100).toFixed(2) + "%");
+        $(".closeTime").text(`Trading Window Closes: {{closeTime}}`);
+        // Set the color and arrow of the change element based on whether the change is positive or negative
+        if (change >= 0) {
+          $(".header .change").css("color", "green");
+          $(".header .change").prepend("&#x25B2;");
+        } else {
+          $(".header .change").css("color", "red");
+          $(".header .change").prepend("&#x25BC;");
+        }
+      },
+    });
+  }
+
+  // Get the stock indices
+  function getIndices() {
+    // Get the DJIA data
+    data = $.ajax({
+      type: "GET",
+      url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=^DJI&apikey=D82RGKW7PC6AAW7D",
+      dataType: "json",
+      success: function (data) {
+        // Define variables for the DJIA data
+        let lastRefreshed = data["Meta Data"]["3. Last Refreshed"];
+        let price = rounder(
+          data["Time Series (Daily)"][lastRefreshed]["1. open"],
+          2
+        );
+        let yPrice = data["Time Series (Daily)"][getYesterdayDate()]["1. open"];
+        let change =
+          (rounder((price - yPrice) / Math.abs(price), 4) * 100).toFixed(2) +
+          "%";
+        // Update the HTML elements with the DJIA data
+        $("#djia .price").text(price);
+        $("#djia .change").text(change);
+        // Set the color and arrow of the change element based on whether the change is positive or negative
+        if (change >= 0) {
+          $("#djia .change").css("color", "green");
+          $("#djia .change").prepend("&#x25B2;");
+        } else {
+          $("#djia .change").css("color", "red");
+          $("#djia .change").prepend("&#x25BC;");
+        }
+      },
+    });
+
+    // Get the GSPC data
+    data = $.ajax({
+      type: "GET",
+      url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=^GSPC&apikey=D82RGKW7PC6AAW7D",
+      dataType: "json",
+      success: function (data) {
+        // Define variables for the GSPC data
+        let lastRefreshed = data["Meta Data"]["3. Last Refreshed"];
+        let price = rounder(
+          data["Time Series (Daily)"][lastRefreshed]["1. open"],
+          2
+        );
+        let yPrice = rounder(
+          data["Time Series (Daily)"][getYesterdayDate()]["1. open"],
+          2
+        );
+        let change =
+          (rounder((price - yPrice) / Math.abs(price), 4) * 100).toFixed(2) +
+          "%";
+
+        // Update the HTML elements with the GSPC data
+        $("#gspc .price").text(price);
+        $("#gspc .change").text(change);
+        // Set the color and arrow of the change element based on whether the change is positive or negative
+        if (change >= 0) {
+          $("#gspc .change").css("color", "green");
+          $("#gspc .change").prepend("&#x25B2;");
+        } else {
+          $("#gspc .change").css("color", "red");
+          $("#gspc .change").prepend("&#x25BC;");
+        }
+      },
+    });
+
+    // Fetch stock data from Alpha Vantage API
+    data = $.ajax({
+      type: "GET",
+      url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=^IXIC&apikey=D82RGKW7PC6AAW7D",
+      dataType: "json",
+      success: function (data) {
+        // Get the last refreshed date and time
+        let lastRefreshed = data["Meta Data"]["3. Last Refreshed"];
+        // Get the latest stock price and yesterday's stock price
+        let price = rounder(
+          data["Time Series (Daily)"][lastRefreshed]["1. open"],
+          2
+        );
+        let yPrice = rounder(
+          data["Time Series (Daily)"][getYesterdayDate()]["1. open"],
+          2
+        );
+        // Calculate the price change and format it as a percentage
+        let change =
+          (rounder((price - yPrice) / Math.abs(price), 4) * 100).toFixed(2) +
+          "%";
+
+        // Update the stock price and change on the webpage
+        $("#ixic .price").text(price);
+        $("#ixic .change").text(change);
+
+        if (change >= 0) {
+          $("#ixic .change").css("color", "green");
+          $("#ixic .change").prepend("&#x25B2;");
+        } else {
+          $("#ixic .change").css("color", "red");
+          $("#ixic .change").prepend("&#x25BC;");
+        }
+      },
+    });
+  }
+  var WidthSize= "920px";
+  var HeightSize= "650px";
+  var widgetFontColor = "rgba(120,123,134,0.96)";
+  // Display the stock chart using TradingView widget
+  function getStockChart() {
+    
+    new TradingView.MediumWidget({
+      container_id: "tv-medium-widget-5e6f9",
+      symbols: [
+        ["{{Ticker_Name.upper()}}", search],
+        ["FX_IDC:USDEGP|1D"],
+        ["CURRENCYCOM:GOLD|1D"],
+        ["BITSTAMP:BTCUSD|1D"],
+        ["BITSTAMP:ETHUSD|1D"],
+      ],
+      chartOnly: false,
+      width: WidthSize,
+      height: HeightSize,
+      locale: "en",
+      colorTheme: "light",
+      autosize: true,
+      scalePosition: "right",
+      scaleMode: "Normal",
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      fontSize: "14",
+      noTimeScale: false,
+      valuesTracking: "2",
+      changeMode: "price-and-percent",
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      widgetFontColor: widgetFontColor,
+      lineWidth: 2,
+      dateFormat: "yyyy/MM/dd",
+
+      chartType: "area",
+      showMA: false,
+      showVolume: false,
+      maLineColor: "#b98fe9",
+      maLineWidth: 1,
+      maLength: 9,
+    });
+  }
+
+  // Format the current date as YYYY-MM-DD
+  function formatDate() {
+    var d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
+  // Get yesterday's date as YYYY-MM-DD
+  function getYesterdayDate() {
+    let d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate() - 1,
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
+  // Round a number to a specified number of decimal places
+  function rounder(number, precision) {
+    let factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+  }
+
+  setInterval(getStockInfo, 10000);
+
+  /**
+   * Update Ticker Chart
+   */
+
+  // Get the buttons
+  const button1 = document.getElementById("button1");
+  const button2 = document.getElementById("button2");
+  const button3 = document.getElementById("button3");
+  // Add event listeners to each button
+  button1.addEventListener("click", getStockChart);
+  button2.addEventListener("click", updateChart1);
+  button3.addEventListener("click", updateChart2);
+
+  function updateChart1() {
+    new TradingView.MediumWidget({
+      container_id: "tv-medium-widget-5e6f9",
+      symbols: [
+        ["{{Ticker_Name.upper()}}", search],
+        ["FX_IDC:USDEGP|1D"],
+        ["CURRENCYCOM:GOLD|1D"],
+        ["BITSTAMP:BTCUSD|1D"],
+        ["BITSTAMP:ETHUSD|1D"],
+      ],
+      chartOnly: false,
+      width: WidthSize,
+      height: HeightSize,
+      locale: "en",
+      colorTheme: "light",
+      autosize: true,
+      scalePosition: "right",
+      scaleMode: "Normal",
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      fontSize: "14",
+      noTimeScale: false,
+      valuesTracking: "2",
+      changeMode: "price-and-percent",
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      widgetFontColor: widgetFontColor,
+      lineWidth: 2,
+      dateFormat: "yyyy/MM/dd",
+
+      chartType: "candlesticks",
+      showMA: true,
+      showVolume: false,
+      maLineColor: "rgba(156, 39, 176, 1)",
+      maLineWidth: 1,
+      maLength: 9,
+      upColor: "#22ab94",
+      downColor: "#f7525f",
+      borderUpColor: "#22ab94",
+      borderDownColor: "#f7525f",
+      wickUpColor: "#22ab94",
+      wickDownColor: "#f7525f",
+    });
+  }
+
+  function updateChart2() {
+    new TradingView.MediumWidget({
+      container_id: "tv-medium-widget-5e6f9",
+      symbols: [
+        ["{{Ticker_Name.upper()}}", search],
+        ["FX_IDC:USDEGP|1D"],
+        ["CURRENCYCOM:GOLD|1D"],
+        ["BITSTAMP:BTCUSD|1D"],
+        ["BITSTAMP:ETHUSD|1D"],
+      ],
+      chartOnly: false,
+      width: WidthSize,
+      height: HeightSize,
+      locale: "en",
+      colorTheme: "light",
+      autosize: true,
+      scalePosition: "right",
+      scaleMode: "Normal",
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+      fontSize: "14",
+      noTimeScale: false,
+      valuesTracking: "2",
+      changeMode: "price-and-percent",
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      widgetFontColor: widgetFontColor,
+      lineWidth: 2,
+      dateFormat: "yyyy/MM/dd",
+
+      chartType: "candlesticks",
+      showMA: true,
+      showVolume: true,
+      maLineColor: "rgba(156, 39, 176, 1)",
+      maLineWidth: 2,
+      maLength: 9,
+      upColor: "#22ab94",
+      downColor: "#f7525f",
+      borderUpColor: "#22ab94",
+      borderDownColor: "#f7525f",
+      wickUpColor: "#22ab94",
+      wickDownColor: "#f7525f",
+    });
+  }
+</script>
+
 
 {% endblock content%}

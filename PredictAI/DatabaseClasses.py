@@ -1,8 +1,7 @@
-from sqlalchemy import VARCHAR, FLOAT, INTEGER, VARBINARY, DateTime
+from sqlalchemy import VARCHAR, FLOAT, DateTime
 from PredictAI import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
-import yfinance as yf
 
 #  This is a function called load_user that is used in Flask's login_manager to load the user from the database.
 #  When a user logs in, their user ID is stored in the session.
@@ -15,6 +14,7 @@ def load_user(user_id):
     return Users.query.get(int(user_id))
 
 
+# Creating a Users table with columns for id, username, email, password, and datejoined
 class Users(db.Model, UserMixin):
     __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +24,7 @@ class Users(db.Model, UserMixin):
     datejoined = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 
 
+# Creating a Company table with columns for Symbol, Date, Close_, Adj_Close, and Volume
 class Company(db.Model):
     __tablename__ = 'Company'
     Symbol = db.Column(VARCHAR(10), primary_key=True)
@@ -40,8 +41,9 @@ class Company(db.Model):
         self.Volume = Volume
 
 
-class Compinfo(db.Model):
-    __tablename__ = 'Compinfo'
+# Creating a company_information table with columns for symbol, Name, Country, IPO_Year, and Sector
+class company_information(db.Model):
+    __tablename__ = 'company_information'
     symbol = db.Column(VARCHAR(10), primary_key=True)
     Name = db.Column(VARCHAR(20))
     Country = db.Column(VARCHAR(20))

@@ -4,12 +4,11 @@
       <div class="footer-brand">
         <a href="#" class="logo">
           <img
-            src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}"
+            src=""
             id="logo2"
             width="200"
             height="50"
-            alt="Cryptex logo"
-          />
+            alt="PredictAI logo"/>
         </a>
 
         <h2 class="footer-title">Contact us</h2>
@@ -34,9 +33,9 @@
 
         <li>
           <a
-            href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"
+            href="https://flask.palletsprojects.com/en/2.3.x/"
             class="footer-link"
-            >C#</a
+            >Flask for Python</a
           >
         </li>
 
@@ -73,7 +72,7 @@
         </li>
 
         <li>
-          <a href="#" class="footer-link">Report an Error</a>
+          <a href="{{url_for('help')}}" class="footer-link">Report an Error</a>
         </li>
         <li>
           <a href="{{url_for('help')}}" class="footer-link" data-nav-link
@@ -92,7 +91,7 @@
         </li>
 
         <li>
-          <a href="#" class="footer-link">Submit a request</a>
+          <a href="{{url_for('help')}}" class="footer-link">Submit a request</a>
         </li>
       </ul>
 
@@ -133,7 +132,7 @@
   <div class="footer-bottom">
     <div class="container">
       <p class="copyright">
-        &copy; 2023 Predict AI All Rights Reserved by
+        &copy; 2023 PredictAI All Rights Reserved by
         <a href="https://scifac.mans.edu.eg/" class="copyright-link"
           >Mansoura University-College of Science</a
         >
@@ -170,7 +169,7 @@
 
 <script src="{{ url_for('static', filename='JS/Script.js') }}" defer></script>
 
-<!-- 
+  <!-- 
         - ionicon link
       -->
 <script

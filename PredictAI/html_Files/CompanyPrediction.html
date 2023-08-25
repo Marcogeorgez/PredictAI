@@ -1,0 +1,108 @@
+{% extends "layout.html"%} {% block content %}
+
+
+<main>
+
+  <h1 id = 'PredictionText'>Prediction Result</h1>
+
+  <section class="Ticker2">
+
+      <div class="Ticker-profile-card2">
+        <div class="image-ticker2">
+          <img
+            src="{{url_for('static', filename='Images/NYSE_Stocks/'+Ticker_Name.upper()|string+'.png')}}"
+            alt="{{url_for('static', filename='Images/Images/NYSE_Stocks/BLH.png')}}"
+            class="Ticker-profile-pic2"/>
+        </div>
+        <div class="Ticker-data2">
+          {%for company_information1 in company_information1 %} {%if
+          company_information1.symbol == Ticker_Name.upper() %}
+          <h2>{{company_information1.Name}}</h2>
+          {%endif%} {%endfor%}
+          <span>{{Ticker_Name.upper()}}</span>
+        </div>
+      </div>
+
+      <div class="chart-container2">
+        <canvas id="myChart"></canvas>
+      </div>
+
+  </section>
+
+
+  <table class="predict-taple">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Predicted Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for i in x%}
+        <tr>
+          <td>{{z[i]}}</td>
+          <td>{{y[i]}}</td>
+        </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+<script type="text/javascript">
+		var x = {{ x }};
+		var y = {{ y }};
+		
+		var ctx = document.getElementById('myChart');
+		var chart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: x,
+				datasets: [{
+					label: 'Prices Values',
+					data: y,
+					backgroundColor: 'rgba(167, 99, 255, 0.2)',
+					borderColor: 'rgba(255, 99, 132, 1)',
+					borderWidth: 1
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: '{{Ticker_Name.upper()}} Prediction Chart'
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						},
+            scaleLabel: {
+                display: true,
+                labelString: 'Price'
+            },
+            min: 10,
+            ticks: {
+                // forces step size to be 50 units
+              stepSize: 5
+            }
+					}],
+          xAxes: [{
+              ticks: {
+                  beginAtZero: true
+              },
+              scaleLabel: {
+                  display: true,
+                  labelString: 'Number of Days'
+              }
+          }]
+				}
+			}
+		});
+	</script>
+
+
+{% endblock content%}
