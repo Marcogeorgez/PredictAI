@@ -1,0 +1,670 @@
+{% extends "layout.html"%} {% block content %}
+<article>
+
+  <!-- 
+        - #HERO
+      -->
+
+  <section class="section hero" aria-label="hero" data-section>
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="h1 hero-title">
+          Develop your investments with PredictAI
+        </h1>
+
+        <p class="hero-text">
+          Predict AI is the easiest and fastest way to see Stock price
+          predictions and forecasting, Using Recurrent Neural Networks (RNN)
+          Long short-term memory to Predict Future Time Series Stock Data and
+          Stock history analysis.
+        </p>
+
+        <a href="{{url_for('subscription')}}" class="btn btn-primary"
+          >Get started now</a
+        >
+      </div>
+
+      <figure class="hero-banner">
+        <img
+          src="{{url_for('static', filename='Images/hero-banner.png')}}"
+          width="628"
+          height="504"
+          alt="hero banner"
+          class="w-100"/>
+
+      </figure>
+    </div>
+  </section>
+
+
+  <!-- 
+        - #TREND
+      -->
+
+  <section class="section trend" aria-label="Stock trend" data-section>
+    <div class="container">
+      <div class="trend-tab">
+        <ul class="tab-nav">
+          <li>
+            <button id="Tbtn" onclick="NavTrend();" class="tab-btn active">Trend Stocks</button>
+          </li>
+
+          <li>
+            <button id="Ebtn" onclick="NavEGX30();" class="tab-btn">EGX30</button>
+          </li>
+
+          <li>
+            <button id="Ubtn" onclick="NavEGP();" class="tab-btn">USD | EGP</button>
+          </li>
+
+          <li>
+            <button id="Gbtn" onclick="NavGold();" class="tab-btn">Gold</button>
+          </li>
+        </ul>
+
+
+        <ul id="Trend_content" class="tab-content">
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/GOOGL.png')}}"
+                  width="32"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Alphabet Inc <span class="span">GOOGL</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="46168.95">USD {{Google[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Google[1]}}</data>
+{%if Google[2] < 0  %}
+                <div class="badge red">{{Google[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Google[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/microsoft.png')}}"
+                  width="32"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Microsoft Corp <span class="span">MSFT</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="3480.04">USD {{Microsoft[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Microsoft[1]}}</data>
+
+{%if Microsoft[2] < 0  %}
+                <div class="badge red">{{Microsoft[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Microsoft[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Apple.png')}}"
+                  width="32"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Apple Inc <span class="span">AAPL</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="1.00">USD {{Apple[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Apple[1]}}</data>
+
+{%if Apple[2] < 0  %}
+                <div class="badge red">{{Apple[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Apple[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Oracle-Symbol.png')}}"
+                  width="52"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Oracle Corp <span class="span">ORCL</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="443.56">USD {{Oracle[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Oracle[1]}}</data>
+
+{%if Oracle[2] < 0  %}
+                <div class="badge red">{{Oracle[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Oracle[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+        <ul id="Nav_EGX30" class="tab-content">
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Egxx.jpg')}}"
+                  width="35"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  The Egyptian Exchange EGX30 Capped <span class="span">EGX30CAPPED.CA</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="3480.04">USD {{Egxx[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Egxx[1]}}</data>
+
+{%if Egxx[2] < 0  %}
+                <div class="badge red">{{Egxx[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Egxx[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+        <ul id="Nav_EGP" class="tab-content">
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Egus1.png')}}"
+                  width="35"
+                  height="24"
+                  alt=""/>
+                <a class="card-title">
+                  To   
+                </a>
+                <img
+                src="{{url_for('static', filename='Images/Egus2.png')}}"
+                width="35"
+                height="24"
+                alt=""/>
+                <span class="span">USD/EGP</span>
+                
+              </div>
+
+              <data class="card-value" >EGP {{Egus[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" >{{Egus[1]}}</data>
+
+{%if Egus[2] < 0  %}
+                <div class="badge red">{{Egus[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Egus[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+        <ul id="Nav_Gold" class="tab-content"> 
+          <li>
+            <div class="trend-card">
+              <div class="card-title-wrapper">
+                <img
+                  src="{{url_for('static', filename='Images/Gold.png')}}"
+                  width="35"
+                  height="24"
+                  alt=""/>
+
+                <a class="card-title">
+                  Gold Prices Per Ounce	 <span class="span">GOLD</span>
+                </a>
+              </div>
+
+              <data class="card-value" value="443.56">USD {{Gold[0]}}</data>
+
+              <div class="card-analytics">
+                <data class="current-price" value="36641.20">{{Gold[1]}}</data>
+
+{%if Gold[2] <= 0  %}
+                <div class="badge red">{{Gold[2]}}%</div>
+                {%else%}
+                  <div class="badge green">{{Gold[2]}}%</div>
+                {%endif%}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 
+        - #MARKET
+      -->
+
+  <section class="section market" aria-label="market update" data-section>
+    <div class="container">
+      <div class="title-wrapper">
+        <h2 class="h2 section-title">Stock Update</h2>
+
+        <a href="{{url_for('currentstock')}}" class="btn-link"
+          >See All Stocks</a>
+      </div>
+
+      <div class="market-tab">
+        <ul class="tab-nav">
+
+        <table class="market-table">
+          <thead class="table-head">
+
+            <tr class="table-row table-title">
+              <th class="table-heading"></th>
+
+              <th class="table-heading" scope="col">#</th>
+
+              <th class="table-heading" scope="col">Company</th>
+
+              <th class="table-heading" scope="col">Current Price</th>
+
+              <th class="table-heading" scope="col">24h %</th>
+
+              <th class="table-heading" scope="col">Volume</th>
+
+              <th class="table-heading" scope="col">Change Chart</th>
+
+              <th class="table-heading"></th>
+            </tr>
+          </thead>
+
+          <tbody class="table-body">
+    {%for i in list%}
+            <tr class="table-row">
+              <td class="table-data">
+                <button
+                  class="add-to-fav"
+                  aria-label="Add to favourite"
+                  data-add-to-fav>
+
+                  <ion-icon
+                    name="star-outline"
+                    aria-hidden="true"
+                    class="icon-outline">
+                  </ion-icon>
+                  <ion-icon
+                    name="star"
+                    aria-hidden="true"
+                    class="icon-fill"></ion-icon>
+
+                </button>
+              </td>
+
+            <th class="table-data rank" scope="row">{{loop.index}}</th>
+
+            <td class="table-data">
+            <div class="wrapper" id="comp_logo">
+            <img src="{{url_for('static', filename='Images/NYSE_Stocks/'+i[4]|string+'.png')}}" width="60" height="60" 
+            alt="{{url_for('static', filename='Images/NYSE_Stocks/BLH.png')}}" class="img" />
+
+          <h3>
+          {%for company_information1 in company_information1 %}
+              {%if i[4] == company_information1.symbol %}
+                <a class="stock-name"> {{company_information1.Name}}<span class="span">{{i[4]}}</span></a>
+              {%endif%}
+          {%endfor%}
+              </h3>
+            </div>
+              </td>
+
+              <td class="table-data last-price">${{i[0]}}</td>
+
+              {%if i[2] < 0  %}
+                <td class="table-data last-update red">{{i[2]}}%</td>
+                {%else%}
+                  <td class="table-data last-update green">{{i[2]}}%</td>
+              {%endif%}
+
+              <td class="table-data market-cap">{{"{:,.0f}".format(i[3][1],int)}}</td>
+
+              <td class="table-data">
+              {%if i[2] >= 0  %}
+                <img src="{{url_for('static', filename='Images/chart-1.svg')}}" width="100" height="40" alt="profit chart"
+              class="chart"/>
+                {%else%}
+                <img src="{{url_for('static', filename='Images/chart-2.svg')}}" width="100" height="40" alt="Loss chart"
+              class="chart"/>
+              {%endif%}
+              </td>
+            </tr>
+    {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 
+        - #INSTRUCTION
+      -->
+
+  <section class="section instruction" aria-label="instruction" data-section>
+    <div class="container">
+      <h2 class="h2 section-title">How It Work</h2>
+
+      <p class="section-text">
+        Predict AI uses Artificial Intelligence to analyze and predict future
+        stock prices using its past data and chart trends.
+      </p>
+
+      <ul class="instruction-list">
+        <li>
+          <div class="instruction-card">
+            <figure class="card-banner">
+              <img
+                src="{{url_for('static', filename='Images/Data.png')}}"
+                width="130"
+                height="130"
+                loading="lazy"
+                alt="Step 1"
+                class="img"/>
+            </figure>
+
+            <p class="card-subtitle">Step 1</p>
+
+            <h3 class="h3 card-title">Data</h3>
+
+            <p class="card-text">
+              Acquiring accurate History Data of Stock Prices Since its initial
+              public offering.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <div class="instruction-card">
+            <figure class="card-banner">
+              <img
+                src="{{url_for('static', filename='Images/analysis.png')}}"
+                width="130"
+                height="130"
+                loading="lazy"
+                alt="Step 2"
+                class="img"/>
+            </figure>
+
+            <p class="card-subtitle">Step 2</p>
+
+            <h3 class="h3 card-title">Analyze</h3>
+
+            <p class="card-text">
+              Analyzing and Prepare data using AI learning algorithms and statistical
+              analysis.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <div class="instruction-card">
+            <figure class="card-banner">
+              <img
+                src="{{url_for('static', filename='Images/test.png')}}"
+                width="130"
+                height="130"
+                loading="lazy"
+                alt="Step 3"
+                class="img"/>
+            </figure>
+
+            <p class="card-subtitle">Step 3</p>
+
+            <h3 class="h3 card-title">Testing</h3>
+
+            <p class="card-text">
+              Using LSTM to Predict and Test the data to make sure they are ready.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <div class="instruction-card">
+            <figure class="card-banner">
+              <img
+                src="{{url_for('static', filename='Images/presenting.png')}}"
+                width="130"
+                height="130"
+                loading="lazy"
+                alt="Step 4"
+                class="img"/>
+            </figure>
+
+            <p class="card-subtitle">Step 4</p>
+
+            <h3 class="h3 card-title">Presenting</h3>
+
+            <p class="card-text">
+              Presenting data after it passes the allowed error rate in the
+              website.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- 
+        - #ABOUT
+      -->
+
+  <section class="section about" aria-label="about" data-section>
+    <div class="container">
+      <figure class="about-banner">
+        <img
+          src="{{url_for('static', filename='Images/about-banner.png')}}"
+          width="748"
+          height="436"
+          loading="lazy"
+          alt="about banner"
+          class="w-100"/>
+      </figure>
+
+      <div class="about-content">
+        <h2 class="h2 section-title">Predict AI Forecast</h2>
+
+        <p class="section-text">
+          Predict AI offers a fast and easy way to see current stock prices
+          using real-time APIs and its special stock prediction algorithm with
+          accuracy that passes 70%, the website is built to be at the highest
+          degree of modern design and performance.
+        </p>
+
+        <ul class="section-list">
+          <li class="section-item">
+            <div class="title-wrapper">
+              <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+              <h3 class="h3 list-title">View real-time Stock prices</h3>
+            </div>
+
+            <p class="item-text">
+              Experience a variety of stocks prices details. You can search 
+              stock names and get insights about top stock performers.
+            </p>
+          </li>
+
+          <li class="section-item">
+            <div class="title-wrapper">
+              <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+              <h3 class="h3 list-title">View accurate Stock prediction</h3>
+            </div>
+
+            <p class="item-text">
+              Experience accurate stock prediction results for more than 1,000
+              Stocks, prediction results are based on stock patterns past
+              movements, and market trends.
+            </p>
+          </li>
+        </ul>
+
+        <a href="{{url_for('aboutus')}}" class="btn btn-primary">See More</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 
+        - #APP
+      -->
+
+  <section class="section app" aria-label="app" data-section>
+    <div class="container">
+      <div class="app-content">
+        <h2 class="h2 section-title">
+          Predict AI is Responsive with Smart Phones browsers
+        </h2>
+
+        <p class="section-text">
+          Chrome, Firefox, Microsoft Edge, Opera, and many more.
+        </p>
+
+        <ul class="section-list">
+          <li class="section-item">
+            <div class="title-wrapper">
+              <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+              <h3 class="h3 item-title">
+                See Stocks prediction whenever you are
+              </h3>
+            </div>
+
+            <p class="item-text">
+              Manage Your Investment Decision From Your Mobile Device
+            </p>
+          </li>
+
+          <li class="section-item">
+            <div class="title-wrapper">
+              <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+              <h3 class="h3 item-title">
+                Light/Dark Mode for Better Experience
+              </h3>
+            </div>
+
+            <p class="item-text">
+              Modern Light/Dark Mode interface supported by all browsers
+            </p>
+          </li>
+        </ul>
+
+        <div class="app-wrapper">
+          <a href="#">
+            <img
+              src="{{url_for('static', filename='Images/chrome.png')}}"
+              width="40"
+              height="40"
+              loading="lazy"
+              alt="Google Chrome"/>
+          </a>
+
+          <a href="#">
+            <img
+              src="{{url_for('static', filename='Images/firefox.png')}}"
+              width="40"
+              height="40"
+              loading="lazy"
+              alt="Firefox"/>
+          </a>
+
+          <a href="#">
+            <img
+              src="{{url_for('static', filename='Images/microsoft-edge.png')}}"
+              width="40"
+              height="40"
+              loading="lazy"
+              alt="Microsoft Edge"/>
+          </a>
+
+          <a href="#">
+            <img
+              src="{{url_for('static', filename='Images/safari.png')}}"
+              width="40"
+              height="40"
+              loading="lazy"
+              alt="Safari"/>
+          </a>
+
+          <a href="#">
+            <img
+              src="{{url_for('static', filename='Images/opera.png')}}"
+              width="40"
+              height="40"
+              loading="lazy"
+              alt="Opera"/>
+          </a>
+        </div>
+      </div>
+
+      <div class="app-banner">
+        <img
+          src="{{url_for('static', filename='Images/app-banner.png')}}"
+          width="618"
+          height="526"
+          loading="lazy"
+          alt="app banner"
+          class="w-100"/>
+      </div>
+    </div>
+  </section>
+</article>
+
+
+{% endblock content%}

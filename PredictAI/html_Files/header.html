@@ -1,0 +1,73 @@
+<header class="header" data-header>
+  <div class="container">
+
+    <a href="{{url_for('index')}}" class="logo">
+      <img
+        src=""
+        id="logo1"
+        width="220"/>
+    </a>
+
+
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list">
+
+        <li class="navbar-item">
+          <a href="{{url_for('index')}}" class="navbar-link" data-nav-link>Home</a>
+
+        </li>
+
+        <li class="navbar-item">
+          <a
+            href="{{url_for('currentstock')}}"
+            class="navbar-link"
+            data-nav-link
+            >Stock Prices</a>
+        </li>
+
+        <li class="navbar-item">
+          <a
+            href="{{url_for('Stock_Prediction')}}"
+            class="navbar-link"
+            data-nav-link
+            >Stock Prediction</a>
+        </li>
+
+        <li class="navbar-item">
+          <a
+            href="{{url_for('subscription')}}"
+            class="navbar-link"
+            data-nav-link
+            >Subscription</a
+          >
+        </li>
+
+        <li class="navbar-item">
+          <a href="{{url_for('aboutus')}}" class="navbar-link" data-nav-link
+            >About us</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+      <span class="line line-1"></span>
+      <span class="line line-2"></span>
+      <span class="line line-3"></span>
+    </button>
+
+
+    {% if current_user.is_authenticated %}
+    <div class="acc_btn">
+      <a href="{{url_for('account')}}" class="btn btn-outline">Account</a>
+      <a href="{{url_for('logout')}}" class="btn btn-outline" >Logout</a>
+    </div>
+    
+    {%else%}
+    <a href="{{url_for('register')}}" class="btn btn-outline">Login | sign</a>
+    {%endif%}
+
+    
+    <!---Light/Dark Mode LOGO-->
+    <i class="bi bi-brightness-high-fill" id="toggleDark"></i>
+  </div>
+</header>

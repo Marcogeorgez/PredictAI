@@ -1,0 +1,115 @@
+{% extends "layout.html"%} {% block content %}
+
+<h2 class="h2"></h2>
+
+<h1 class="h1-pricing">Choose your plan to Enjoy Predict AI Full Power</h1>
+
+<p class="pricing-text">
+  Predict AI offers three different plans that will suit everyone from
+  individuals to corporates
+</p>
+
+<section class="pricing" id="plan">
+  <div class="card-wrapper">
+    <!---card header-->
+    <div class="card-header">
+      <img src="{{url_for('static', filename='Images/STARTER.png')}}" />
+      <h2>STARTER</h2>
+    </div>
+
+    <!---card detail-->
+    <div class="card-detail">
+      <p>
+        <span class="fas fa-check check"></span> Unlimited access to Predict AI
+        Platform
+      </p>
+      <p>
+        <span class="fas fa-check check"></span> Faster site speed due to fewer
+        ads
+      </p>
+      <p><span class="fas fa-check check"></span> <b>200</b> company view</p>
+      <p><span class="fas fa-times nocheck"></span> Exclusive Newspaper</p>
+      <p><span class="fas fa-times nocheck"></span> 24h Customer Support</p>
+    </div>
+
+    <!---card price-->
+    <div class="card-price" id="sub">
+      <p><sup>$ </sup>9.99<sub> /Month</sub></p>
+    </div>
+
+    <!---buttom-->
+    <a href="{{url_for('login')}}"
+      ><button class="card-button">Buy Now</button></a
+    >
+  </div>
+
+  <div class="card-wrapper">
+    <!---card header-->
+    <div class="card-header">
+      <img src="{{url_for('static', filename='Images/PROFESSIONAL.png')}}" />
+      <h2>PROFESSIONAL</h2>
+    </div>
+
+    <!---card detail-->
+    <div class="card-detail">
+      <p>
+        <span class="fas fa-check check"></span> Unlimited access to Predict AI
+        Platform
+      </p>
+      <p>
+        <span class="fas fa-check check"></span> Faster site speed due to fewer
+        ads
+      </p>
+      <p><span class="fas fa-check check"></span> <b>600</b> company view</p>
+      <p><span class="fas fa-check check"></span> Exclusive Newspaper</p>
+      <p><span class="fas fa-times nocheck"></span> 24h Customer Support</p>
+    </div>
+
+    <!---card price-->
+    <div class="card-price">
+      <p><sup>$ </sup>19.99<sub> /Month</sub></p>
+    </div>
+
+    <!---buttom-->
+    <a href="{{url_for('login')}}"
+      ><button class="card-button">Buy Now</button></a
+    >
+  </div>
+
+  <div class="card-wrapper">
+    <!---card header-->
+    <div class="card-header">
+      <img src="{{url_for('static', filename='Images/BUSINESS.png')}}" />
+      <h2>BUSINESS</h2>
+    </div>
+
+    <!---card detail-->
+    <div class="card-detail">
+      <p>
+        <span class="fas fa-check check"></span> Unlimited access to Predict AI
+        Platform
+      </p>
+      <p>
+        <span class="fas fa-check check"></span> Faster site speed due to fewer
+        ads
+      </p>
+      <p>
+        <span class="fas fa-check check"></span>
+        <b style="font-size: 23px">&#8734;</b> company view
+      </p>
+      <p><span class="fas fa-check check"></span> Exclusive Newspaper</p>
+      <p><span class="fas fa-check check"></span> 24h Customer Support</p>
+    </div>
+
+    <!---card price-->
+    <div class="card-price">
+      <p><sup>$ </sup>34.99<sub> /Month</sub></p>
+    </div>
+
+    <!---buttom-->
+    <a href="{{url_for('login')}}"
+      ><button class="card-button">Buy Now</button></a>
+      
+  </div>
+</section>
+{% endblock content%}

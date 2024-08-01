@@ -1,0 +1,22 @@
+{% extends "layout.html"%} {% block content %}
+<section class="section hero" aria-label="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="h1 hero-title">Under Development</h1>
+          <h2 class="hero-text">
+            This page is under development or maintenance, please advise us if you think there is something wrong
+          </h2>
+        </div>
+
+        <figure class="hero-banner">
+          <img
+            src="{{url_for('static', filename='Images/Maintenance.png')}}"
+            width="628"
+            height="504"
+            alt="hero banner"
+            class="w-100"
+          />
+        </figure>
+      </div>
+    </section> 
+{% endblock content%}

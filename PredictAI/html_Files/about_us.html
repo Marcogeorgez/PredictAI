@@ -1,0 +1,101 @@
+{% extends "layout.html"%} {% block content %}
+
+<section class="section instruction" aria-label="instruction">
+  <div class="container">
+    <h2 class="h2 section-title">Our Team</h2>
+
+    <p class="section-text">
+      This project would not have existed without our continuous efforts,
+      continuous development, and great cooperation between us.
+    </p>
+
+    <ul class="instruction-list">
+      <li>
+        <div class="aboutus-card">
+          <figure class="aboutus-banner">
+            <img
+              src="{{url_for('static', filename='Images/Member-1.png')}}"
+              width="230"
+              height="230"
+              loading="lazy"
+              alt="Step 1"
+              class="img"
+            />
+          </figure>
+
+          <h3 class="h3 card-title">Mohammed Hisham</h3>
+
+          <p class="card-text">
+            Front-End Web Development, AI algorithm using Python, Graphic
+            Design, Copy Writing.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <div class="aboutus-card">
+          <figure class="aboutus-banner">
+            <img
+              src="{{url_for('static', filename='Images/Member-1.png')}}"
+              width="230"
+              height="230"
+              loading="lazy"
+              alt="Step 2"
+              class="img"
+            />
+          </figure>
+
+          <h3 class="h3 card-title">Marco George</h3>
+
+          <p class="card-text">
+            Back-End Web Development, Front-End Web Development.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <div class="aboutus-card">
+          <figure class="aboutus-banner">
+            <img
+              src="{{url_for('static', filename='Images/Member-1.png')}}"
+              width="230"
+              height="230"
+              loading="lazy"
+              alt="Step 3"
+              class="img"
+            />
+          </figure>
+
+          <h3 class="h3 card-title">Ahmed abd El-hamed</h3>
+
+          <p class="card-text">
+            Back-End Web Development, AI algorithm using Python, Copy Writing.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <div class="aboutus-card">
+          <figure class="aboutus-banner">
+            <img
+              src="{{url_for('static', filename='Images/Member-1.png')}}"
+              width="230"
+              height="230"
+              loading="lazy"
+              alt="Step 4"
+              class="img"
+            />
+          </figure>
+
+          <h3 class="h3 card-title">Mohamed Moaty</h3>
+
+          <p class="card-text">
+            Back-End Web Development, AI algorithm using Python, Copy Writing.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{% endblock content%}
