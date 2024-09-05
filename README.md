@@ -1,23 +1,16 @@
-# PredictAI
+# Predict Stock Price using LSTM
+# Description
+Developed a graduation project using the Python Flask framework, in collaboration with a fellow student. The website stores historical stock prices for the last 20 years and employs a model to predict future prices based on past trends.
 
-How to use it?
-1- Open run.py
-2- Run it like a normal python file.
-3- Open in chrome or Your browser the Ctrl+lift click to follow http://127.0.0.1:5000/ shown in the terminal.
-4- Cancel it by clicking Ctrl+c in the terminal.
+# Features
+Stores historical stock prices for more than 1000+ companies for the past 20 years.
 
-What is it built on?
-1- Python (Flask)
-2- HTML/CSS/JS
-3-Microsoft SQL
+Uses a predictive model for future price forecasting.
 
-How to Get stylesheet.css/javascript/image URL with flask?
-if the file you want to edit is the .html in html folder.
+Includes an API for current stock prices and secure user account registration.
 
-< link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" >
-< img src="{{url_for('static', filename='Assets/Predict.ai logo White.png')}}" id="logo1" width="220" >
-Explanation Is:
-Okay, flask can't simply open the image directory in images(or javascript or css stylesheet). it has a default, which is static, so all images have to be stored in statics (for simplicity) to be used.
-So, how do we use it?
-simply use < img src="{{url_for('static',filename='/images/imag.png')}}" >
-what happens is URL for concentrates the static with images so in the end flask reads it like -> static/images/imag.png
+Implemented ORM with SQLAlchemy for database management; added indexing for performance.
+
+Implemented data integration scripts (CSV downloading and merging).
+
+Technologies Used: Python Flask, JavaScript, HTML, CSS, MSSQL, SQLAlchemy, Git
