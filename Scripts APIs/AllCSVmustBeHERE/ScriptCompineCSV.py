@@ -4,7 +4,7 @@ from timeit import default_timer as datetime
 
 # Defining the directory path where the CSV files are located
 mydir = Path(
-    r"C:\Users\mrbro\Desktop\College\Graduation Project\#PredictAi Project\Scripts APIs\AllCSVmustBeHERE")
+    r"D:\Github Projects\Predict AI\Scripts APIs\AllCSVmustBeHERE")
 
 # Defining the company name variable to be used later
 company_name = 'if we can add each company name here , then we can make it auto generator'

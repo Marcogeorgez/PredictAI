@@ -1193,7 +1193,11 @@
      * INSTRUCTION
      */
   
-    .instruction-list { grid-template-columns: repeat(4, 1fr); }
+    .instruction-list { 
+      grid-template-columns: repeat(4, 1fr);
+      display: inline-flex;
+      justify-content: center;  
+     }
   
     .instruction-list > li:nth-child(even) .instruction-card::after {
       display: block;
@@ -1480,6 +1484,7 @@
   .instruction .section-text {
     max-width: 40ch;
     margin-inline: auto;
+    margin-top: 40px;
   }
 
 

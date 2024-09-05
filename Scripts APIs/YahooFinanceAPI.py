@@ -2,7 +2,7 @@ import pyodbc
 import yfinance as yf
 
 # Server and database details
-server = 'DESKTOP-329F25T'
+server = 'DESKTOP-HSDSJ4Q\MSSQLSERVER01'
 database = 'StockAI'
 
 # Connection details and credentials
