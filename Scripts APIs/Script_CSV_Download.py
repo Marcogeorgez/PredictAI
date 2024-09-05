@@ -7,7 +7,7 @@ d1 = date.today()
 
 delta = d1 - d0
 End = (delta.days * 24 * 60 * 60)
-Start = End - 6134336 #31536000 * 4 for the last 4 years
+Start = End - 946080000 #31536000 * 4 for the last 4 years
 
 # Start=int(datetime.strptime('1970-01-01', "%Y-%m-%d").replace(tzinfo = timezone.utc).timestamp())
 # End = int(datetime.strptime(date.today().strftime('%Y-%m-%d'), "%Y-%m-%d").replace(tzinfo = timezone.utc).timestamp())
@@ -44,13 +44,6 @@ for Ticker in "A AAL AAP AAPL AAT AB ABBV ABG ABM ABNB ABR ACGL ACN ACRE ADBE AD
   UTI V VAC VET VFC VGR VIV VLY VMC VMI VOYA VRSK VRSN VSH VTR VVR VZ WAB WAT WBA WBS WCC WCN WDC WEC WFC WGO WHR WIT \
   WLK WMB WMK WNC WNS WOR WPC WRB WRK WSR WST WTI WTM WTS WTW WU WWW WY X XEL XHR XIN XOM XPO XYL YPF ZBH ZION ZM ZTS".split():
 
-    # period1-period2 = the amount of seconds in 1 year. 3.154e^7
-    # Remember to Update Period1 & Period2.
-    # how it works:
-    # for every second that passes , the period1,period2 counter is increased by 1.
-    # period 2 = date from 1.1.1970 till today in seconds. ( x )
-    # period 1 = date from period2 - 3.154e^7 ( y )
-    # period 2 - period 1 == get me all DATA from the latest year.
 
     webbrowser.open(
         f"https://query1.finance.yahoo.com/v7/finance/download/{Ticker}?period1={Start}&period2={End}&interval=1d&events=history&includeAdjustedClose=true", autoraise=True)
