@@ -30,33 +30,57 @@ def log_request_time(response):
     print(f"Page rendered in {diff} seconds")
     return response
 
-
 @app.route('/home')
 @app.route('/')
 def index():
-
+    # Initialize stock information for specific companies
     Google = CompanyInformation('GOOGL')
     Microsoft = CompanyInformation('MSFT')
     Apple = CompanyInformation('AAPL')
     Oracle = CompanyInformation('ORCL')
-
-    # get stock info for several companies using multithreading
-    companies = ['TSLA', 'INTC',
-                 'AMD', 'SBUX', 'V', 'PYPL', 'SONY', 'ADBE']
+    
+    # Start timing for multithreaded requests
+    start_time = time.time()
+    
+    # List of companies to fetch stock information
+    companies = ['TSLA', 'INTC', 'AMD', 'SBUX', 'V', 'PYPL', 'SONY', 'ADBE']
+    
+    # Use ThreadPoolExecutor for parallel execution
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        results = [CompanyInformation(company) for company in companies]
+        # Submit tasks to the executor
+        futures = [executor.submit(CompanyInformation, company) for company in companies]
+        
+        # Collect results as they complete
+        results = [future.result() for future in concurrent.futures.as_completed(futures)]
+    
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Elapsed time (parallel): {elapsed_time} seconds")    
 
-    list = results
+    # Start timing for serial execution
+    start_time2 = time.time()
+    
+    # Serial execution of CompanyInformation calls
+    results_serial = [CompanyInformation(company) for company in companies]
+    
+    end_time2 = time.time()
+    elapsed_time2 = end_time2 - start_time2
+    print(f"Elapsed time (serial): {elapsed_time2} seconds")   
+    
+    # Use the variable name 'results' for the parallel results
+    company_list = results  # Renamed from 'list' to 'company_list' to avoid shadowing built-in name 'list'
 
+    # Fetch additional stock information
     Egxx = Stock_Information_Exchange('^EGX30CAPPED.CA')
     Egus = Stock_Information_Exchange('EGP=X')
     Gold = Stock_Information_Exchange('GC=F')
 
+    # Query company information from the database
     company_information1 = db.session.query(company_information).add_columns(
         company_information.symbol, company_information.Name).all()
 
     return render_template('index.html', Google=Google, Oracle=Oracle, Apple=Apple, Microsoft=Microsoft,
-                           Egxx=Egxx, Egus=Egus, Gold=Gold, list=list, company_information1=company_information1)
+                           Egxx=Egxx, Egus=Egus, Gold=Gold, list=company_list, company_information1=company_information1)
 
 
 @app.route('/aboutus')

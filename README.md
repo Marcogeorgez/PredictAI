@@ -1,30 +1,117 @@
-# Predict Stock Price using LSTM
-# Description
-Developed a graduation project using the Python Flask framework, in collaboration with a fellow student. The website stores historical stock prices for the last 20 years and employs a model to predict future prices based on past trends.
+# Stock Price Prediction Using LSTM | PredictAI
 
-# Features
-Stores historical stock prices for more than 1000+ companies for the past 20 years.
+<img align="right" width="500px" src="/README%20static/89927%20%5BConverted%5D.png" />
 
-Uses a predictive model for future price forecasting.
+<p align="left">
+Accurate stock price prediction is challenging due to the volatile and non-linear nature of the financial stock markets as it depends on various factors including but not limited to political conditions, the global economy, the company’s financial reports, and performance, etc.
 
-Includes an API for current stock prices and secure user account registration.
+In this graduation project, we created PredictAI a comprehensive stock price prediction platform designed to assist users in making informed financial decisions. PredictAI website stores historical stock prices for the last 5-20 years and employs the LSTM model to predict future prices based on past trends. The website's core feature leverages Long Short Term Memory (LSTM), a powerful deep learning model, to predict future stock price trends more accurately.
+PredictAI's extensive database includes over 1,000+ top-performing NYSE-listed companies, offering real-time data on current stock prices. In addition to stocks, the platform provides live price charts for Bitcoin, Ethereum, and Gold (Oz), enabling users to monitor and assess multiple asset classes in one place.
 
-Implemented ORM with SQLAlchemy for database management; added indexing for performance.
+By offering predictive insights and live market data, PredictAI empowers users to anticipate stock trends, thereby supporting more strategic financial investments.
+</p>
 
-Implemented data integration scripts (CSV downloading and merging).
+Also, you can check our:-
+- Graduation Report: https://drive.google.com/file/d/10BKp_fcMutuFxq5zblCxH2_Ho89l1u2f/view?usp=sharing
+- Graduation Presentation: https://drive.google.com/file/d/19wGwl8NH9Vh10CLAS5cFjYO6aExDumlI/view?usp=sharing
 
-Technologies Used: Python Flask, JavaScript, HTML, CSS, MSSQL, SQLAlchemy, Git
+### Technologies used 
+- HTML & CSS
+- JavaScript
+- Python
+- Flask
+- TensorFlow
+- Keras
+- MSSQL & SQLAlchemy
+- Git
+
+### Key Features Summary
+- Store historical stock prices for more than 1000+ companies for the past 5-20 years.
+- Use LSTM time series model for future price forecasting.
+- Include TradingView API for current stock prices.
+- Secure & encrypted user account registration.
+- Implemented ORM with SQLAlchemy for Database Management; added indexing for performance.
+- Implemented data integration scripts (CSV downloading and merging).
 
 
-# Images
-![Home Page 1](https://github.com/user-attachments/assets/a0606fb0-6d4b-4b2d-9d88-a9ac1e10d000)
-![Home Page 2](https://github.com/user-attachments/assets/221cd861-6535-467b-bcc9-4cc69ddb4cc3)
-![Home Page 3](https://github.com/user-attachments/assets/38f2ce00-7c01-486a-8681-cd01e8b0711b)
-![Stock Prices 3 ](https://github.com/user-attachments/assets/26cd4195-c125-430f-9ee5-55663249af92)
-![Stock Prices 2](https://github.com/user-attachments/assets/6d417676-8027-4300-a670-fe501af95208)
-![Stock Prices 1](https://github.com/user-attachments/assets/659966e6-cc39-4b3f-b393-8ff5331f4e39)
-![Light Mode](https://github.com/user-attachments/assets/04b57941-bd45-4c7d-bda2-7567135d9bc0)
-![Home Page 6](https://github.com/user-attachments/assets/d3af0e8d-58fe-4065-9d20-b4f9b946ccf3)
-![Home Page 5](https://github.com/user-attachments/assets/f4c0cb0b-8872-429a-9bbb-fc000592cd1c)
-![Home Page 4](https://github.com/user-attachments/assets/d595a93d-e850-45e1-ab71-feaf7b5eac32)
-![Subscription](https://github.com/user-attachments/assets/ca82afad-0f14-4610-be30-1534ea4767c0)
+<br/>
+
+
+## Installation
+#### Note: Make sure Python 3.9 or above is installed.
+
+1. Import ```StockAI.bacbak``` file as a data-tier application in MSSQL, you can download the database from here(104 Mb): https://drive.google.com/file/d/1XBKmLDz95M4pqBY0DKnrvpldgsYH1tET/view?usp=sharing
+2. Install python libraries
+```bash
+  pip install Requirements.txt
+```
+#### If it doesn't work try
+```bash
+  py -m pip install Requirements.txt
+```
+3. In ```__init__.py``` file change ```SERVER_NAME = 'DESKTOP-329F25T'``` to your MSSQL server name and make sure that ```DATABASE_NAME = 'StockAI'```.
+4. Run ```run.py``` file like a normal Python file.
+5. Follow the link in the terminal or paste this link into the browser tab ```http://127.0.0.1:5000```. 
+
+
+<br/>
+
+
+## Some problems we faced and how we overcame them
+We faced many bugs and problems while working on the project, problems that consumed big time and effort, here are a few of the most significant problems that we faced and how we solved them: 
+ - In the prediction code we faced a problem when we tried to get stock prices from the Database and fetch them into the LSTM Model, the problem was that we wanted ```Close``` price but when we got it from the database it gave the price and its data type 'float64' and to fix this we stored the close prices in temporary CSV files ```Company_ Validate.csv```, and ```Company_Train.csv```.
+ - The website takes much time to load due to yfinance API having many companies to load their current prices and we fixed that by putting all the companies into one list and running ```ThreadPoolExecutor()``` function to manage thread pools and prevent deadlocks therefore running them in a parallel instead of a serial processing **reducing landing page loading by 72% ~ 3.56x Improvement in loading speed.**
+ - The stock prediction page required too much time to load due to the query of the available 900 companies from the database and we fixed that by adding pagination at the end of the page to make each page have 50 companies only and that made a huge difference in the loading time of the page **improving load time by 15x**.
+ - We had a major problem because when we wanted to update the database with the new prices it would take so much time because we have ~1000+ companies and we have to download each one manually so we fixed that by creating scripts that download all the companies data at once from yahoo finance historical data then we made another python script to combine the companies' data into one CSV then insert this CSV data into the database table Company.
+
+
+<br/>
+
+
+## Project Images
+<p align="center"><img src="/README%20static/1.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/2.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/3.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/4.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/5.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/6.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/7.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/8.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/9.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/10.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/11.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/12.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/13.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/14.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/17.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/18.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/19.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/20.png" width="900" style="margin:100px ></p>
+<p align="center"><img src="/README%20static/21.png" width="900" style="margin:100px" ></p>
+
+
+<br/>
+
+
+## Our Team
+- [Marco George](https://github.com/Marcogeorgez)
+- [Mohammed Hisham](https://github.com/mrbroks)
+
+
+
+<br/>
+
+
+## Colors Used
+| Hex                                                                |
+| ------------------------------------------------------------------ |
+| ![](https://via.placeholder.com/10/5f4be2?text=+) #5f4be2 |
+| ![](https://via.placeholder.com/10/21222C?text=+) #21222C |
+| ![](https://via.placeholder.com/10/131315?text=+) #131315 |
+| ![](https://via.placeholder.com/10/FDFAFF?text=+) #FDFAFF |
+| ![](https://via.placeholder.com/10/E8E8F7?text=+) #E8E8F7 |
+| ![](https://via.placeholder.com/10/E3E6F7?text=+) #E3E6F7 |
+| ![](https://via.placeholder.com/10/26272B?text=+) #26272B |
+| ![](https://via.placeholder.com/10/D33636?text=+) #D33636 |
+| ![](https://via.placeholder.com/10/58BC7D?text=+) #58BC7D |
+
