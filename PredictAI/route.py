@@ -39,36 +39,14 @@ def index():
     Apple = CompanyInformation('AAPL')
     Oracle = CompanyInformation('ORCL')
     
-    # Start timing for multithreaded requests
-    start_time = time.time()
-    
     # List of companies to fetch stock information
     companies = ['TSLA', 'INTC', 'AMD', 'SBUX', 'V', 'PYPL', 'SONY', 'ADBE']
     
-    # Use ThreadPoolExecutor for parallel execution
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Submit tasks to the executor
         futures = [executor.submit(CompanyInformation, company) for company in companies]
-        
-        # Collect results as they complete
         results = [future.result() for future in concurrent.futures.as_completed(futures)]
-    
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f"Elapsed time (parallel): {elapsed_time} seconds")    
 
-    # Start timing for serial execution
-    start_time2 = time.time()
-    
-    # Serial execution of CompanyInformation calls
-    results_serial = [CompanyInformation(company) for company in companies]
-    
-    end_time2 = time.time()
-    elapsed_time2 = end_time2 - start_time2
-    print(f"Elapsed time (serial): {elapsed_time2} seconds")   
-    
-    # Use the variable name 'results' for the parallel results
-    company_list = results  # Renamed from 'list' to 'company_list' to avoid shadowing built-in name 'list'
+    company_list = results  
 
     # Fetch additional stock information
     Egxx = Stock_Information_Exchange('^EGX30CAPPED.CA')
